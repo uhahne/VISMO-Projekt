@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISMO Layout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header id="header">
+        <h1 id="logo">VISMO</h1>
+        <p><a href="help.html">Help</a></p>
+    </header>
+
+    <main class="grid-container">
+        
+        <div id="controls" class="grid-item">
+            <nav id="nav">
+                <button id="camera">Kameras</button>
+                <button id="building">Gebäude</button>
+                <button id="imgPlane">Bildebene</button>
+                <button id="matrices">Matrizen</button>
+                <button id="calc">Berechnungen</button>
+            </nav>
+
+            <form id="form">
+                <b>Parameter - Eingabe</b>
+                <br>
+                <br>
+                <label for="input1">Input 1</label>
+                <input type="number" id="input1" name="input1">
+                <br>
+                <label for="input2">Input 2</label>
+                <input type="number" id="input2" name="input2">
+                <br>
+                <label for="input3">Input 3</label>
+                <input type="number" id="input3" name="input3">
+                <br>
+            </form>
+
+            <div id="consol">
+                <b>Ausgabe</b>
+                <br>
+                <p>Output 1</p>
+                <p>Output 2</p>
+                <p>Output 3</p>
+            </div>
+        </div>
+
+        <div id="canvas" class="grid-item">3D-Viewer
+        </div>
+        
+
+        <div id="cam1" class="grid-item">
+            2D-Viewer - Kamera 1
+        </div>
+
+        <div id="cam2" class="grid-item">
+            2D-Viewer - Kamera 2
+        </div>
+    </main>
+
+    <footer id="footer">
+        <p id="aboutUs"><a href="aboutUs.html">About Us | Impressum</a></p>
+        
+    </footer>
+</body>
+</html>

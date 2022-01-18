@@ -1,0 +1,51 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    width: 70px;
+}
+
+/* #header {
+    text-align: center;
+} */
+
+#nav, #form, #consol, #canvas, #cam1, #cam2 {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 8px;
+    margin: 3px;
+}
+#header {
+    display: grid;
+    grid-template-columns: auto 50px;
+}
+
+#controls {
+    height: auto;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+#nav, #form, #consol {
+    padding: 5px;
+}
+
+#canvas {
+    height: auto;
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+#cam1, #cam2 {
+    height: auto;
+}
+
+.grid-container {
+    height: 425px;
+    display: grid;
+    grid-template-columns: 30% auto auto;
+    grid-gap: 5px;
+}
+
