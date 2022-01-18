@@ -14,5 +14,10 @@ Hier findet sich der Code, der im Rahmen des Studienprojekts VISMO ab dem WiSe 2
 ## Benutzerhinweise
 tbd
 
+<<<<<<< HEAD
 
 Test #J 
+=======
+Test...
+
+>>>>>>> d724b306d2b86e7d23e0a13200f92b26e3d555c4
