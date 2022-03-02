@@ -1,0 +1,26 @@
+{
+  "name": "vismo-projekt",
+  "version": "1.0.0",
+  "description": "Hier findet sich der Code, der im Rahmen des Studienprojekts VISMO ab dem WiSe 2021/22 an der Hochschule Furtwangen entstanden ist.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uhahne/VISMO-Projekt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uhahne/VISMO-Projekt/issues"
+  },
+  "homepage": "https://github.com/uhahne/VISMO-Projekt#readme",
+  "devDependencies": {
+    "@types/three": "^0.137.0"
+  }
+}
