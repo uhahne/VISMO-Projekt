@@ -1,7 +1,7 @@
 # This is a tutorial for getting familiar with THREE.js and WebGL
 
 Author: Uwe Hahne
-Last date of change: 2022/03/01
+Last date of change: 2022/03/07
 
 Inspired by the following tutorials:
 -  [Three.js Visual Studio Code Setup Tutorial](https://youtu.be/DEtTa3LrFVE) 
