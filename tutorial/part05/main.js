@@ -20,14 +20,14 @@ function init()
     //const aspectRatio = window.innerWidth / window.innerHeight;
     const nearPlane = 0.1;
     const farPlane = 10;
-    cameraRight = new THREE.PerspectiveCamera(fieldOfView, 0.5 * aspect, nearPlane, farPlane )
+    cameraRight = new THREE.PerspectiveCamera(fieldOfView, 0.5 * aspect, nearPlane, farPlane );
     cameraHelper = new THREE.CameraHelper(cameraRight);
 	scene.add(cameraHelper);
     
 
 
     // create the left camera to mathematically define the projection of the right camera and the scene onto the screen
-    cameraLeft = new THREE.PerspectiveCamera(fieldOfView, 0.5 * aspect, nearPlane, farPlane*10 )
+    cameraLeft = new THREE.PerspectiveCamera(fieldOfView, 0.5 * aspect, nearPlane, farPlane*10 );
 
     // create and configure the renderer that implements the projection of the scene onto the screen
     renderer = new THREE.WebGLRenderer( {antialias: true} );
@@ -48,8 +48,8 @@ function init()
             color: 0x00ff00,
             wireframe: true 
         } );
-    cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
-    scene.add( cube )
+    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    scene.add(cube);
 
 
     // adjust camera positions
