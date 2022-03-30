@@ -22,5 +22,8 @@
   "homepage": "https://github.com/uhahne/VISMO-Projekt#readme",
   "devDependencies": {
     "@types/three": "^0.137.0"
+  },
+  "dependencies": {
+    "three": "^0.138.3"
   }
 }
