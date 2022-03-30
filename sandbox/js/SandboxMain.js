@@ -13,15 +13,15 @@ function main()
     // create and define a camera
     const fieldOfView = 50;
     const aspect = window.innerWidth/window.innerHeight; 
-    const near = 0.1; 
+    const near = 1; 
     const far = 2000; 
     camera = new THREE.PerspectiveCamera(fieldOfView, aspect, near, far)
 
     // adjust camera position & orientation
 
-    camera.position.set(1, 1, 15);
+    camera.position.set(0, 0, 0);
 
-    camera.lookAt(0, 0, 0); 
+    camera.lookAt(-5, -5, -5); 
 
 
 
@@ -34,6 +34,7 @@ function main()
     const geometry = new THREE.ConeGeometry( 3, 7, 4 );
     const material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe: true} );
     cone = new THREE.Mesh( geometry, material );
+    cone.position.set(-5, -5, -5);
     scene.add( cone );
 
 
@@ -49,11 +50,12 @@ function main()
     
 
 }
+ 
+
 
 function animate() {
 
     requestAnimationFrame( animate );
-
     //let cone rotate/animate by changing the 
     cone.rotation.y += 0.01;
     cone.rotation.x += 0.01;
