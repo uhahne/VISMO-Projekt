@@ -18,7 +18,7 @@ Step A
 As we want to work with Three.js, we also need to install or clone it.
 
 Step B
-  [x] Install or clone Three.js from https://threejs.org/ under *Code*.
+- [x] Install or clone Three.js from https://threejs.org/ under *Code*.
 
 As we are developing a website, we need to run a local server in order to be able to display and test our results. Here, we can either use `python http.server` or the VS Code extension *Live Server*.
 
@@ -42,9 +42,9 @@ Step E
 Steps to do
 - [x] create a scene object for all the content 
 - [x] create a camera to mathematically define the projection of the scene onto the screen
-- [ ] create a renderer that implements the projection of the scene onto the screen
-- [ ] create some content for the scene
-- [ ] render the scene
+- [x] create a renderer that implements the projection of the scene onto the screen
+- [x] create some content for the scene
+- [x] render the scene
 
 In order to get a first 3D impression, we need to adjust camera position.
 
