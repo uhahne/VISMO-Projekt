@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    <script type="module" src="js/script.js" defer></script>
+    <script type="module" src="js/classes/Point.js" defer></script>
+    <script type="module" src="js/classes/DefaultModel.js" defer></script>
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <title>VISMO-Projekt</title>
+</head>
+
+<body>
+    <header>
+        <h1>VISMO-Projekt</h1>
+    </header>
+    <main>
+        <div id="leftColumn">
+            <div id="pointUI">
+                <h3>Punkte</h3>
+                <div id="pointCreation">
+                    <p><label><b>Punktname</b>: <input id="newPointName" type="text" placeholder="Punkt" autocomplete="off"></label> <button id="createPoint">Neuer Punkt erstellen</button></p>
+                </div>
+                <hr>
+                <div id="pointManipulation">
+                    <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span></p>
+                    <label><b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <p><button id="deletePoint">Punkt löschen</button></p>
+                </div>
+            </div>
+            <div id="lineUI">
+                <h3>Linien</h3>
+                <div id="lineCreation">
+                    <p><b>Anfangspunkt</b> = <span id="startPointName"></span></p>
+                    <button id="setStartPoint">Ausgewählten Punkt setzen</button>
+                    <p><b>Endpunkt</b> = <span id="endPointName"></span></p>
+                    <button id="setEndPoint">Ausgewählten Punkt setzen</button>
+                    <p><button id="createLine">Neue Linie erstellen</button></p>
+                </div>
+                <hr>
+                <div id="lineManipulation">
+                    <p><b>Ausgewählte Linie</b>: <span id="lineName"></span></p>
+                    <p><button id="deleteLine">Linie löschen</button></p>
+                </div>
+            </div>
+        </div>
+        <canvas id="viewer3D" width="994px" height="252px"></canvas>
+        <canvas id="viewer2DLeft" width="497px" height="252px"></canvas>
+        <canvas id="viewer2DRight" width="497px" height="252px"></canvas>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>

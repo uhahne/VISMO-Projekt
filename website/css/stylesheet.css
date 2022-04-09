@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+header {
+    position: fixed;
+    margin-top: -8px;
+    margin-left: -8px;
+    width: 100%;
+    z-index: 2;
+    background-color: #008C5A;
+}
+
+h1 {
+    color: white;
+    margin-left: 10px;
+}
+
+main {
+    position: fixed;
+    margin-top: -8px;
+    margin-left: -8px;
+}
+
+#leftColumn {
+    position: fixed;
+    margin-top: 64px;
+    z-index: 1;
+    background-color: white;
+}
+
+input {
+    width: 56px;
+    color: #008C5A;
+}
+
+#viewer3D {
+    position: fixed;
+    z-index: 0;
+    margin-top: 64px;
+    margin-left: 286px;
+}
+
+#viewer2DLeft {
+    position: fixed;
+    z-index: 0;
+    margin-top: 317px;
+    margin-left: 286px;
+}
+
+#viewer2DRight {
+    position: fixed;
+    z-index: 0;
+    margin-top: 317px;
+    margin-left: 783px;
+}
+
+h3 {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#pointUI, #lineUI {
+    border-style: solid;
+    border-color: #008C5A;
+}
+
+span {
+    color: #008C5A;
+}
+
+button {
+    font-size: small;
+    background-color: white;
+}
