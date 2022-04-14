@@ -124,6 +124,16 @@ function animate() {
     rendererRight.render(scene, cameraRight);
 }
 
+//TESTING - create EventListener for clicking on navigation button
+document.getElementById("camera").addEventListener("click", handleNav);
+
+function handleNav(_event) {
+    let input = document.querySelector("div#leftColumn");
+    input.innerHTML = "";
+    input.innerHTML += "<div id='camUI'><h3>Kamera</h3><div id='camCreation'><p><label><b>Kamera 1</b>: <input id='newCamName' type='text' placeholder='Kamera' autocomplete='off'></label> <button id='showCam'>Kamera zeigen</button></p></div>";
+}
+
+
 // create an EventListener for clicking the "create point"-button
 document.getElementById("createPoint").addEventListener("click", handleCreatePoint);
 // create a function to handle the clicking of the button
