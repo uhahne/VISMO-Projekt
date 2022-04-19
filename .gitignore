@@ -2118,3 +2118,5 @@ node_modules/three/src/textures/FramebufferTexture.js
 node_modules/three/src/textures/Source.js
 node_modules/three/src/textures/Texture.js
 node_modules/three/src/textures/VideoTexture.js
+tutorial/part00/OrbitControls.js
+tutorial/part00/three.js

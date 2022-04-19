@@ -19,6 +19,9 @@ let canvasWidth, canvasHeight, canvasAspect;
 
 let gridHelper;
 
+document.getElementById("camUI").setAttribute("style", "display: none");
+document.getElementById("paramUI").setAttribute("style", "display: none");
+
 init();
 animate();
 
@@ -143,13 +146,31 @@ function animate() {
 
 }
 
-//TESTING - create EventListener for clicking on navigation button
-document.getElementById("camera").addEventListener("click", handleNav);
+//get tab buttons by id and add click event listener
+document.getElementById("building").addEventListener("click", handleBuildingTab);
+document.getElementById("camera").addEventListener("click", handleCamTab);
+document.getElementById("parameter").addEventListener("click", handleParamTab);
 
-function handleNav(_event) {
-    let input = document.querySelector("div#leftColumn");
-    input.innerHTML = "";
-    input.innerHTML += "<div id='camUI'><h3>Kamera</h3><div id='camCreation'><p><label><b>Kamera 1</b>: <input id='newCamName' type='text' placeholder='Kamera' autocomplete='off'></label> <button id='showCam'>Kamera zeigen</button></p></div>";
+//display input fields for point selection and manipulation
+function handleBuildingTab(_event) {
+    document.getElementById("camUI").setAttribute("style", "display: none");
+    document.getElementById("pointUI").setAttribute("style", "visibility: visible");
+    document.getElementById("lineUI").setAttribute("style", "visibility: visible");
+}
+
+//display input fields for camera
+function handleCamTab(_event) {
+    document.getElementById("pointUI").setAttribute("style", "display: none");
+    document.getElementById("lineUI").setAttribute("style", "display: none");
+    document.getElementById("paramUI").setAttribute("style", "display: none");
+    document.getElementById("camUI").setAttribute("style", "visibility: visible");
+}
+
+function handleParamTab(_event) {
+    document.getElementById("pointUI").setAttribute("style", "display: none");
+    document.getElementById("lineUI").setAttribute("style", "display: none");
+    document.getElementById("camUI").setAttribute("style", "display: none");
+    document.getElementById("paramUI").setAttribute("style", "visibility: visible");
 }
 
 

@@ -21,11 +21,14 @@
         <div id="nav">
             <button id="building">Gebäude</button>
             <button id="camera">Kameras</button>
-            <button id="imgPlane">Bildebene</button>
-            <button id="matrices">Matrizen</button>
+            <button id="parameter">Parameter</button>
+            <!-- <button id="matrices">Matrizen</button> -->
         </div>
+
+        
         <div id="leftColumn">
             
+            <!-- input fields for model points -->
             <div id="pointUI">
                 <h3>Punkte</h3>
                 <div id="pointCreation">
@@ -56,10 +59,62 @@
                 </div>
             </div>
 
+            <!-- input fields for cameras -->
+            <div id="camUI">
+                <div id="camPosition">
+                    <h3><b>Ausgewählte Kamera</b>: <span id="camName"></span></h3>
+                    <p><b>Position:</b></p>
+                    <label><b>x</b> = <input id="camCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="camCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>z</b> = <input id="camCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                </div>
+                <hr>
+                <div id="jsParameter">
+                    <label><b>Field of View</b> = <input id="fieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Aspect Ratio</b> = <input id="aspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Near Plane</b> = <input id="nearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Far Plane</b> = <input id="farPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                </div>
+            </div>
+
+            <!-- input fields for parameter tab -->
+            <div id="paramUI">
+                <h3><b>Parameter</b></h3>
+                <label><b>Bildebene</b> = <input id="imgagePlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                <br>
+                <label><b>Projektionszentrum</b> = <input id="projectionCentre" type="number" placeholder="0" autocomplete="off"></input></label>
+                <br>
+                <label><b>Hauptpunkt</b> = <input id="mainPoint" type="number" placeholder="0" autocomplete="off"></input></label>
+                <br>
+                <label><b>Distanz</b> = <input id="distance" type="number" placeholder="0" autocomplete="off"></input></label>
+                <hr>
+                <div id="coordSystem1">
+                    <h3><b>KO-System 1</b></h3>
+                    <label><b>x</b> = <input id="worldCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="worldCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>z</b> = <input id="worldCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                </div>
+                <hr>
+                <div id="coordSystem2">
+                    <h3><b>KO-System 2</b></h3>
+                    <label><b>x</b> = <input id="co2CoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="co2CoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                </div>
+                <hr>
+                <div id="coordSystem3">
+                    <h3><b>KO-System 3</b></h3>
+                    <label><b>x</b> = <input id="co3CoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="co3CoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                </div>
+            </div>
+
             <div id="output">
                 <h3>Ausgabe</h3>
-                
             </div>
+
         </div>
         <canvas id="viewer3D" width="994px" height="252px"></canvas>
         <canvas id="viewer2DLeft" width="497px" height="252px"></canvas>

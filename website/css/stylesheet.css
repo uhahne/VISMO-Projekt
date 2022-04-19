@@ -70,7 +70,7 @@ h3 {
     margin-top: 10px;
 }
 
-#pointUI, #lineUI, #output {
+#pointUI, #lineUI, #output, #camUI, #paramUI {
     border-style: solid;
     border-color: #008C5A;
 }
