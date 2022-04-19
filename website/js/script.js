@@ -7,7 +7,7 @@ import DefaultModel from "./classes/DefaultModel.js";
 let rendererScene, scene, controls;
 let rendererLeft, rendererRight;
 let cameraScene, cameraLeft, cameraRight;
-//let cameraHelperLeft, cameraHelperRight;
+let cameraHelperLeft, cameraHelperRight;
 
 let points, lines;
 
@@ -62,8 +62,8 @@ function init() {
     cameraLeft.lookAt(0, 0, 0);
     scene.add(cameraLeft);
 
-    //cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
-    //scene.add(cameraHelperLeft);
+    cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
+    scene.add(cameraHelperLeft);
 
     // cameraRight
     cameraRight = new THREE.PerspectiveCamera(75, canvasAspect / 2, 0.1, 1000);
@@ -71,8 +71,8 @@ function init() {
     cameraRight.lookAt(0, 0, 0);
     scene.add(cameraRight);
 
-    //cameraHelperRight = new THREE.CameraHelper(cameraRight);
-    //scene.add(cameraHelperRight);
+    cameraHelperRight = new THREE.CameraHelper(cameraRight);
+    scene.add(cameraHelperRight);
 
     points = new THREE.Group();
     points.name = "Points";
@@ -114,14 +114,30 @@ function animate() {
     rendererScene.clear();
     controls.update();
     rendererScene.render(scene, cameraScene);
+    
+    cameraHelperLeft.visible = false;
+    cameraHelperRight.visible = false;
 
     // render left camera
     rendererLeft.clear();
     rendererLeft.render(scene, cameraLeft);
 
+    cameraHelperLeft.visible = false;
+    cameraHelperRight.visible = false;
+
     // render right camera
     rendererRight.clear();
     rendererRight.render(scene, cameraRight);
+
+    //Figure out a way to delete the far plane
+    //cameraHelperLeft.visible = true;
+    //cameraHelperRight.visible = true;
+
+
+let gridHelper = new THREE.GridHelper( 100, 100 );
+gridHelper.position.y = -2
+scene.add( gridHelper );
+
 }
 
 //TESTING - create EventListener for clicking on navigation button
