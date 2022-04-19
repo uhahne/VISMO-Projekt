@@ -17,6 +17,8 @@ let lineStartPoint, lineEndPoint; // for line creation
 let canvasScene, canvasLeft, canvasRight;
 let canvasWidth, canvasHeight, canvasAspect;
 
+let gridHelper;
+
 init();
 animate();
 
@@ -105,6 +107,11 @@ function init() {
 
     scene.add(points);
     scene.add(lines);
+
+gridHelper = new THREE.GridHelper( 100, 100 );
+gridHelper.position.y = -2
+scene.add( gridHelper );
+
 }
 
 function animate() {
@@ -133,10 +140,6 @@ function animate() {
     //cameraHelperLeft.visible = true;
     //cameraHelperRight.visible = true;
 
-
-let gridHelper = new THREE.GridHelper( 100, 100 );
-gridHelper.position.y = -2
-scene.add( gridHelper );
 
 }
 
