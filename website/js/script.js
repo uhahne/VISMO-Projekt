@@ -150,8 +150,8 @@ function animate() {
     rendererRight.render(scene, cameraRight);
 
     //Figure out a way to delete the far plane
-    //cameraHelperLeft.visible = true;
-    //cameraHelperRight.visible = true;
+    cameraHelperLeft.visible = true;
+    cameraHelperRight.visible = true;
 
 
 }
