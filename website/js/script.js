@@ -166,6 +166,7 @@ function handleBuildingTab(_event) {
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("pointUI").setAttribute("style", "visibility: visible");
     document.getElementById("lineUI").setAttribute("style", "visibility: visible");
+    document.getElementById("paramUI").setAttribute("style", "display: none");
 }
 
 //display input fields for camera
