@@ -17,6 +17,14 @@ let lineStartPoint, lineEndPoint; // for line creation
 let canvasScene, canvasLeft, canvasRight;
 let canvasWidth, canvasHeight, canvasAspect;
 
+let leftFOV = 50
+let leftNEAR = 0.1
+let leftFAR = 20
+
+let rightFOV = 50
+let rightNEAR = 0.1
+let rightFAR = 20
+
 let gridHelper;
 
 document.getElementById("camUI").setAttribute("style", "display: none");
@@ -28,19 +36,19 @@ animate();
 function init() {
     // rendererScene
     canvasScene = document.getElementById("viewer3D");
-    rendererScene = new THREE.WebGLRenderer({canvas: canvasScene, antialias: true});
+    rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
     rendererScene.setClearColor(0x3f3f3f, 1);
     rendererScene.autoClear = false;
 
     // rendererLeft
     canvasLeft = document.getElementById("viewer2DLeft");
-    rendererLeft = new THREE.WebGLRenderer({canvas: canvasLeft, antialias: true});
+    rendererLeft = new THREE.WebGLRenderer({ canvas: canvasLeft, antialias: true });
     rendererLeft.setClearColor(0x3f3f3f, 1);
     rendererLeft.autoClear = false;
 
     // rendererRight
     canvasRight = document.getElementById("viewer2DRight");
-    rendererRight = new THREE.WebGLRenderer({canvas: canvasRight, antialias: true});
+    rendererRight = new THREE.WebGLRenderer({ canvas: canvasRight, antialias: true });
     rendererRight.setClearColor(0x3f3f3f, 1);
     rendererRight.autoClear = false;
 
@@ -62,7 +70,8 @@ function init() {
     controls = new OrbitControls(cameraScene, rendererScene.domElement);
 
     // cameraLeft
-    cameraLeft = new THREE.PerspectiveCamera(75, canvasAspect / 2, 0.1, 1000);
+
+    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect / 2, leftNEAR, leftFAR);
     cameraLeft.position.set(-10, 0, 12);
     cameraLeft.lookAt(0, 0, 0);
     scene.add(cameraLeft);
@@ -71,7 +80,8 @@ function init() {
     scene.add(cameraHelperLeft);
 
     // cameraRight
-    cameraRight = new THREE.PerspectiveCamera(75, canvasAspect / 2, 0.1, 1000);
+
+    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect / 2, rightNEAR, rightFAR);
     cameraRight.position.set(10, 0, 12);
     cameraRight.lookAt(0, 0, 0);
     scene.add(cameraRight);
@@ -111,9 +121,9 @@ function init() {
     scene.add(points);
     scene.add(lines);
 
-gridHelper = new THREE.GridHelper( 100, 100 );
-gridHelper.position.y = -2
-scene.add( gridHelper );
+    gridHelper = new THREE.GridHelper(100, 100);
+    gridHelper.position.y = -2
+    scene.add(gridHelper);
 
 }
 
@@ -124,7 +134,7 @@ function animate() {
     rendererScene.clear();
     controls.update();
     rendererScene.render(scene, cameraScene);
-    
+
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = false;
 
@@ -218,6 +228,68 @@ function handleCreateLine(_event) {
     }
 }
 
+
+function showLeftCameraParameters(_point) {
+
+    document.getElementById("leftCamCoordX").value = cameraLeft.position.x;
+    document.getElementById("leftcamCoordY").value = cameraLeft.position.y;
+    document.getElementById("leftCamCoordZ").value = cameraLeft.position.z;
+
+    document.getElementById("leftFieldOfView").value = leftFOV;
+    document.getElementById("leftAspectRatio").value = canvasAspect;
+    document.getElementById("leftNearPlane").value = leftNEAR;
+    document.getElementById("leftFarPlane").value = leftFAR;
+}
+
+function showRightCameraParameters(_point) {
+
+    document.getElementById("rightCamCoordX").value = cameraRight.position.x;
+    document.getElementById("rightCamCoordY").value = cameraRight.position.y;
+    document.getElementById("rightCamCoordZ").value = cameraRight.position.z;
+
+    document.getElementById("rightFieldOfView").value = rightFOV;
+    document.getElementById("rightAspectRatio").value = canvasAspect;
+    document.getElementById("rightNearPlane").value = rightNEAR;
+    document.getElementById("rightFarPlane").value = rightFAR;
+}
+
+showLeftCameraParameters();
+showRightCameraParameters();
+
+/* Update Camera Parameters and make the camera adjust properly
+
+function resetDomElementForCamera(_point) {
+    // save the point for manipulation
+    selectedCam = _Cam;
+    // input the name of the point
+    document.getElementById("camName").innerText = _Cam.name;
+    // input the x-/y-/z-coordinate on the page to be the same as the actual object's x-coordinate
+    document.getElementById("camCoordX").value = _Cam.position.x;
+    document.getElementById("camCoordY").value = _Cam.position.y;
+    document.getElementById("camCoordZ").value = _Cam.position.z;
+ } 
+    
+ 
+ 
+ // create EventListener for the changing of the x-y-z-coordinate value for a Camera
+document.getElementById("camCoordX").addEventListener("change", handleChangeCameraPositionX);
+// handle the changing of the x-coordinate value
+function handleChangeCameraPositionX(_event) {
+    // move the point in the scene
+    selectedCamera.position.x = _event.target.value;
+}
+
+document.getElementById("camCoordY").addEventListener("change", handleChangeCameraPositionY);
+function handleChangePointPositionY(_event) {
+    selectedCamera.position.y = _event.target.value;
+}
+
+document.getElementById("camCoordZ").addEventListener("change", handleChangeCameraPositionZ);
+function handleChangeCameraPositionZ(_event) {
+    selectedCamera.position.z = _event.target.value;
+}
+*/
+
 function resetDomElementForPoint(_point) {
     // save the point for manipulation
     selectedPoint = _point;
@@ -228,6 +300,7 @@ function resetDomElementForPoint(_point) {
     document.getElementById("pointCoordY").value = _point.position.y;
     document.getElementById("pointCoordZ").value = _point.position.z;
 }
+
 
 function resetDomElementForLine(_line) {
     // save the point for deletion

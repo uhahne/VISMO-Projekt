@@ -62,27 +62,44 @@
             <!-- input fields for cameras -->
             <div id="camUI">
                 <div id="camPosition">
-                    <h3><b>Ausgewählte Kamera</b>: <span id="camName"></span></h3>
+                    <h3><b>Left Kamera</b>: <span id="camName"></span></h3>
                     <p><b>Position:</b></p>
-                    <label><b>x</b> = <input id="camCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="camCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="camCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="leftcamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>z</b> = <input id="leftCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                <hr>
+                <div id="jsParameter">
+                    <label><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Aspect Ratio</b> = <input id="leftAspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Near Plane</b> = <input id="leftNearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Far Plane</b> = <input id="leftFarPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                </div>
+
+                <hr>
+                    <h3><b>Right Kamera</b>: <span id="camName"></span></h3>
+                    <p><b>Position:</b></p>
+                    <label><b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
                 </div>
                 <hr>
                 <div id="jsParameter">
-                    <label><b>Field of View</b> = <input id="fieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
-                    <label><b>Aspect Ratio</b> = <input id="aspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Aspect Ratio</b> = <input id="rightAspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
-                    <label><b>Near Plane</b> = <input id="nearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Near Plane</b> = <input id="rightNearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
-                    <label><b>Far Plane</b> = <input id="farPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Far Plane</b> = <input id="rightFarPlane" type="number" placeholder="0" autocomplete="off"></input></label>
                 </div>
             </div>
 
             <!-- input fields for parameter tab -->
             <div id="paramUI">
-                <h3><b>Parameter</b></h3>
+                <h3><b>Parameter Kamera 1</b></h3>
                 <label><b>Bildebene</b> = <input id="imgagePlane" type="number" placeholder="0" autocomplete="off"></input></label>
                 <br>
                 <label><b>Projektionszentrum</b> = <input id="projectionCentre" type="number" placeholder="0" autocomplete="off"></input></label>
