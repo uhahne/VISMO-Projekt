@@ -181,25 +181,28 @@ function handleParamTab(_event) {
 }
 
 
-// create an EventListener for clicking the "create point"-button
 document.getElementById("createPoint").addEventListener("click", handleCreatePoint);
-// create a function to handle the clicking of the button
+
 function handleCreatePoint(_event) {
-    let newPoint;
-    // create the new point
+    let pointName = document.getElementById("newPointName").value;
+    document.getElementById("pointNameFeedback").innerHTML = ""; // reset feedback field
+
+    // check if user put in a name
     if (document.getElementById("newPointName").value == "") {
-        newPoint = new Point("Punkt", new THREE.Vector3(0, 0, 0), 0.25);
-    } else {
-        newPoint = new Point(document.getElementById("newPointName").value, new THREE.Vector3(0, 0, 0), 0.25);
+        document.getElementById("pointNameFeedback").innerHTML = "Name eingeben!";
+        return; // exit the function
     }
-    // add the new point to the scene
-    points.add(newPoint);
-    // unmark previous point
-    unmarkObject(selectedPoint);
-    // mark current point
-    markObject(newPoint);
-    // reset the dom element where a point can be manipulated
-    resetDomElementForPoint(newPoint);
+    // check if the name already exists
+    if (points.getObjectByName(pointName) != undefined) {
+        document.getElementById("pointNameFeedback").innerHTML = "Bereits vergeben!";
+        return; // exit the function
+    }
+    
+    let newPoint = new Point(pointName, new THREE.Vector3(0, 0, 0), 0.25); // create new point
+    points.add(newPoint); // add new point to the scene
+    unmarkObject(selectedPoint); // unmark previous point
+    markObject(newPoint); // mark new point
+    resetDomElementForPoint(newPoint); // reset the dom element where a point can be manipulated
 }
 
 document.getElementById("setStartPoint").addEventListener("click", handleSetStartPoint);

@@ -96,3 +96,9 @@ a:link, a:visited, a:active {
 a:hover {
     color: black;
 }
+
+#pointNameFeedback {
+    color: red;
+    font-weight: bold;
+    font-size: 0.9vw;
+}
