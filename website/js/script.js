@@ -17,19 +17,6 @@ let lineStartPoint, lineEndPoint; // for line creation
 let canvasScene, canvasLeft, canvasRight;
 let canvasWidth, canvasHeight, canvasAspect;
 
-let leftFOV = 50
-let leftNEAR = 0.1
-let leftFAR = 20
-
-let rightFOV = 50
-let rightNEAR = 0.1
-let rightFAR = 20
-
-let gridHelper;
-
-document.getElementById("camUI").setAttribute("style", "display: none");
-document.getElementById("paramUI").setAttribute("style", "display: none");
-
 init();
 animate();
 
@@ -70,8 +57,11 @@ function init() {
     controls = new OrbitControls(cameraScene, rendererScene.domElement);
 
     // cameraLeft
+    let leftFOV = 50;
+    let leftNear = 0.1;
+    let leftFar = 20;
 
-    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect / 2, leftNEAR, leftFAR);
+    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect / 2, leftNear, leftFar);
     cameraLeft.position.set(-10, 0, 12);
     cameraLeft.lookAt(0, 0, 0);
     scene.add(cameraLeft);
@@ -80,8 +70,11 @@ function init() {
     scene.add(cameraHelperLeft);
 
     // cameraRight
+    let rightFOV = 50;
+    let rightNear = 0.1;
+    let rightFar = 20;
 
-    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect / 2, rightNEAR, rightFAR);
+    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect / 2, rightNear, rightFar);
     cameraRight.position.set(10, 0, 12);
     cameraRight.lookAt(0, 0, 0);
     scene.add(cameraRight);
@@ -89,8 +82,15 @@ function init() {
     cameraHelperRight = new THREE.CameraHelper(cameraRight);
     scene.add(cameraHelperRight);
 
+    // grid
+    let gridHelper = new THREE.GridHelper(100, 100);
+    gridHelper.position.y = -2.03;
+    scene.add(gridHelper);
+
+    // points group
     points = new THREE.Group();
     points.name = "Points";
+    // lines group
     lines = new THREE.Group();
     lines.name = "Lines";
 
@@ -121,10 +121,8 @@ function init() {
     scene.add(points);
     scene.add(lines);
 
-    gridHelper = new THREE.GridHelper(100, 100);
-    gridHelper.position.y = -2
-    scene.add(gridHelper);
-
+    document.getElementById("camUI").setAttribute("style", "display: none");
+    document.getElementById("paramUI").setAttribute("style", "display: none");
 }
 
 function animate() {
@@ -149,19 +147,17 @@ function animate() {
     rendererRight.clear();
     rendererRight.render(scene, cameraRight);
 
-    //Figure out a way to delete the far plane
+
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
-
-
 }
 
-//get tab buttons by id and add click event listener
+// get tab buttons by id and add click event listener
 document.getElementById("building").addEventListener("click", handleBuildingTab);
 document.getElementById("camera").addEventListener("click", handleCamTab);
 document.getElementById("parameter").addEventListener("click", handleParamTab);
 
-//display input fields for point selection and manipulation
+// display input fields for point selection and manipulation
 function handleBuildingTab(_event) {
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("pointUI").setAttribute("style", "visibility: visible");
@@ -169,7 +165,7 @@ function handleBuildingTab(_event) {
     document.getElementById("paramUI").setAttribute("style", "display: none");
 }
 
-//display input fields for camera
+// display input fields for camera
 function handleCamTab(_event) {
     document.getElementById("pointUI").setAttribute("style", "display: none");
     document.getElementById("lineUI").setAttribute("style", "display: none");
@@ -229,29 +225,26 @@ function handleCreateLine(_event) {
     }
 }
 
-
 function showLeftCameraParameters(_point) {
-
     document.getElementById("leftCamCoordX").value = cameraLeft.position.x;
     document.getElementById("leftcamCoordY").value = cameraLeft.position.y;
     document.getElementById("leftCamCoordZ").value = cameraLeft.position.z;
 
-    document.getElementById("leftFieldOfView").value = leftFOV;
-    document.getElementById("leftAspectRatio").value = canvasAspect;
-    document.getElementById("leftNearPlane").value = leftNEAR;
-    document.getElementById("leftFarPlane").value = leftFAR;
+    document.getElementById("leftFieldOfView").value = cameraLeft.fov;
+    document.getElementById("leftAspectRatio").value = cameraLeft.aspect;
+    document.getElementById("leftNearPlane").value = cameraLeft.near;
+    document.getElementById("leftFarPlane").value = cameraLeft.far;
 }
 
 function showRightCameraParameters(_point) {
-
     document.getElementById("rightCamCoordX").value = cameraRight.position.x;
     document.getElementById("rightCamCoordY").value = cameraRight.position.y;
     document.getElementById("rightCamCoordZ").value = cameraRight.position.z;
 
-    document.getElementById("rightFieldOfView").value = rightFOV;
-    document.getElementById("rightAspectRatio").value = canvasAspect;
-    document.getElementById("rightNearPlane").value = rightNEAR;
-    document.getElementById("rightFarPlane").value = rightFAR;
+    document.getElementById("rightFieldOfView").value = cameraRight.fov;
+    document.getElementById("rightAspectRatio").value = cameraRight.aspect;
+    document.getElementById("rightNearPlane").value = cameraRight.near;
+    document.getElementById("rightFarPlane").value = cameraRight.far;
 }
 
 showLeftCameraParameters();
@@ -301,7 +294,6 @@ function resetDomElementForPoint(_point) {
     document.getElementById("pointCoordY").value = _point.position.y;
     document.getElementById("pointCoordZ").value = _point.position.z;
 }
-
 
 function resetDomElementForLine(_line) {
     // save the point for deletion
