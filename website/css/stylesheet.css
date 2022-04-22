@@ -97,7 +97,7 @@ a:hover {
     color: black;
 }
 
-#pointNameFeedback {
+#pointNameFeedback, #lineFeedback {
     color: red;
     font-weight: bold;
     font-size: 0.9vw;

@@ -190,14 +190,13 @@ function handleCreatePoint(_event) {
     // check if user put in a name
     if (document.getElementById("newPointName").value == "") {
         document.getElementById("pointNameFeedback").innerHTML = "Name eingeben!";
-        return; // exit the function
+        return;
     }
     // check if the name already exists
     if (points.getObjectByName(pointName) != undefined) {
         document.getElementById("pointNameFeedback").innerHTML = "Bereits vergeben!";
-        return; // exit the function
+        return;
     }
-    
     let newPoint = new Point(pointName, new THREE.Vector3(0, 0, 0), 0.25); // create new point
     points.add(newPoint); // add new point to the scene
     unmarkObject(selectedPoint); // unmark previous point
@@ -218,14 +217,30 @@ function handleSetEndPoint(_event) {
 }
 
 document.getElementById("createLine").addEventListener("click", handleCreateLine);
+
 function handleCreateLine(_event) {
-    if (lineStartPoint != undefined && lineEndPoint != undefined && lineStartPoint != lineEndPoint) {
-        let newLine = new Line(lineStartPoint, lineEndPoint);
-        lines.add(newLine);
-        unmarkObject(selectedLine);
-        markObject(newLine);
-        resetDomElementForLine(newLine);
+    document.getElementById("lineFeedback").innerHTML = ""; // reset feedback field
+
+    // check if the start & end point are undefined
+    if (lineStartPoint == undefined || lineEndPoint == undefined) {
+        document.getElementById("lineFeedback").innerHTML = "Punkte auswählen!";
+        return;
     }
+    // check if the start & end point are identical
+    if (lineStartPoint == lineEndPoint) {
+        document.getElementById("lineFeedback").innerHTML = "Punkte identisch!";
+        return;
+    }
+    // check if an identical line already exists (by name)
+    if (lines.getObjectByName(lineStartPoint.name + "-" + lineEndPoint.name) != undefined || lines.getObjectByName(lineEndPoint.name + "-" + lineStartPoint.name) != undefined) {
+        document.getElementById("lineFeedback").innerHTML = "Existiert bereits!";
+        return;
+    }
+    let newLine = new Line(lineStartPoint, lineEndPoint); // create new line
+    lines.add(newLine); // add new line to the scene
+    unmarkObject(selectedLine); // unmark previous line
+    markObject(newLine); // mark new line
+    resetDomElementForLine(newLine); // reset the dom element where a line can be manipulated
 }
 
 function showLeftCameraParameters(_point) {

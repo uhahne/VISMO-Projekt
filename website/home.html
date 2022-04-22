@@ -30,7 +30,7 @@
             
             <!-- input fields for model points -->
             <div id="pointUI">
-                <h3>Punkte</h3>
+                <h3>Punkt</h3>
                 <div id="pointCreation">
                     <p><input id="newPointName" type="text" placeholder="Name" autocomplete="off"> <button id="createPoint">hinzufügen</button> <span id="pointNameFeedback"></span></p>
                 </div>
@@ -40,17 +40,15 @@
                     <label><b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <p><button id="deletePoint">Punkt löschen</button></p>
+                    <p><button id="deletePoint">löschen</button></p>
                 </div>
             </div>
             <div id="lineUI">
-                <h3>Linien</h3>
+                <h3>Linie</h3>
                 <div id="lineCreation">
-                    <p><b>Anfangspunkt</b> = <span id="startPointName"></span></p>
-                    <button id="setStartPoint">Ausgewählten Punkt setzen</button>
-                    <p><b>Endpunkt</b> = <span id="endPointName"></span></p>
-                    <button id="setEndPoint">Ausgewählten Punkt setzen</button>
-                    <p><button id="createLine">Linie hinzufügen</button></p>
+                    <p><button id="setStartPoint">Punkt setzen</button> <b>Anfang</b>: <span id="startPointName"></span></p>
+                    <p><button id="setEndPoint">Punkt setzen</button> <b>Ende</b>: <span id="endPointName"></span></p>
+                    <p><button id="createLine">hinzufügen</button> <span id="lineFeedback"></span></p>
                 </div>
                 <hr>
                 <div id="lineManipulation">
