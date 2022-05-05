@@ -9,6 +9,7 @@ let rendererLeft, rendererRight;
 let cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
+let selectables;
 let points, lines;
 
 let selectedPoint, selectedLine;
@@ -118,8 +119,11 @@ function init() {
         }
     }
 
-    scene.add(points);
-    scene.add(lines);
+    selectables = new THREE.Group;
+    selectables.name = "Selectables";
+    selectables.add(points);
+    selectables.add(lines);
+    scene.add(selectables);
 
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
@@ -461,8 +465,8 @@ function onDocumentMouseDown(_event) {
         // update the picking ray with the camera and mouse position
         raycaster.setFromCamera(mouse, cameraScene);
 
-        // get all objects in the scene
-        let objects = scene.children;
+        // get all objects that shall be selectable
+        let objects = scene.getObjectByName("Selectables").children;
 
         let recursiveFlag = true; // true = it also checks all descendants of the objects
         // false = it only checks intersection with the objects
