@@ -268,39 +268,70 @@ function showRightCameraParameters(_point) {
 showLeftCameraParameters();
 showRightCameraParameters();
 
-/* Update Camera Parameters and make the camera adjust properly
+// Update Camera Parameters and make the camera adjust properly
 
-function resetDomElementForCamera(_point) {
-    // save the point for manipulation
-    selectedCam = _Cam;
-    // input the name of the point
-    document.getElementById("camName").innerText = _Cam.name;
-    // input the x-/y-/z-coordinate on the page to be the same as the actual object's x-coordinate
-    document.getElementById("camCoordX").value = _Cam.position.x;
-    document.getElementById("camCoordY").value = _Cam.position.y;
-    document.getElementById("camCoordZ").value = _Cam.position.z;
- } 
-    
- 
- 
- // create EventListener for the changing of the x-y-z-coordinate value for a Camera
-document.getElementById("camCoordX").addEventListener("change", handleChangeCameraPositionX);
-// handle the changing of the x-coordinate value
-function handleChangeCameraPositionX(_event) {
-    // move the point in the scene
-    selectedCamera.position.x = _event.target.value;
+// create EventListener for the changing of the x-y-z-coordinate value for the left Camera & Camera Parameters
+document.getElementById("leftCamCoordX").addEventListener("change", handleChangeCameraLeftPositionX);
+function handleChangeCameraLeftPositionX(_event) {
+    // move the camera in the scene
+    cameraLeft.position.x = _event.target.value;
 }
 
-document.getElementById("camCoordY").addEventListener("change", handleChangeCameraPositionY);
-function handleChangePointPositionY(_event) {
-    selectedCamera.position.y = _event.target.value;
+document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
+function handleChangeCameraLeftPositionY(_event) {
+    // move the camera in the scene
+    cameraLeft.position.y = _event.target.value;
 }
 
-document.getElementById("camCoordZ").addEventListener("change", handleChangeCameraPositionZ);
-function handleChangeCameraPositionZ(_event) {
-    selectedCamera.position.z = _event.target.value;
+document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraLeftPositionZ);
+function handleChangeCameraLeftPositionZ(_event) {
+    // move the camera in the scene
+    cameraLeft.position.z = _event.target.value;
 }
+
+/* Trying to make the Camera Parameters adjustable
+document.getElementById("leftFieldOfView").addEventListener("change", handleChangeCameraLeftFOV);
+function handleChangeCameraLeftFOV(_event) {
+    // adjust the FOV
+    leftFOV = _event.target.value;
+
+document.getElementById("leftAspectRatio").addEventListener("change", handleChangeCameraLeftAspectRatio);
+function handleChangeCameraLeftAspectRatio(_event) {
+    // adjust the AspectRatio
+    canvasAspect = _event.target.value;
+
+document.getElementById("leftNearPlane").addEventListener("change", handleChangeCameraLeftNearPlane);
+function handleChangeCameraLeftNearPlane(_event) {
+    // adjust the NearPlane
+    canvasAspect = _event.target.value;
+
+document.getElementById("leftFarPlane").addEventListener("change", handleChangeCameraLeftFarPlane);
+function handleChangeCameraLeftFarPlane(_event) {
+    // adjust the FarPlane
+    canvasAspect = _event.target.value;
 */
+
+
+// create EventListener for the changing of the x-y-z-coordinate value for the right Camera & Camera Parameters
+
+document.getElementById("rightCamCoordX").addEventListener("change", handleChangeCameraRightPositionX);
+function handleChangeCameraRightPositionX(_event) {
+    // move the camera in the scene
+    cameraRight.position.x = _event.target.value;
+}
+
+document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraRightPositionY);
+function handleChangeCameraRightPositionY(_event) {
+    // move the camera in the scene
+    cameraRight.position.y = _event.target.value;
+}
+
+document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraRightPositionZ);
+function handleChangeCameraRightPositionZ(_event) {
+    // move the camera in the scene
+    cameraRight.position.z = _event.target.value;
+}
+
 
 function resetDomElementForPoint(_point) {
     // save the point for manipulation

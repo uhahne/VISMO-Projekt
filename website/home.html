@@ -41,6 +41,14 @@
                     <label><b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
                     <p><button id="deletePoint">löschen</button></p>
+
+                    <p><b>Linke Kamera Bildebene Koordinaten:</b></p>
+                    <label><b>x</b> = <input id="pointCoordXLeft" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="pointCoordYLeft" type="number" placeholder="0" autocomplete="off"></input></label>
+
+                    <p><b>Rechte Kamera Bildebene Koordinaten:</b></p>
+                    <label><b>x</b> = <input id="pointCoordXRight" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="pointCoordYRight" type="number" placeholder="0" autocomplete="off"></input></label>
                 </div>
             </div>
             <div id="lineUI">
@@ -60,7 +68,7 @@
             <!-- input fields for cameras -->
             <div id="camUI">
                 <div id="camPosition">
-                    <h3><b>Left Kamera</b>: <span id="camName"></span></h3>
+                    <h3><b>Left Kamera</b>: <span id="camLeft"></span></h3>
                     <p><b>Position:</b></p>
                     <label><b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="leftcamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
@@ -77,7 +85,7 @@
                 </div>
 
                 <hr>
-                    <h3><b>Right Kamera</b>: <span id="camName"></span></h3>
+                    <h3><b>Right Kamera</b>: <span id="camRight"></span></h3>
                     <p><b>Position:</b></p>
                     <label><b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
