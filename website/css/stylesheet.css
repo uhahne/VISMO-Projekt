@@ -1,3 +1,14 @@
+@media screen and (min-width: 994px), (max-width: 994px), (max-height: 994px) {
+    /* canvas#vismoViewport {
+        width: 100%;
+        
+    } */
+
+    div#leftColumn {
+        height: 100%;
+    }
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
@@ -44,14 +55,14 @@ input {
     color: #008C5A;
 }
 
-#viewer3D {
+#vismoViewport {
     position: fixed;
     z-index: 0;
     margin-top: 64px;
     margin-left: 286px;
 }
 
-#viewer2DLeft {
+/* #viewer2DLeft {
     position: fixed;
     z-index: 0;
     margin-top: 317px;
@@ -59,18 +70,18 @@ input {
 }
 
 #viewer2DRight {
-    position: fixed;
+    position: absolute;
     z-index: 0;
     margin-top: 317px;
     margin-left: 784px;
-}
+} */
 
 h3 {
     margin-left: 10px;
     margin-top: 10px;
 }
 
-#pointUI, #lineUI, #output, #camUI, #paramUI {
+#leftColumn, #pointUI, #lineUI, #camUI, #paramUI {
     border-style: solid;
     border-color: #008C5A;
 }

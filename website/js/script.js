@@ -5,7 +5,7 @@ import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
 
 let rendererScene, scene, controls;
-let rendererLeft, rendererRight;
+// let rendererLeft, rendererRight;
 let cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
@@ -15,35 +15,42 @@ let points, lines;
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
 
-let canvasScene, canvasLeft, canvasRight;
+// define canvas size
+let canvasScene = document.getElementById("vismoViewport");
 let canvasWidth, canvasHeight, canvasAspect;
+
+canvasWidth = canvasScene.clientWidth;
+canvasHeight = canvasScene.clientHeight;
+canvasAspect = canvasWidth / canvasHeight;
 
 init();
 animate();
 
 function init() {
-    // rendererScene
-    canvasScene = document.getElementById("viewer3D");
+
+    window.addEventListener( 'resize', onWindowResize );
+
+    // define renderer for the scene
     rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
     rendererScene.setClearColor(0x3f3f3f, 1);
     rendererScene.autoClear = false;
 
     // rendererLeft
-    canvasLeft = document.getElementById("viewer2DLeft");
-    rendererLeft = new THREE.WebGLRenderer({ canvas: canvasLeft, antialias: true });
-    rendererLeft.setClearColor(0x3f3f3f, 1);
-    rendererLeft.autoClear = false;
+    // canvasLeft = document.getElementById("viewer2DLeft");
+    // rendererLeft = new THREE.WebGLRenderer({ canvas: canvasLeft, antialias: true });
+    // rendererLeft.setClearColor(0x3f3f3f, 1);
+    // rendererLeft.autoClear = false;
 
     // rendererRight
-    canvasRight = document.getElementById("viewer2DRight");
-    rendererRight = new THREE.WebGLRenderer({ canvas: canvasRight, antialias: true });
-    rendererRight.setClearColor(0x3f3f3f, 1);
-    rendererRight.autoClear = false;
+    // canvasRight = document.getElementById("viewer2DRight");
+    // rendererRight = new THREE.WebGLRenderer({ canvas: canvasRight, antialias: true });
+    // rendererRight.setClearColor(0x3f3f3f, 1);
+    // rendererRight.autoClear = false;
 
     // canvas size
-    canvasWidth = canvasScene.clientWidth;
-    canvasHeight = canvasScene.clientHeight;
-    canvasAspect = canvasWidth / canvasHeight
+    // canvasWidth = canvasScene.clientWidth;
+    // canvasHeight = canvasScene.clientHeight;
+    // canvasAspect = canvasWidth / canvasHeight
 
     // scene
     scene = new THREE.Scene();
@@ -135,25 +142,37 @@ function animate() {
     // render scene
     rendererScene.clear();
     controls.update();
-    rendererScene.render(scene, cameraScene);
 
-    cameraHelperLeft.visible = false;
-    cameraHelperRight.visible = false;
-
-    // render left camera
-    rendererLeft.clear();
-    rendererLeft.render(scene, cameraLeft);
-
-    cameraHelperLeft.visible = false;
-    cameraHelperRight.visible = false;
-
-    // render right camera
-    rendererRight.clear();
-    rendererRight.render(scene, cameraRight);
-
+    //set viewport for 3D viewer
+    rendererScene.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
+    
+    rendererScene.render(scene, cameraScene);
+
+    //set viewport for left 2D viewer
+    rendererScene.setViewport(0, -canvasHeight / 2, canvasWidth / 2, canvasHeight); 
+
+    cameraHelperLeft.visible = false;
+    cameraHelperRight.visible = true;
+
+    rendererScene.render(scene, cameraLeft);
+
+    //set viewport for right 2D viewer
+    rendererScene.setViewport(canvasWidth / 2, -canvasHeight / 2, canvasWidth / 2, canvasHeight); 
+
+    cameraHelperLeft.visible = true;
+    cameraHelperRight.visible = false;
+
+    rendererScene.render(scene, cameraRight);
+
+    // render left camera
+    // rendererLeft.clear();
+    
+    // render right camera
+    // rendererRight.clear();
+    
 }
 
 // get tab buttons by id and add click event listener
@@ -492,5 +511,21 @@ function onDocumentMouseDown(_event) {
             }
         }
     } else { }
+}
+
+function onWindowResize() {
+
+    renderer.setSize(canvasWidth, canvasHeight);
+
+    cameraScene.aspect = 0.5 * aspect;
+    cameraScene.updateProjectionMatrix();
+
+    cameraLeft.aspect = 0.5 * aspect;
+    cameraLeft.updateProjectionMatrix();
+
+    cameraRight.aspect = 0.5 * aspect;
+    cameraRight.updateProjectionMatrix();
+
+
 }
 
