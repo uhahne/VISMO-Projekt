@@ -135,25 +135,32 @@ function animate() {
     // render scene
     rendererScene.clear();
     controls.update();
+    
+    cameraHelperLeft.visible = true;
+    cameraHelperRight.visible = true;
+
     rendererScene.render(scene, cameraScene);
 
-    cameraHelperLeft.visible = false;
-    cameraHelperRight.visible = false;
+ 
 
     // render left camera
     rendererLeft.clear();
-    rendererLeft.render(scene, cameraLeft);
 
     cameraHelperLeft.visible = false;
-    cameraHelperRight.visible = false;
+    cameraHelperRight.visible = true;
+    
+    rendererLeft.render(scene, cameraLeft);
+
 
     // render right camera
     rendererRight.clear();
+
+    cameraHelperLeft.visible = true;
+    cameraHelperRight.visible = false;
+    
     rendererRight.render(scene, cameraRight);
 
 
-    cameraHelperLeft.visible = true;
-    cameraHelperRight.visible = true;
 }
 
 // get tab buttons by id and add click event listener
@@ -279,6 +286,8 @@ document.getElementById("leftCamCoordX").addEventListener("change", handleChange
 function handleChangeCameraLeftPositionX(_event) {
     // move the camera in the scene
     cameraLeft.position.x = _event.target.value;
+    console.log (cameraLeft);
+    
 }
 
 document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
@@ -293,27 +302,40 @@ function handleChangeCameraLeftPositionZ(_event) {
     cameraLeft.position.z = _event.target.value;
 }
 
-/* Trying to make the Camera Parameters adjustable
+// Make the left Camera Parameters adjustable
 document.getElementById("leftFieldOfView").addEventListener("change", handleChangeCameraLeftFOV);
-function handleChangeCameraLeftFOV(_event) {
+function handleChangeCameraLeftFOV(_event) { 
     // adjust the FOV
-    leftFOV = _event.target.value;
+    cameraLeft.fov = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+}
 
 document.getElementById("leftAspectRatio").addEventListener("change", handleChangeCameraLeftAspectRatio);
 function handleChangeCameraLeftAspectRatio(_event) {
     // adjust the AspectRatio
-    canvasAspect = _event.target.value;
+    cameraLeft.aspect = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+
+}
 
 document.getElementById("leftNearPlane").addEventListener("change", handleChangeCameraLeftNearPlane);
 function handleChangeCameraLeftNearPlane(_event) {
     // adjust the NearPlane
-    canvasAspect = _event.target.value;
+    cameraLeft.near = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+
+}
 
 document.getElementById("leftFarPlane").addEventListener("change", handleChangeCameraLeftFarPlane);
 function handleChangeCameraLeftFarPlane(_event) {
     // adjust the FarPlane
-    canvasAspect = _event.target.value;
-*/
+    cameraLeft.far = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+
+}
+
+
+// Nice to Have a rest button
 
 
 // create EventListener for the changing of the x-y-z-coordinate value for the right Camera & Camera Parameters
@@ -335,6 +357,40 @@ function handleChangeCameraRightPositionZ(_event) {
     // move the camera in the scene
     cameraRight.position.z = _event.target.value;
 }
+
+// Make the Right Camera Parameters adjustable
+document.getElementById("rightFieldOfView").addEventListener("change", handleChangeCameraRightFOV);
+function handleChangeCameraRightFOV(_event) { 
+    // adjust the FOV
+    cameraRight.fov = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+}
+
+document.getElementById("rightAspectRatio").addEventListener("change", handleChangeCameraRightAspectRatio);
+function handleChangeCameraRightAspectRatio(_event) {
+    // adjust the AspectRatio
+    cameraRight.aspect = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+
+}
+
+document.getElementById("rightNearPlane").addEventListener("change", handleChangeCameraRightNearPlane);
+function handleChangeCameraRightNearPlane(_event) {
+    // adjust the NearPlane
+    cameraRight.near = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+
+}
+
+document.getElementById("rightFarPlane").addEventListener("change", handleChangeCameraRightFarPlane);
+function handleChangeCameraRightFarPlane(_event) {
+    // adjust the FarPlane
+    cameraRight.far = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+
+}
+
+
 
 
 function resetDomElementForPoint(_point) {

@@ -47186,9 +47186,10 @@ class CameraHelper extends LineSegments {
 		addLine( 'u3', 'u1', colorUp );
 
 		// target
-/*
-		addLine( 'c', 't', colorTarget );
+		addLine( 'p', 't', colorTarget );
 		addLine( 'p', 'c', colorCross );
+		/*
+
 */
 		// cross
 /*
