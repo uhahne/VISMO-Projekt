@@ -503,50 +503,43 @@ function updateLinesConnectedToPoint(_operation) {
     }
 }
 
-// create a raycaster
-let raycaster = new THREE.Raycaster();
-// create vector the save the coordinates of where the user clicked on the page
-let mouse = new THREE.Vector2();
-// create an EventListener to react on a mouse-click
-document.addEventListener("mousedown", onDocumentMouseDown);
-// handle the user clicking somewhere
-function onDocumentMouseDown(_event) {
-    // check if user clicked with the left mouse button
-    if (_event.which == 1) {
-        // save the coordinates of the point on which the user clicked 
-        let canvasBounds = rendererScene.getContext().canvas.getBoundingClientRect();
-        mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
-        mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
+/* RAYCASTING 3D-VIEWER + 2D-VIEWERS (left & right camera) */
 
-        // update the picking ray with the camera and mouse position
-        raycaster.setFromCamera(mouse, cameraScene);
+let raycaster = new THREE.Raycaster(); // create a raycaster
+let mouse = new THREE.Vector2(); // create vector the save the coordinates of where the user clicked on the page
+document.addEventListener("mousedown", onDocumentMouseDown); // create an EventListener to react on a mouse-click
 
-        // get all objects that shall be selectable
-        let objects = scene.getObjectByName("Selectables").children;
 
-        let recursiveFlag = true; // true = it also checks all descendants of the objects
-        // false = it only checks intersection with the objects
-        // get the objects that intersected with the ray
-        let intersects = raycaster.intersectObjects(objects, recursiveFlag);
-
-        // check if a object intersected with the ray
-        if (intersects[0] != undefined) {
-            switch (intersects[0].object.type) {
-                case ("Mesh"): // = Point
-                    // un-mark the previously selected object
-                    unmarkObject(selectedPoint);
-                    // mark/color the new object
-                    intersects[0].object.material.color.set(0xff802a);
-                    // reset the dom element to show its values
-                    resetDomElementForPoint(intersects[0].object.parent);
-                    break;
-                case ("Line"): // = Line
-                    unmarkObject(selectedLine);
-                    intersects[0].object.material.color.set(0xff802a);
-                    resetDomElementForLine(intersects[0].object.parent);
-                    break;
-            }
-        }
-    } else { }
+function onDocumentMouseDown(_event) { // handle the user clicking somewhere
+    if (_event.which == 1) { // check if user clicked with the left mouse button
+        castRay(_event, rendererScene, cameraScene, scene.getObjectByName("Selectables").children);
+        castRay(_event, rendererLeft, cameraLeft, scene.getObjectByName("Points").children);
+        castRay(_event, rendererRight, cameraRight, scene.getObjectByName("Points").children);
+    }
 }
 
+function castRay(_event, _renderer, _camera, _selectableObjects) {
+    let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
+    // save the coordinates of the point on which the user clicked 
+    mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
+    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
+    raycaster.setFromCamera(mouse, _camera); // update the picking ray with the camera and mouse position
+    
+    let recursiveFlag = true; // true = it also checks all descendants of the objects || false = it only checks intersection with the objects
+    let intersects = raycaster.intersectObjects(_selectableObjects, recursiveFlag); // get the objects that intersected with the ray
+
+    if (intersects[0] != undefined) { // check if a object intersected with the ray
+        switch (intersects[0].object.type) {
+            case ("Mesh"): // = Point
+                unmarkObject(selectedPoint); // un-mark the previously selected object
+                markObject(intersects[0].object); // mark/color the new object
+                resetDomElementForPoint(intersects[0].object.parent); // reset the dom element to show its values
+                break;
+            case ("Line"): // = Line
+                unmarkObject(selectedLine);
+                markObject(intersects[0].object);
+                resetDomElementForLine(intersects[0].object.parent);
+                break;
+        }
+    }
+}
