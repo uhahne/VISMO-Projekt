@@ -3,14 +3,18 @@ import { OrbitControls } from "../threejs/OrbitControls.js";
 import Point from "../js/classes/Point.js";
 import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
+import Beam from "./classes/Beam.js";
+import Grid from "./classes/Grid.js";
 
 let rendererScene, scene, controls;
 let rendererLeft, rendererRight;
+let cameras;
 let cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
 let selectables;
 let points, lines;
+let beams;
 
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
@@ -25,19 +29,19 @@ function init() {
     // rendererScene
     canvasScene = document.getElementById("viewer3D");
     rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
-    rendererScene.setClearColor(0x3f3f3f, 1);
+    rendererScene.setClearColor(0x393939, 1);
     rendererScene.autoClear = false;
 
     // rendererLeft
     canvasLeft = document.getElementById("viewer2DLeft");
     rendererLeft = new THREE.WebGLRenderer({ canvas: canvasLeft, antialias: true });
-    rendererLeft.setClearColor(0x3f3f3f, 1);
+    rendererLeft.setClearColor(0x393939, 1);
     rendererLeft.autoClear = false;
 
     // rendererRight
     canvasRight = document.getElementById("viewer2DRight");
     rendererRight = new THREE.WebGLRenderer({ canvas: canvasRight, antialias: true });
-    rendererRight.setClearColor(0x3f3f3f, 1);
+    rendererRight.setClearColor(0x393939, 1);
     rendererRight.autoClear = false;
 
     // canvas size
@@ -47,6 +51,11 @@ function init() {
 
     // scene
     scene = new THREE.Scene();
+
+    // cameras group
+    cameras = new THREE.Group();
+    cameras.name = "Cameras";
+    scene.add(cameras);
 
     // cameraScene
     cameraScene = new THREE.PerspectiveCamera(75, canvasAspect, 0.1, 1000);
@@ -65,7 +74,7 @@ function init() {
     cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect / 2, leftNear, leftFar);
     cameraLeft.position.set(-10, 0, 12);
     cameraLeft.lookAt(0, 0, 0);
-    scene.add(cameraLeft);
+    cameras.add(cameraLeft);
 
     cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
     scene.add(cameraHelperLeft);
@@ -78,15 +87,10 @@ function init() {
     cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect / 2, rightNear, rightFar);
     cameraRight.position.set(10, 0, 12);
     cameraRight.lookAt(0, 0, 0);
-    scene.add(cameraRight);
+    cameras.add(cameraRight);
 
     cameraHelperRight = new THREE.CameraHelper(cameraRight);
     scene.add(cameraHelperRight);
-
-    // grid
-    let gridHelper = new THREE.GridHelper(100, 100);
-    gridHelper.position.y = -2.03;
-    scene.add(gridHelper);
 
     // points group
     points = new THREE.Group();
@@ -94,12 +98,6 @@ function init() {
     // lines group
     lines = new THREE.Group();
     lines.name = "Lines";
-
-    // origin point
-    let originPoint = new Point("Ursprung", new THREE.Vector3(0, 0, 0), 0.25);
-    originPoint.color = new THREE.Color(0xFF0000);
-    originPoint.material.color.set(0xFF0000);
-    points.add(originPoint);
 
     // default model
     let defaultModel = new DefaultModel(new THREE.Vector3(0, 0, 0));
@@ -124,6 +122,13 @@ function init() {
     selectables.add(points);
     selectables.add(lines);
     scene.add(selectables);
+
+    // beams group
+    beams = new THREE.Group();
+    createBeams(cameras, points);
+
+    // grid
+    scene.add(new Grid());
 
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
@@ -159,8 +164,6 @@ function animate() {
     cameraHelperRight.visible = false;
     
     rendererRight.render(scene, cameraRight);
-
-
 }
 
 // get tab buttons by id and add click event listener
@@ -286,20 +289,24 @@ document.getElementById("leftCamCoordX").addEventListener("change", handleChange
 function handleChangeCameraLeftPositionX(_event) {
     // move the camera in the scene
     cameraLeft.position.x = _event.target.value;
-    console.log (cameraLeft);
-    
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
 function handleChangeCameraLeftPositionY(_event) {
     // move the camera in the scene
     cameraLeft.position.y = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraLeftPositionZ);
 function handleChangeCameraLeftPositionZ(_event) {
     // move the camera in the scene
     cameraLeft.position.z = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 // Make the left Camera Parameters adjustable
@@ -334,9 +341,7 @@ function handleChangeCameraLeftFarPlane(_event) {
 
 }
 
-
 // Nice to Have a rest button
-
 
 // create EventListener for the changing of the x-y-z-coordinate value for the right Camera & Camera Parameters
 
@@ -344,18 +349,24 @@ document.getElementById("rightCamCoordX").addEventListener("change", handleChang
 function handleChangeCameraRightPositionX(_event) {
     // move the camera in the scene
     cameraRight.position.x = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraRightPositionY);
 function handleChangeCameraRightPositionY(_event) {
     // move the camera in the scene
     cameraRight.position.y = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraRightPositionZ);
 function handleChangeCameraRightPositionZ(_event) {
     // move the camera in the scene
     cameraRight.position.z = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 // Make the Right Camera Parameters adjustable
@@ -389,9 +400,6 @@ function handleChangeCameraRightFarPlane(_event) {
     cameraRight.updateProjectionMatrix();
 
 }
-
-
-
 
 function resetDomElementForPoint(_point) {
     // save the point for manipulation
@@ -442,6 +450,7 @@ function handleDeletePoint(_event) {
         if (points.children[i].uuid == selectedPoint.uuid) {
             // remove the object
             points.remove(points.children[i]);
+            // remove ray (TODO)
         }
     }
     // remove all lines connected to the point
@@ -466,17 +475,23 @@ function handleChangePointPositionX(_event) {
     selectedPoint.position.x = _event.target.value;
     // update connected lines
     updateLinesConnectedToPoint("change");
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("pointCoordY").addEventListener("change", handleChangePointPositionY);
 function handleChangePointPositionY(_event) {
     selectedPoint.position.y = _event.target.value;
     updateLinesConnectedToPoint("change");
+
+    resetBeams(cameras, points);
 }
 document.getElementById("pointCoordZ").addEventListener("change", handleChangePointPositionZ);
 function handleChangePointPositionZ(_event) {
     selectedPoint.position.z = _event.target.value;
     updateLinesConnectedToPoint("change");
+
+    resetBeams(cameras, points);
 }
 
 function updateLinesConnectedToPoint(_operation) {
@@ -500,6 +515,36 @@ function updateLinesConnectedToPoint(_operation) {
                 }
             }
         }
+    }
+}
+
+/* BEAMS */
+
+// draw beams from Camera-Projection-Center to Points
+function createBeams(_cameras, _objects) { // _cameras: THREE.Object3D[] | _objects: THREE.Object3D[]
+    for (let i = 0; i < _cameras.children.length; i++) {
+        for (let j = 0; j < _objects.children.length; j++) {
+            beams.add(new Beam(_cameras.children[i], _objects.children[j]));
+        }
+    }
+}
+
+function resetBeams(_cameras, _objects) {
+    beams.clear();
+    createBeams(_cameras, _objects);
+}
+
+// turn beams on or off
+document.getElementById("toggleBeams").addEventListener("change", handleToggleBeams);
+
+function handleToggleBeams(_event) {
+    switch (_event.target.checked) {
+        case true:
+            scene.add(beams);
+            break;
+        case false:
+            beams.removeFromParent();
+            break;
     }
 }
 

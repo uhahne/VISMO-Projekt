@@ -47157,7 +47157,7 @@ class CameraHelper extends LineSegments {
 		addLine( 'n2', 'n4', colorFrustum );
 		addLine( 'n4', 'n3', colorFrustum );
 		addLine( 'n3', 'n1', colorFrustum );
-/*
+        /*
 		// far
 
 		addLine( 'f1', 'f2', colorFrustum );
@@ -47171,7 +47171,7 @@ class CameraHelper extends LineSegments {
 		addLine( 'n2', 'f2', colorFrustum );
 		addLine( 'n3', 'f3', colorFrustum );
 		addLine( 'n4', 'f4', colorFrustum );
-*/
+        */
 		// cone
 
 		addLine( 'p', 'n1', colorCone );
@@ -47184,21 +47184,21 @@ class CameraHelper extends LineSegments {
 		addLine( 'u1', 'u2', colorUp );
 		addLine( 'u2', 'u3', colorUp );
 		addLine( 'u3', 'u1', colorUp );
-
+        /*
 		// target
+
 		addLine( 'p', 't', colorTarget );
 		addLine( 'p', 'c', colorCross );
-		/*
 
-*/
 		// cross
-/*
+
 		addLine( 'cn1', 'cn2', colorCross );
 		addLine( 'cn3', 'cn4', colorCross );
 
 		addLine( 'cf1', 'cf2', colorCross );
 		addLine( 'cf3', 'cf4', colorCross );
-*/
+        */
+
 		function addLine( a, b, color ) {
 
 			addPoint( a, color );
