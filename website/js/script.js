@@ -56,7 +56,8 @@ function init() {
     scene = new THREE.Scene();
 
     // cameraScene
-    cameraScene = new THREE.PerspectiveCamera(75, canvasAspect, 0.1, 1000);
+    cameraScene = new THREE.PerspectiveCamera(75, canvasAspect * 2, 0.1, 1000);
+    console.log(canvasAspect);
     cameraScene.position.z = 12;
     cameraScene.lookAt(0, 0, 0);
     scene.add(cameraScene);
@@ -65,7 +66,7 @@ function init() {
     controls = new OrbitControls(cameraScene, rendererScene.domElement);
 
     // cameraLeft
-    let leftFOV = 50;
+    let leftFOV = 70;
     let leftNear = 0.1;
     let leftFar = 20;
 
@@ -78,7 +79,7 @@ function init() {
     scene.add(cameraHelperLeft);
 
     // cameraRight
-    let rightFOV = 50;
+    let rightFOV = 70;
     let rightNear = 0.1;
     let rightFar = 20;
 
@@ -145,7 +146,7 @@ function animate() {
 
     //set viewport for 3D viewer
     rendererScene.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
-
+    
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
     
