@@ -57,7 +57,6 @@ function init() {
 
     // cameraScene
     cameraScene = new THREE.PerspectiveCamera(75, canvasAspect * 2, 0.1, 1000);
-    console.log(canvasAspect);
     cameraScene.position.z = 12;
     cameraScene.lookAt(0, 0, 0);
     scene.add(cameraScene);
@@ -66,7 +65,7 @@ function init() {
     controls = new OrbitControls(cameraScene, rendererScene.domElement);
 
     // cameraLeft
-    let leftFOV = 70;
+    let leftFOV = 80;
     let leftNear = 0.1;
     let leftFar = 20;
 
@@ -79,7 +78,7 @@ function init() {
     scene.add(cameraHelperLeft);
 
     // cameraRight
-    let rightFOV = 70;
+    let rightFOV = 80;
     let rightNear = 0.1;
     let rightFar = 20;
 
@@ -135,6 +134,8 @@ function init() {
 
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
+
+    resizeCanvas();
 }
 
 function animate() {
@@ -144,8 +145,11 @@ function animate() {
     rendererScene.clear();
     controls.update();
 
+    let currentWidth = canvasScene.getAttribute("width");
+    let currentHeight = canvasScene.getAttribute("height");
+
     //set viewport for 3D viewer
-    rendererScene.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
+    rendererScene.setViewport(0, currentHeight / 2, currentWidth, currentHeight / 2);
     
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
@@ -153,7 +157,7 @@ function animate() {
     rendererScene.render(scene, cameraScene);
 
     //set viewport for left 2D viewer
-    rendererScene.setViewport(0, -canvasHeight / 2, canvasWidth / 2, canvasHeight); 
+    rendererScene.setViewport(0, -currentHeight / 4, currentWidth / 2, currentHeight); 
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = true;
@@ -161,7 +165,7 @@ function animate() {
     rendererScene.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
-    rendererScene.setViewport(canvasWidth / 2, -canvasHeight / 2, canvasWidth / 2, canvasHeight); 
+    rendererScene.setViewport(currentWidth / 2, -currentHeight / 4, currentWidth / 2, currentHeight); 
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = false;
@@ -515,18 +519,23 @@ function onDocumentMouseDown(_event) {
 }
 
 function onWindowResize() {
+    resizeCanvas();
 
-    renderer.setSize(canvasWidth, canvasHeight);
+    rendererScene.setSize(canvasWidth, canvasHeight);
 
-    cameraScene.aspect = 0.5 * aspect;
+    cameraScene.aspect = 0.5 * canvasAspect;
     cameraScene.updateProjectionMatrix();
 
-    cameraLeft.aspect = 0.5 * aspect;
+    cameraLeft.aspect = 0.5 * canvasAspect;
     cameraLeft.updateProjectionMatrix();
 
-    cameraRight.aspect = 0.5 * aspect;
+    cameraRight.aspect = 0.5 * canvasAspect;
     cameraRight.updateProjectionMatrix();
 
 
 }
 
+function resizeCanvas() {
+    canvasScene.width = window.innerWidth;
+    canvasScene.height = window.innerHeight;
+}
