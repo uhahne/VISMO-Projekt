@@ -19,8 +19,8 @@ let lineStartPoint, lineEndPoint; // for line creation
 let canvasScene = document.getElementById("vismoViewport");
 let canvasWidth, canvasHeight, canvasAspect;
 
-canvasWidth = canvasScene.clientWidth;
-canvasHeight = canvasScene.clientHeight;
+canvasWidth = window.innerWidth;
+canvasHeight = window.innerHeight;
 canvasAspect = canvasWidth / canvasHeight;
 
 init();
@@ -30,8 +30,11 @@ function init() {
 
     window.addEventListener( 'resize', onWindowResize );
 
-    // define renderer for the scene
+    // define renderer for the scene and add setPixelRatio
     rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
+    rendererScene.setPixelRatio( window.devicePixelRatio );
+    rendererScene.setSize( window.innerWidth, window.innerHeight );
+    console.log(window.innerWidth, window.innerHeight);
     rendererScene.setClearColor(0x3f3f3f, 1);
     rendererScene.autoClear = false;
 
@@ -56,7 +59,7 @@ function init() {
     scene = new THREE.Scene();
 
     // cameraScene
-    cameraScene = new THREE.PerspectiveCamera(75, canvasAspect * 2, 0.1, 1000);
+    cameraScene = new THREE.PerspectiveCamera(75, canvasAspect, 0.1, 1000);
     cameraScene.position.z = 12;
     cameraScene.lookAt(0, 0, 0);
     scene.add(cameraScene);
@@ -65,11 +68,11 @@ function init() {
     controls = new OrbitControls(cameraScene, rendererScene.domElement);
 
     // cameraLeft
-    let leftFOV = 80;
-    let leftNear = 0.1;
+    let leftFOV = 50;
+    let leftNear = 1;
     let leftFar = 20;
 
-    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect / 2, leftNear, leftFar);
+    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect, leftNear, leftFar);
     cameraLeft.position.set(-10, 0, 12);
     cameraLeft.lookAt(0, 0, 0);
     scene.add(cameraLeft);
@@ -78,11 +81,11 @@ function init() {
     scene.add(cameraHelperLeft);
 
     // cameraRight
-    let rightFOV = 80;
-    let rightNear = 0.1;
+    let rightFOV = 50;
+    let rightNear = 1;
     let rightFar = 20;
 
-    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect / 2, rightNear, rightFar);
+    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect, rightNear, rightFar);
     cameraRight.position.set(10, 0, 12);
     cameraRight.lookAt(0, 0, 0);
     scene.add(cameraRight);
@@ -135,7 +138,7 @@ function init() {
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
 
-    resizeCanvas();
+    // resizeCanvas();
 }
 
 function animate() {
@@ -145,8 +148,12 @@ function animate() {
     rendererScene.clear();
     controls.update();
 
-    let currentWidth = canvasScene.getAttribute("width");
-    let currentHeight = canvasScene.getAttribute("height");
+    //get the current width and height of the canvas
+    // let currentWidth = canvasScene.getAttribute("width");
+    // let currentHeight = canvasScene.getAttribute("height");
+
+    let currentWidth = window.innerWidth;
+    let currentHeight = window.innerHeight;
 
     //set viewport for 3D viewer
     rendererScene.setViewport(0, currentHeight / 2, currentWidth, currentHeight / 2);
@@ -157,7 +164,8 @@ function animate() {
     rendererScene.render(scene, cameraScene);
 
     //set viewport for left 2D viewer
-    rendererScene.setViewport(0, -currentHeight / 4, currentWidth / 2, currentHeight); 
+    rendererScene.setViewport(0, 0, currentWidth / 2, currentHeight / 2); 
+    console.log(currentWidth, currentHeight);
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = true;
@@ -165,7 +173,7 @@ function animate() {
     rendererScene.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
-    rendererScene.setViewport(currentWidth / 2, -currentHeight / 4, currentWidth / 2, currentHeight); 
+    rendererScene.setViewport(currentWidth / 2, 0, currentWidth / 2, currentHeight / 2); 
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = false;
@@ -519,23 +527,24 @@ function onDocumentMouseDown(_event) {
 }
 
 function onWindowResize() {
-    resizeCanvas();
+    // resizeCanvas();
 
     rendererScene.setSize(canvasWidth, canvasHeight);
 
-    cameraScene.aspect = 0.5 * canvasAspect;
+    cameraScene.aspect = canvasAspect;
     cameraScene.updateProjectionMatrix();
 
-    cameraLeft.aspect = 0.5 * canvasAspect;
+    cameraLeft.aspect = canvasAspect;
     cameraLeft.updateProjectionMatrix();
 
-    cameraRight.aspect = 0.5 * canvasAspect;
+    cameraRight.aspect = canvasAspect;
     cameraRight.updateProjectionMatrix();
-
+    
+    console.log(canvasAspect);
 
 }
 
-function resizeCanvas() {
-    canvasScene.width = window.innerWidth;
-    canvasScene.height = window.innerHeight;
-}
+// function resizeCanvas() {
+//     canvasScene.width = window.innerWidth;
+//     canvasScene.height = window.innerHeight;
+// }
