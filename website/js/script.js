@@ -5,7 +5,7 @@ import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
 
 let rendererScene, scene, controls;
-// let rendererLeft, rendererRight;
+
 let cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
@@ -15,7 +15,7 @@ let points, lines;
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
 
-// define canvas size
+// get canvas and define canvas size
 let canvasScene = document.getElementById("vismoViewport");
 let canvasWidth, canvasHeight, canvasAspect;
 
@@ -34,26 +34,8 @@ function init() {
     rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
     rendererScene.setPixelRatio( window.devicePixelRatio );
     rendererScene.setSize( window.innerWidth, window.innerHeight );
-    console.log(window.innerWidth, window.innerHeight);
     rendererScene.setClearColor(0x3f3f3f, 1);
     rendererScene.autoClear = false;
-
-    // rendererLeft
-    // canvasLeft = document.getElementById("viewer2DLeft");
-    // rendererLeft = new THREE.WebGLRenderer({ canvas: canvasLeft, antialias: true });
-    // rendererLeft.setClearColor(0x3f3f3f, 1);
-    // rendererLeft.autoClear = false;
-
-    // rendererRight
-    // canvasRight = document.getElementById("viewer2DRight");
-    // rendererRight = new THREE.WebGLRenderer({ canvas: canvasRight, antialias: true });
-    // rendererRight.setClearColor(0x3f3f3f, 1);
-    // rendererRight.autoClear = false;
-
-    // canvas size
-    // canvasWidth = canvasScene.clientWidth;
-    // canvasHeight = canvasScene.clientHeight;
-    // canvasAspect = canvasWidth / canvasHeight
 
     // scene
     scene = new THREE.Scene();
@@ -137,8 +119,6 @@ function init() {
 
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
-
-    // resizeCanvas();
 }
 
 function animate() {
@@ -148,15 +128,8 @@ function animate() {
     rendererScene.clear();
     controls.update();
 
-    //get the current width and height of the canvas
-    // let currentWidth = canvasScene.getAttribute("width");
-    // let currentHeight = canvasScene.getAttribute("height");
-
-    let currentWidth = window.innerWidth;
-    let currentHeight = window.innerHeight;
-
     //set viewport for 3D viewer
-    rendererScene.setViewport(0, currentHeight / 2, currentWidth, currentHeight / 2);
+    rendererScene.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
     
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
@@ -164,8 +137,7 @@ function animate() {
     rendererScene.render(scene, cameraScene);
 
     //set viewport for left 2D viewer
-    rendererScene.setViewport(0, 0, currentWidth / 2, currentHeight / 2); 
-    console.log(currentWidth, currentHeight);
+    rendererScene.setViewport(0, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = true;
@@ -173,19 +145,12 @@ function animate() {
     rendererScene.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
-    rendererScene.setViewport(currentWidth / 2, 0, currentWidth / 2, currentHeight / 2); 
+    rendererScene.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = false;
 
     rendererScene.render(scene, cameraRight);
-
-    // render left camera
-    // rendererLeft.clear();
-    
-    // render right camera
-    // rendererRight.clear();
-    
 }
 
 // get tab buttons by id and add click event listener
@@ -527,7 +492,6 @@ function onDocumentMouseDown(_event) {
 }
 
 function onWindowResize() {
-    // resizeCanvas();
 
     rendererScene.setSize(canvasWidth, canvasHeight);
 
@@ -540,11 +504,4 @@ function onWindowResize() {
     cameraRight.aspect = canvasAspect;
     cameraRight.updateProjectionMatrix();
     
-    console.log(canvasAspect);
-
 }
-
-// function resizeCanvas() {
-//     canvasScene.width = window.innerWidth;
-//     canvasScene.height = window.innerHeight;
-// }

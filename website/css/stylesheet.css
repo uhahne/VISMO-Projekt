@@ -1,7 +1,4 @@
 @media screen and (min-width: 994px), (max-width: 994px), (max-height: 994px) {
-    /* canvas#vismoViewport {
-       width: 90%;
-    } */
 
     div#leftColumn {
         height: 100%;
@@ -41,6 +38,7 @@ main {
 #nav {
     position: fixed;
     margin-top: 64px;
+    z-index: 1;
 }
 #leftColumn {
     position: fixed;
@@ -55,29 +53,11 @@ input {
 }
 
 #viewport {
-    
-}
-
-#vismoViewport {
     position: fixed;
     z-index: 0;
     margin-top: 64px;
     /* margin-left: 286px; */
 }
-
-/* #viewer2DLeft {
-    position: fixed;
-    z-index: 0;
-    margin-top: 317px;
-    margin-left: 286px;
-}
-
-#viewer2DRight {
-    position: absolute;
-    z-index: 0;
-    margin-top: 317px;
-    margin-left: 784px;
-} */
 
 h3 {
     margin-left: 10px;
