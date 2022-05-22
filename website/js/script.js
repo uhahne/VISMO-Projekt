@@ -493,6 +493,11 @@ function onDocumentMouseDown(_event) {
 
 function onWindowResize() {
 
+    // recompute the aspect ratio from new window size
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+    canvasAspect = canvasWidth / canvasHeight;
+
     rendererScene.setSize(canvasWidth, canvasHeight);
 
     cameraScene.aspect = canvasAspect;
