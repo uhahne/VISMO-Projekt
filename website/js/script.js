@@ -571,16 +571,17 @@ document.addEventListener("mousedown", onDocumentMouseDown); // create an EventL
 function onDocumentMouseDown(_event) { // handle the user clicking somewhere
     if (_event.which == 1) { // check if user clicked with the left mouse button
         castRay(_event, rendererScene, cameraScene, scene.getObjectByName("Selectables").children);
-        castRay(_event, rendererLeft, cameraLeft, scene.getObjectByName("Points").children);
-        castRay(_event, rendererRight, cameraRight, scene.getObjectByName("Points").children);
+        castRay(_event, rendererScene, cameraLeft, scene.getObjectByName("Points").children);
+        castRay(_event, rendererScene, cameraRight, scene.getObjectByName("Points").children);
     }
 }
 
 function castRay(_event, _renderer, _camera, _selectableObjects) {
+    // TODO: these bounds do not reflect the new viewports (*4 in line 584 fixes it for now)
     let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
     // save the coordinates of the point on which the user clicked 
     mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
-    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
+    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 4 + 1;
     raycaster.setFromCamera(mouse, _camera); // update the picking ray with the camera and mouse position
     
     let recursiveFlag = true; // true = it also checks all descendants of the objects || false = it only checks intersection with the objects
