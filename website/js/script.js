@@ -8,7 +8,7 @@ import Grid from "./classes/Grid.js";
 
 let rendererScene, scene, controls;
 
-let cameraScene, cameraLeft, cameraRight;
+let cameras, cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
 let selectables;
