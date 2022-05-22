@@ -3,6 +3,8 @@ import { OrbitControls } from "../threejs/OrbitControls.js";
 import Point from "../js/classes/Point.js";
 import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
+import Beam from "./classes/Beam.js";
+import Grid from "./classes/Grid.js";
 
 let rendererScene, scene, controls;
 
@@ -11,6 +13,7 @@ let cameraHelperLeft, cameraHelperRight;
 
 let selectables;
 let points, lines;
+let beams;
 
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
@@ -32,6 +35,7 @@ function init() {
 
     // define renderer for the scene and add setPixelRatio
     rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
+
     rendererScene.setPixelRatio( window.devicePixelRatio );
     rendererScene.setSize( window.innerWidth, window.innerHeight );
     rendererScene.setClearColor(0x3f3f3f, 1);
@@ -39,6 +43,11 @@ function init() {
 
     // scene
     scene = new THREE.Scene();
+
+    // cameras group
+    cameras = new THREE.Group();
+    cameras.name = "Cameras";
+    scene.add(cameras);
 
     // cameraScene
     cameraScene = new THREE.PerspectiveCamera(75, canvasAspect, 0.1, 1000);
@@ -57,7 +66,7 @@ function init() {
     cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect, leftNear, leftFar);
     cameraLeft.position.set(-10, 0, 12);
     cameraLeft.lookAt(0, 0, 0);
-    scene.add(cameraLeft);
+    cameras.add(cameraLeft);
 
     cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
     scene.add(cameraHelperLeft);
@@ -70,15 +79,10 @@ function init() {
     cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect, rightNear, rightFar);
     cameraRight.position.set(10, 0, 12);
     cameraRight.lookAt(0, 0, 0);
-    scene.add(cameraRight);
+    cameras.add(cameraRight);
 
     cameraHelperRight = new THREE.CameraHelper(cameraRight);
     scene.add(cameraHelperRight);
-
-    // grid
-    let gridHelper = new THREE.GridHelper(100, 100);
-    gridHelper.position.y = -2.03;
-    scene.add(gridHelper);
 
     // points group
     points = new THREE.Group();
@@ -86,12 +90,6 @@ function init() {
     // lines group
     lines = new THREE.Group();
     lines.name = "Lines";
-
-    // origin point
-    let originPoint = new Point("Ursprung", new THREE.Vector3(0, 0, 0), 0.25);
-    originPoint.color = new THREE.Color(0xFF0000);
-    originPoint.material.color.set(0xFF0000);
-    points.add(originPoint);
 
     // default model
     let defaultModel = new DefaultModel(new THREE.Vector3(0, 0, 0));
@@ -116,6 +114,13 @@ function init() {
     selectables.add(points);
     selectables.add(lines);
     scene.add(selectables);
+
+    // beams group
+    beams = new THREE.Group();
+    createBeams(cameras, points);
+
+    // grid
+    scene.add(new Grid());
 
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
@@ -151,6 +156,7 @@ function animate() {
     cameraHelperRight.visible = false;
 
     rendererScene.render(scene, cameraRight);
+
 }
 
 // get tab buttons by id and add click event listener
@@ -276,42 +282,59 @@ document.getElementById("leftCamCoordX").addEventListener("change", handleChange
 function handleChangeCameraLeftPositionX(_event) {
     // move the camera in the scene
     cameraLeft.position.x = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
 function handleChangeCameraLeftPositionY(_event) {
     // move the camera in the scene
     cameraLeft.position.y = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraLeftPositionZ);
 function handleChangeCameraLeftPositionZ(_event) {
     // move the camera in the scene
     cameraLeft.position.z = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
-/* Trying to make the Camera Parameters adjustable
+// Make the left Camera Parameters adjustable
 document.getElementById("leftFieldOfView").addEventListener("change", handleChangeCameraLeftFOV);
-function handleChangeCameraLeftFOV(_event) {
+function handleChangeCameraLeftFOV(_event) { 
     // adjust the FOV
-    leftFOV = _event.target.value;
+    cameraLeft.fov = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+}
 
 document.getElementById("leftAspectRatio").addEventListener("change", handleChangeCameraLeftAspectRatio);
 function handleChangeCameraLeftAspectRatio(_event) {
     // adjust the AspectRatio
-    canvasAspect = _event.target.value;
+    cameraLeft.aspect = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+
+}
 
 document.getElementById("leftNearPlane").addEventListener("change", handleChangeCameraLeftNearPlane);
 function handleChangeCameraLeftNearPlane(_event) {
     // adjust the NearPlane
-    canvasAspect = _event.target.value;
+    cameraLeft.near = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
+
+}
 
 document.getElementById("leftFarPlane").addEventListener("change", handleChangeCameraLeftFarPlane);
 function handleChangeCameraLeftFarPlane(_event) {
     // adjust the FarPlane
-    canvasAspect = _event.target.value;
-*/
+    cameraLeft.far = parseFloat(_event.target.value);
+    cameraLeft.updateProjectionMatrix();
 
+}
+
+// Nice to Have a rest button
 
 // create EventListener for the changing of the x-y-z-coordinate value for the right Camera & Camera Parameters
 
@@ -319,20 +342,57 @@ document.getElementById("rightCamCoordX").addEventListener("change", handleChang
 function handleChangeCameraRightPositionX(_event) {
     // move the camera in the scene
     cameraRight.position.x = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraRightPositionY);
 function handleChangeCameraRightPositionY(_event) {
     // move the camera in the scene
     cameraRight.position.y = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraRightPositionZ);
 function handleChangeCameraRightPositionZ(_event) {
     // move the camera in the scene
     cameraRight.position.z = _event.target.value;
+
+    resetBeams(cameras, points);
 }
 
+// Make the Right Camera Parameters adjustable
+document.getElementById("rightFieldOfView").addEventListener("change", handleChangeCameraRightFOV);
+function handleChangeCameraRightFOV(_event) { 
+    // adjust the FOV
+    cameraRight.fov = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+}
+
+document.getElementById("rightAspectRatio").addEventListener("change", handleChangeCameraRightAspectRatio);
+function handleChangeCameraRightAspectRatio(_event) {
+    // adjust the AspectRatio
+    cameraRight.aspect = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+
+}
+
+document.getElementById("rightNearPlane").addEventListener("change", handleChangeCameraRightNearPlane);
+function handleChangeCameraRightNearPlane(_event) {
+    // adjust the NearPlane
+    cameraRight.near = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+
+}
+
+document.getElementById("rightFarPlane").addEventListener("change", handleChangeCameraRightFarPlane);
+function handleChangeCameraRightFarPlane(_event) {
+    // adjust the FarPlane
+    cameraRight.far = parseFloat(_event.target.value);
+    cameraRight.updateProjectionMatrix();
+
+}
 
 function resetDomElementForPoint(_point) {
     // save the point for manipulation
@@ -383,6 +443,7 @@ function handleDeletePoint(_event) {
         if (points.children[i].uuid == selectedPoint.uuid) {
             // remove the object
             points.remove(points.children[i]);
+            // remove ray (TODO)
         }
     }
     // remove all lines connected to the point
@@ -407,17 +468,23 @@ function handleChangePointPositionX(_event) {
     selectedPoint.position.x = _event.target.value;
     // update connected lines
     updateLinesConnectedToPoint("change");
+
+    resetBeams(cameras, points);
 }
 
 document.getElementById("pointCoordY").addEventListener("change", handleChangePointPositionY);
 function handleChangePointPositionY(_event) {
     selectedPoint.position.y = _event.target.value;
     updateLinesConnectedToPoint("change");
+
+    resetBeams(cameras, points);
 }
 document.getElementById("pointCoordZ").addEventListener("change", handleChangePointPositionZ);
 function handleChangePointPositionZ(_event) {
     selectedPoint.position.z = _event.target.value;
     updateLinesConnectedToPoint("change");
+
+    resetBeams(cameras, points);
 }
 
 function updateLinesConnectedToPoint(_operation) {
@@ -444,51 +511,15 @@ function updateLinesConnectedToPoint(_operation) {
     }
 }
 
-// create a raycaster
-let raycaster = new THREE.Raycaster();
-// create vector the save the coordinates of where the user clicked on the page
-let mouse = new THREE.Vector2();
-// create an EventListener to react on a mouse-click
-document.addEventListener("mousedown", onDocumentMouseDown);
-// handle the user clicking somewhere
-function onDocumentMouseDown(_event) {
-    // check if user clicked with the left mouse button
-    if (_event.which == 1) {
-        // save the coordinates of the point on which the user clicked 
-        let canvasBounds = rendererScene.getContext().canvas.getBoundingClientRect();
-        mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
-        mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
+/* BEAMS */
 
-        // update the picking ray with the camera and mouse position
-        raycaster.setFromCamera(mouse, cameraScene);
-
-        // get all objects that shall be selectable
-        let objects = scene.getObjectByName("Selectables").children;
-
-        let recursiveFlag = true; // true = it also checks all descendants of the objects
-        // false = it only checks intersection with the objects
-        // get the objects that intersected with the ray
-        let intersects = raycaster.intersectObjects(objects, recursiveFlag);
-
-        // check if a object intersected with the ray
-        if (intersects[0] != undefined) {
-            switch (intersects[0].object.type) {
-                case ("Mesh"): // = Point
-                    // un-mark the previously selected object
-                    unmarkObject(selectedPoint);
-                    // mark/color the new object
-                    intersects[0].object.material.color.set(0xff802a);
-                    // reset the dom element to show its values
-                    resetDomElementForPoint(intersects[0].object.parent);
-                    break;
-                case ("Line"): // = Line
-                    unmarkObject(selectedLine);
-                    intersects[0].object.material.color.set(0xff802a);
-                    resetDomElementForLine(intersects[0].object.parent);
-                    break;
-            }
+// draw beams from Camera-Projection-Center to Points
+function createBeams(_cameras, _objects) { // _cameras: THREE.Object3D[] | _objects: THREE.Object3D[]
+    for (let i = 0; i < _cameras.children.length; i++) {
+        for (let j = 0; j < _objects.children.length; j++) {
+            beams.add(new Beam(_cameras.children[i], _objects.children[j]));
         }
-    } else { }
+    }
 }
 
 function onWindowResize() {
@@ -509,4 +540,65 @@ function onWindowResize() {
     cameraRight.aspect = canvasAspect;
     cameraRight.updateProjectionMatrix();
     
+}
+
+function resetBeams(_cameras, _objects) {
+    beams.clear();
+    createBeams(_cameras, _objects);
+}
+
+// turn beams on or off
+document.getElementById("toggleBeams").addEventListener("change", handleToggleBeams);
+
+function handleToggleBeams(_event) {
+    switch (_event.target.checked) {
+        case true:
+            scene.add(beams);
+            break;
+        case false:
+            beams.removeFromParent();
+            break;
+    }
+}
+
+/* RAYCASTING 3D-VIEWER + 2D-VIEWERS (left & right camera) */
+
+let raycaster = new THREE.Raycaster(); // create a raycaster
+let mouse = new THREE.Vector2(); // create vector the save the coordinates of where the user clicked on the page
+document.addEventListener("mousedown", onDocumentMouseDown); // create an EventListener to react on a mouse-click
+
+
+function onDocumentMouseDown(_event) { // handle the user clicking somewhere
+    if (_event.which == 1) { // check if user clicked with the left mouse button
+        castRay(_event, rendererScene, cameraScene, scene.getObjectByName("Selectables").children);
+        castRay(_event, rendererLeft, cameraLeft, scene.getObjectByName("Points").children);
+        castRay(_event, rendererRight, cameraRight, scene.getObjectByName("Points").children);
+    }
+}
+
+function castRay(_event, _renderer, _camera, _selectableObjects) {
+    let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
+    // save the coordinates of the point on which the user clicked 
+    mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
+    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
+    raycaster.setFromCamera(mouse, _camera); // update the picking ray with the camera and mouse position
+    
+    let recursiveFlag = true; // true = it also checks all descendants of the objects || false = it only checks intersection with the objects
+    let intersects = raycaster.intersectObjects(_selectableObjects, recursiveFlag); // get the objects that intersected with the ray
+
+    if (intersects[0] != undefined) { // check if a object intersected with the ray
+        switch (intersects[0].object.type) {
+            case ("Mesh"): // = Point
+                unmarkObject(selectedPoint); // un-mark the previously selected object
+                markObject(intersects[0].object); // mark/color the new object
+                resetDomElementForPoint(intersects[0].object.parent); // reset the dom element to show its values
+                break;
+            case ("Line"): // = Line
+                unmarkObject(selectedLine);
+                markObject(intersects[0].object);
+                resetDomElementForLine(intersects[0].object.parent);
+                break;
+        }
+    }
+
 }
