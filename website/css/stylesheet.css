@@ -1,3 +1,10 @@
+@media screen and (min-width: 994px), (max-width: 994px), (max-height: 994px) {
+
+    div#leftColumn {
+        height: 100%;
+    }
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
@@ -31,6 +38,7 @@ main {
 #nav {
     position: fixed;
     margin-top: 64px;
+    z-index: 1;
 }
 #leftColumn {
     position: fixed;
@@ -44,25 +52,11 @@ input {
     color: #008C5A;
 }
 
-#viewer3D {
+#viewport {
     position: fixed;
     z-index: 0;
     margin-top: 64px;
-    margin-left: 286px;
-}
-
-#viewer2DLeft {
-    position: fixed;
-    z-index: 0;
-    margin-top: 317px;
-    margin-left: 286px;
-}
-
-#viewer2DRight {
-    position: fixed;
-    z-index: 0;
-    margin-top: 317px;
-    margin-left: 784px;
+    /* margin-left: 286px; */
 }
 
 h3 {
@@ -70,7 +64,7 @@ h3 {
     margin-top: 10px;
 }
 
-#pointUI, #lineUI, #output, #camUI, #paramUI {
+#leftColumn, #pointUI, #lineUI, #camUI, #paramUI {
     border-style: solid;
     border-color: #008C5A;
 }

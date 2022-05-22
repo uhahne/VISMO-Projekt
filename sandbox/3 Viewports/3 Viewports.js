@@ -41,7 +41,7 @@ function init()
 
 
     // create the top camera to mathematically define the projection of the right camera and the scene onto the screen
-    cameraTop = new THREE.PerspectiveCamera(fieldOfView, 0.5 * aspect, nearPlane, farPlane*10 );
+    cameraTop = new THREE.PerspectiveCamera(fieldOfView, 2 * aspect, nearPlane, farPlane*10 );
 
 
 

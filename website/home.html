@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0,  user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script type="module" src="js/script.js" defer></script>
     <script type="module" src="js/classes/Point.js" defer></script>
     <script type="module" src="js/classes/DefaultModel.js" defer></script>
@@ -142,9 +142,10 @@
             </div>
 
         </div>
-        <canvas id="viewer3D" width="994px" height="252px"></canvas>
-        <canvas id="viewer2DLeft" width="497px" height="252px"></canvas>
-        <canvas id="viewer2DRight" width="497px" height="252px"></canvas>
+        <div id="viewport"> 
+            <canvas id="vismoViewport" width="128" height="128"></canvas>
+        </div>
+       
     </main>
     <footer>
         

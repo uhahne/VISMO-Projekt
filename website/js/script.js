@@ -7,9 +7,8 @@ import Beam from "./classes/Beam.js";
 import Grid from "./classes/Grid.js";
 
 let rendererScene, scene, controls;
-let rendererLeft, rendererRight;
-let cameras;
-let cameraScene, cameraLeft, cameraRight;
+
+let cameras, cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
 let selectables;
@@ -19,35 +18,28 @@ let beams;
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
 
-let canvasScene, canvasLeft, canvasRight;
+// get canvas and define canvas size
+let canvasScene = document.getElementById("vismoViewport");
 let canvasWidth, canvasHeight, canvasAspect;
+
+canvasWidth = window.innerWidth;
+canvasHeight = window.innerHeight;
+canvasAspect = canvasWidth / canvasHeight;
 
 init();
 animate();
 
 function init() {
-    // rendererScene
-    canvasScene = document.getElementById("viewer3D");
+
+    window.addEventListener( 'resize', onWindowResize );
+
+    // define renderer for the scene and add setPixelRatio
     rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
-    rendererScene.setClearColor(0x393939, 1);
+
+    rendererScene.setPixelRatio( window.devicePixelRatio );
+    rendererScene.setSize( window.innerWidth, window.innerHeight );
+    rendererScene.setClearColor(0x3f3f3f, 1);
     rendererScene.autoClear = false;
-
-    // rendererLeft
-    canvasLeft = document.getElementById("viewer2DLeft");
-    rendererLeft = new THREE.WebGLRenderer({ canvas: canvasLeft, antialias: true });
-    rendererLeft.setClearColor(0x393939, 1);
-    rendererLeft.autoClear = false;
-
-    // rendererRight
-    canvasRight = document.getElementById("viewer2DRight");
-    rendererRight = new THREE.WebGLRenderer({ canvas: canvasRight, antialias: true });
-    rendererRight.setClearColor(0x393939, 1);
-    rendererRight.autoClear = false;
-
-    // canvas size
-    canvasWidth = canvasScene.clientWidth;
-    canvasHeight = canvasScene.clientHeight;
-    canvasAspect = canvasWidth / canvasHeight
 
     // scene
     scene = new THREE.Scene();
@@ -68,10 +60,10 @@ function init() {
 
     // cameraLeft
     let leftFOV = 50;
-    let leftNear = 0.1;
+    let leftNear = 1;
     let leftFar = 20;
 
-    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect / 2, leftNear, leftFar);
+    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect, leftNear, leftFar);
     cameraLeft.position.set(-10, 0, 12);
     cameraLeft.lookAt(0, 0, 0);
     cameras.add(cameraLeft);
@@ -81,10 +73,10 @@ function init() {
 
     // cameraRight
     let rightFOV = 50;
-    let rightNear = 0.1;
+    let rightNear = 1;
     let rightFar = 20;
 
-    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect / 2, rightNear, rightFar);
+    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect, rightNear, rightFar);
     cameraRight.position.set(10, 0, 12);
     cameraRight.lookAt(0, 0, 0);
     cameras.add(cameraRight);
@@ -140,30 +132,31 @@ function animate() {
     // render scene
     rendererScene.clear();
     controls.update();
+
+    //set viewport for 3D viewer
+    rendererScene.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
     
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
-
+    
     rendererScene.render(scene, cameraScene);
 
- 
-
-    // render left camera
-    rendererLeft.clear();
+    //set viewport for left 2D viewer
+    rendererScene.setViewport(0, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = true;
-    
-    rendererLeft.render(scene, cameraLeft);
 
+    rendererScene.render(scene, cameraLeft);
 
-    // render right camera
-    rendererRight.clear();
+    //set viewport for right 2D viewer
+    rendererScene.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = false;
-    
-    rendererRight.render(scene, cameraRight);
+
+    rendererScene.render(scene, cameraRight);
+
 }
 
 // get tab buttons by id and add click event listener
@@ -529,6 +522,26 @@ function createBeams(_cameras, _objects) { // _cameras: THREE.Object3D[] | _obje
     }
 }
 
+function onWindowResize() {
+
+    // recompute the aspect ratio from new window size
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+    canvasAspect = canvasWidth / canvasHeight;
+
+    rendererScene.setSize(canvasWidth, canvasHeight);
+
+    cameraScene.aspect = canvasAspect;
+    cameraScene.updateProjectionMatrix();
+
+    cameraLeft.aspect = canvasAspect;
+    cameraLeft.updateProjectionMatrix();
+
+    cameraRight.aspect = canvasAspect;
+    cameraRight.updateProjectionMatrix();
+    
+}
+
 function resetBeams(_cameras, _objects) {
     beams.clear();
     createBeams(_cameras, _objects);
@@ -558,16 +571,17 @@ document.addEventListener("mousedown", onDocumentMouseDown); // create an EventL
 function onDocumentMouseDown(_event) { // handle the user clicking somewhere
     if (_event.which == 1) { // check if user clicked with the left mouse button
         castRay(_event, rendererScene, cameraScene, scene.getObjectByName("Selectables").children);
-        castRay(_event, rendererLeft, cameraLeft, scene.getObjectByName("Points").children);
-        castRay(_event, rendererRight, cameraRight, scene.getObjectByName("Points").children);
+        castRay(_event, rendererScene, cameraLeft, scene.getObjectByName("Points").children);
+        castRay(_event, rendererScene, cameraRight, scene.getObjectByName("Points").children);
     }
 }
 
 function castRay(_event, _renderer, _camera, _selectableObjects) {
+    // TODO: these bounds do not reflect the new viewports (*4 in line 584 fixes it for now)
     let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
     // save the coordinates of the point on which the user clicked 
     mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
-    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
+    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 4 + 1;
     raycaster.setFromCamera(mouse, _camera); // update the picking ray with the camera and mouse position
     
     let recursiveFlag = true; // true = it also checks all descendants of the objects || false = it only checks intersection with the objects
@@ -587,4 +601,5 @@ function castRay(_event, _renderer, _camera, _selectableObjects) {
                 break;
         }
     }
+
 }
