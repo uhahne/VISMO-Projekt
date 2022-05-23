@@ -50,7 +50,7 @@ function init() {
     scene.add(cameras);
 
     // cameraScene
-    cameraScene = new THREE.PerspectiveCamera(75, canvasAspect, 0.1, 1000);
+    cameraScene = new THREE.PerspectiveCamera(75, canvasAspect * 2, 0.1, 1000);
     cameraScene.position.z = 12;
     cameraScene.lookAt(0, 0, 0);
     scene.add(cameraScene);
@@ -531,7 +531,7 @@ function onWindowResize() {
 
     rendererScene.setSize(canvasWidth, canvasHeight);
 
-    cameraScene.aspect = canvasAspect;
+    cameraScene.aspect = canvasAspect * 2;
     cameraScene.updateProjectionMatrix();
 
     cameraLeft.aspect = canvasAspect;
