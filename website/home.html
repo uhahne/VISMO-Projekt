@@ -22,6 +22,7 @@
             <button id="building">Gebäude</button>
             <button id="camera">Kameras</button>
             <button id="parameter">Parameter</button>
+            <button id="settings">Einstell.</button>
             <!-- <button id="matrices">Matrizen</button> -->
         </div>
 
@@ -34,16 +35,14 @@
                 <div id="pointCreation">
                     <p>
                         <input id="newPointName" type="text" placeholder="Name" autocomplete="off"> <button id="createPoint">+</button> <span id="pointNameFeedback"></span>
-                        <input id="toggleBeams" type="checkbox"><b>Strahlen</b>
                     </p>
                 </div>
                 <hr>
                 <div id="pointManipulation">
-                    <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span></p>
+                    <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <button id="deletePoint">löschen</button></p>
                     <label><b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <p><button id="deletePoint">löschen</button></p>
 
                     <p><b>Linke Kamera Bildebene Koordinaten:</b></p>
                     <label><b>x</b> = <input id="pointCoordXLeft" type="number" placeholder="0" autocomplete="off"></input></label>
@@ -63,8 +62,7 @@
                 </div>
                 <hr>
                 <div id="lineManipulation">
-                    <p><b>Ausgewählte Linie</b>: <span id="lineName"></span></p>
-                    <p><button id="deleteLine">Linie löschen</button></p>
+                    <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <button id="deleteLine">löschen</button></p>
                 </div>
             </div>
 
@@ -135,6 +133,16 @@
                     <label><b>x</b> = <input id="co3CoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="co3CoordY" type="number" placeholder="0" autocomplete="off"></input></label>
                 </div>
+            </div>
+
+            <!-- settings tab -->
+            <div id="settingsUI">
+                <p><b>Strahlen:</b></p>
+                <select id="beams">
+                    <option value="none">Keine</option>
+                    <option value="all">Alle</option>
+                    <option value="one">Ausgewählte Punkt</option>
+                </select>
             </div>
 
             <div id="output">

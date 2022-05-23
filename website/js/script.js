@@ -6,14 +6,14 @@ import DefaultModel from "./classes/DefaultModel.js";
 import Beam from "./classes/Beam.js";
 import Grid from "./classes/Grid.js";
 
-let rendererScene, scene, controls;
+let renderer, scene, controls;
 
 let cameras, cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
 
 let selectables;
 let points, lines;
-let beams;
+let beams, toggleBeams;
 
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
@@ -31,15 +31,15 @@ animate();
 
 function init() {
 
-    window.addEventListener( 'resize', onWindowResize );
+    window.addEventListener('resize', onWindowResize);
 
     // define renderer for the scene and add setPixelRatio
-    rendererScene = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
+    renderer = new THREE.WebGLRenderer({ canvas: canvasScene, antialias: true });
 
-    rendererScene.setPixelRatio( window.devicePixelRatio );
-    rendererScene.setSize( window.innerWidth, window.innerHeight );
-    rendererScene.setClearColor(0x3f3f3f, 1);
-    rendererScene.autoClear = false;
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setClearColor(0x3f3f3f, 1);
+    renderer.autoClear = false;
 
     // scene
     scene = new THREE.Scene();
@@ -56,7 +56,7 @@ function init() {
     scene.add(cameraScene);
 
     // cameraScene controls
-    controls = new OrbitControls(cameraScene, rendererScene.domElement);
+    controls = new OrbitControls(cameraScene, renderer.domElement);
 
     // cameraLeft
     let leftFOV = 50;
@@ -117,45 +117,46 @@ function init() {
 
     // beams group
     beams = new THREE.Group();
-    createBeams(cameras, points);
+    toggleBeams = "none";
 
     // grid
     scene.add(new Grid());
 
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
+    document.getElementById("settingsUI").setAttribute("style", "display: none");
 }
 
 function animate() {
     requestAnimationFrame(animate);
 
     // render scene
-    rendererScene.clear();
+    renderer.clear();
     controls.update();
 
     //set viewport for 3D viewer
-    rendererScene.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
+    renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
     
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
     
-    rendererScene.render(scene, cameraScene);
+    renderer.render(scene, cameraScene);
 
     //set viewport for left 2D viewer
-    rendererScene.setViewport(0, 0, canvasWidth / 2, canvasHeight / 2); 
+    renderer.setViewport(0, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = true;
 
-    rendererScene.render(scene, cameraLeft);
+    renderer.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
-    rendererScene.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2); 
+    renderer.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = false;
 
-    rendererScene.render(scene, cameraRight);
+    renderer.render(scene, cameraRight);
 
 }
 
@@ -163,12 +164,14 @@ function animate() {
 document.getElementById("building").addEventListener("click", handleBuildingTab);
 document.getElementById("camera").addEventListener("click", handleCamTab);
 document.getElementById("parameter").addEventListener("click", handleParamTab);
+document.getElementById("settings").addEventListener("click", handleSettingsTab);
 
 // display input fields for point selection and manipulation
 function handleBuildingTab(_event) {
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("pointUI").setAttribute("style", "visibility: visible");
     document.getElementById("lineUI").setAttribute("style", "visibility: visible");
+    document.getElementById("settingsUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
 }
 
@@ -177,6 +180,7 @@ function handleCamTab(_event) {
     document.getElementById("pointUI").setAttribute("style", "display: none");
     document.getElementById("lineUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "display: none");
+    document.getElementById("settingsUI").setAttribute("style", "display: none");
     document.getElementById("camUI").setAttribute("style", "visibility: visible");
 }
 
@@ -184,7 +188,16 @@ function handleParamTab(_event) {
     document.getElementById("pointUI").setAttribute("style", "display: none");
     document.getElementById("lineUI").setAttribute("style", "display: none");
     document.getElementById("camUI").setAttribute("style", "display: none");
+    document.getElementById("settingsUI").setAttribute("style", "display: none");
     document.getElementById("paramUI").setAttribute("style", "visibility: visible");
+}
+
+function handleSettingsTab(_event) {
+    document.getElementById("pointUI").setAttribute("style", "display: none");
+    document.getElementById("lineUI").setAttribute("style", "display: none");
+    document.getElementById("camUI").setAttribute("style", "display: none");
+    document.getElementById("paramUI").setAttribute("style", "display: none");
+    document.getElementById("settingsUI").setAttribute("style", "visibility: visible");
 }
 
 
@@ -209,6 +222,8 @@ function handleCreatePoint(_event) {
     unmarkObject(selectedPoint); // unmark previous point
     markObject(newPoint); // mark new point
     resetDomElementForPoint(newPoint); // reset the dom element where a point can be manipulated
+    selectedPoint = newPoint; // save the point for manipulation
+    handleResetBeams();
 }
 
 document.getElementById("setStartPoint").addEventListener("click", handleSetStartPoint);
@@ -283,7 +298,7 @@ function handleChangeCameraLeftPositionX(_event) {
     // move the camera in the scene
     cameraLeft.position.x = _event.target.value;
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
@@ -291,7 +306,7 @@ function handleChangeCameraLeftPositionY(_event) {
     // move the camera in the scene
     cameraLeft.position.y = _event.target.value;
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraLeftPositionZ);
@@ -299,7 +314,7 @@ function handleChangeCameraLeftPositionZ(_event) {
     // move the camera in the scene
     cameraLeft.position.z = _event.target.value;
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 // Make the left Camera Parameters adjustable
@@ -343,7 +358,7 @@ function handleChangeCameraRightPositionX(_event) {
     // move the camera in the scene
     cameraRight.position.x = _event.target.value;
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraRightPositionY);
@@ -351,7 +366,7 @@ function handleChangeCameraRightPositionY(_event) {
     // move the camera in the scene
     cameraRight.position.y = _event.target.value;
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraRightPositionZ);
@@ -359,7 +374,7 @@ function handleChangeCameraRightPositionZ(_event) {
     // move the camera in the scene
     cameraRight.position.z = _event.target.value;
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 // Make the Right Camera Parameters adjustable
@@ -395,8 +410,6 @@ function handleChangeCameraRightFarPlane(_event) {
 }
 
 function resetDomElementForPoint(_point) {
-    // save the point for manipulation
-    selectedPoint = _point;
     // input the name of the point
     document.getElementById("pointName").innerText = _point.name;
     // input the x-/y-/z-coordinate on the page to be the same as the actual object's x-coordinate
@@ -469,7 +482,7 @@ function handleChangePointPositionX(_event) {
     // update connected lines
     updateLinesConnectedToPoint("change");
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 document.getElementById("pointCoordY").addEventListener("change", handleChangePointPositionY);
@@ -477,14 +490,14 @@ function handleChangePointPositionY(_event) {
     selectedPoint.position.y = _event.target.value;
     updateLinesConnectedToPoint("change");
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 document.getElementById("pointCoordZ").addEventListener("change", handleChangePointPositionZ);
 function handleChangePointPositionZ(_event) {
     selectedPoint.position.z = _event.target.value;
     updateLinesConnectedToPoint("change");
 
-    resetBeams(cameras, points);
+    handleResetBeams()
 }
 
 function updateLinesConnectedToPoint(_operation) {
@@ -511,17 +524,6 @@ function updateLinesConnectedToPoint(_operation) {
     }
 }
 
-/* BEAMS */
-
-// draw beams from Camera-Projection-Center to Points
-function createBeams(_cameras, _objects) { // _cameras: THREE.Object3D[] | _objects: THREE.Object3D[]
-    for (let i = 0; i < _cameras.children.length; i++) {
-        for (let j = 0; j < _objects.children.length; j++) {
-            beams.add(new Beam(_cameras.children[i], _objects.children[j]));
-        }
-    }
-}
-
 function onWindowResize() {
 
     // recompute the aspect ratio from new window size
@@ -529,9 +531,9 @@ function onWindowResize() {
     canvasHeight = window.innerHeight;
     canvasAspect = canvasWidth / canvasHeight;
 
-    rendererScene.setSize(canvasWidth, canvasHeight);
+    renderer.setSize(canvasWidth, canvasHeight);
 
-    cameraScene.aspect = canvasAspect * 2;
+    cameraScene.aspect = canvasAspect * 1.5;
     cameraScene.updateProjectionMatrix();
 
     cameraLeft.aspect = canvasAspect;
@@ -542,21 +544,68 @@ function onWindowResize() {
     
 }
 
+/* BEAMS */
+
+// draw beams from Camera-Projection-Center to Points
+function createBeams(_cameras, _objects) { // _cameras: THREE.Object3D[] | _objects: THREE.Object3D[]
+    beams.clear();
+    for (let i = 0; i < _cameras.children.length; i++) {
+        for (let j = 0; j < _objects.children.length; j++) {
+            beams.add(new Beam(_cameras.children[i], _objects.children[j]));
+        }
+    }
+}
+
+function createBeam(_cameras, _object) { // _cameras: THREE.Object3D[] | _objects: THREE.Object3D
+    if (selectedPoint != null) {
+        beams.clear();
+        for (let i = 0; i < _cameras.children.length; i++) {
+            beams.add(new Beam(_cameras.children[i], _object));
+        }
+    }
+}
+
+function handleResetBeams() {
+    switch (toggleBeams) {
+        case "none":
+            break;
+        case "all":
+            resetBeams(cameras, points);
+            break;
+        case "one":
+            resetBeam(cameras, selectedPoint);
+            break;
+    }
+}
+
+function resetBeam(_cameras, _object) {
+    beams.clear();
+    createBeam(_cameras, _object);
+}
+
+
 function resetBeams(_cameras, _objects) {
     beams.clear();
     createBeams(_cameras, _objects);
 }
 
-// turn beams on or off
-document.getElementById("toggleBeams").addEventListener("change", handleToggleBeams);
+document.getElementById("beams").addEventListener("change", handleBeams);
 
-function handleToggleBeams(_event) {
-    switch (_event.target.checked) {
-        case true:
+function handleBeams(_event) {
+    switch (_event.target.value) {
+        case "none":
+            toggleBeams = "none";
+            beams.removeFromParent();
+            break;
+        case "all":
+            toggleBeams = "all";
+            createBeams(cameras, points);
             scene.add(beams);
             break;
-        case false:
-            beams.removeFromParent();
+        case "one":
+            toggleBeams = "one";
+            createBeam(cameras, selectedPoint);
+            scene.add(beams);
             break;
     }
 }
@@ -570,18 +619,32 @@ document.addEventListener("mousedown", onDocumentMouseDown); // create an EventL
 
 function onDocumentMouseDown(_event) { // handle the user clicking somewhere
     if (_event.which == 1) { // check if user clicked with the left mouse button
-        castRay(_event, rendererScene, cameraScene, scene.getObjectByName("Selectables").children);
-        castRay(_event, rendererScene, cameraLeft, scene.getObjectByName("Points").children);
-        castRay(_event, rendererScene, cameraRight, scene.getObjectByName("Points").children);
+        castRay(_event, renderer, cameraScene, scene.getObjectByName("Selectables").children);
+        castRay(_event, renderer, cameraLeft, scene.getObjectByName("Points").children);
+        castRay(_event, renderer, cameraRight, scene.getObjectByName("Points").children);
     }
 }
 
 function castRay(_event, _renderer, _camera, _selectableObjects) {
     // TODO: these bounds do not reflect the new viewports (*4 in line 584 fixes it for now)
     let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
+
     // save the coordinates of the point on which the user clicked 
-    mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
-    mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 4 + 1;
+    switch (_camera) {
+        case cameraScene:
+            mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
+            mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 4 + 1;
+            break;
+        case cameraLeft:
+            mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 4 - 1;
+            mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 4 + 3;
+            break;
+        case cameraRight:
+            mouse.x = ((_event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 4 - 3;
+            mouse.y = - ((_event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 4 + 3;
+            break;
+    }
+
     raycaster.setFromCamera(mouse, _camera); // update the picking ray with the camera and mouse position
     
     let recursiveFlag = true; // true = it also checks all descendants of the objects || false = it only checks intersection with the objects
@@ -593,6 +656,8 @@ function castRay(_event, _renderer, _camera, _selectableObjects) {
                 unmarkObject(selectedPoint); // un-mark the previously selected object
                 markObject(intersects[0].object); // mark/color the new object
                 resetDomElementForPoint(intersects[0].object.parent); // reset the dom element to show its values
+                selectedPoint = intersects[0].object.parent; // save the point for manipulation
+                handleResetBeams();
                 break;
             case ("Line"): // = Line
                 unmarkObject(selectedLine);
