@@ -533,7 +533,7 @@ function onWindowResize() {
 
     renderer.setSize(canvasWidth, canvasHeight);
 
-    cameraScene.aspect = canvasAspect * 1.5;
+    cameraScene.aspect = canvasAspect * 2;
     cameraScene.updateProjectionMatrix();
 
     cameraLeft.aspect = canvasAspect;
