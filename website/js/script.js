@@ -5,6 +5,7 @@ import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
 import Beam from "./classes/Beam.js";
 import Grid from "./classes/Grid.js";
+import Camera from "./classes/Camera.js";
 
 let renderer, scene, controls;
 
@@ -59,30 +60,51 @@ function init() {
     controls = new OrbitControls(cameraScene, renderer.domElement);
 
     // cameraLeft
-    let leftFOV = 50;
-    let leftNear = 1;
-    let leftFar = 20;
+    
+    // Camera 2 Test from the exercise
+    cameraLeft = new Camera(new THREE.Vector3(5, 0, 2), 1, canvasAspect);
+    cameraLeft.rotateY(Math.PI);
+    cameraLeft.rotateY(-Math.PI / 4);
+    cameraLeft.updateEverything();
+    cameras.add(cameraLeft);
+    // console.log("Bildpunkt Ab' auf Kamera 2: ");
+    // console.log(cameraLeft.getImageCoord(new THREE.Vector3(3, -2, 3))); // CORRECT
 
-    cameraLeft = new THREE.PerspectiveCamera(leftFOV, canvasAspect, leftNear, leftFar);
-    cameraLeft.position.set(-10, 0, 12);
+    cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
+    scene.add(cameraHelperLeft);
+    
+    // old
+    /*
+    cameraLeft = new Camera(new THREE.Vector3(-10, 0, 12), 1, canvasAspect);
     cameraLeft.lookAt(0, 0, 0);
     cameras.add(cameraLeft);
 
     cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
     scene.add(cameraHelperLeft);
+    */
 
     // cameraRight
-    let rightFOV = 50;
-    let rightNear = 1;
-    let rightFar = 20;
+    
+    // Camera 1 Test from the exercise
+    cameraRight = new Camera(new THREE.Vector3(0, 0, 0), 1, canvasAspect);
+    cameraRight.rotateY(Math.PI);
+    cameraRight.updateEverything();
+    cameras.add(cameraRight);
+    // console.log("Bildpunkt Ab' auf Kamera 1: ");
+    // console.log(cameraRight.getImageCoord(new THREE.Vector3(3, -2, 3))); // CORRECT
 
-    cameraRight = new THREE.PerspectiveCamera(rightFOV, canvasAspect, rightNear, rightFar);
-    cameraRight.position.set(10, 0, 12);
+    cameraHelperRight = new THREE.CameraHelper(cameraRight);
+    scene.add(cameraHelperRight);
+    
+    // old
+    /*
+    cameraRight = new Camera(new THREE.Vector3(10, 0, 12), 1, canvasAspect);
     cameraRight.lookAt(0, 0, 0);
     cameras.add(cameraRight);
 
     cameraHelperRight = new THREE.CameraHelper(cameraRight);
     scene.add(cameraHelperRight);
+    */
 
     // points group
     points = new THREE.Group();
@@ -298,7 +320,8 @@ function handleChangeCameraLeftPositionX(_event) {
     // move the camera in the scene
     cameraLeft.position.x = _event.target.value;
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
@@ -306,7 +329,8 @@ function handleChangeCameraLeftPositionY(_event) {
     // move the camera in the scene
     cameraLeft.position.y = _event.target.value;
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraLeftPositionZ);
@@ -314,7 +338,8 @@ function handleChangeCameraLeftPositionZ(_event) {
     // move the camera in the scene
     cameraLeft.position.z = _event.target.value;
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 // Make the left Camera Parameters adjustable
@@ -358,7 +383,8 @@ function handleChangeCameraRightPositionX(_event) {
     // move the camera in the scene
     cameraRight.position.x = _event.target.value;
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraRightPositionY);
@@ -366,7 +392,8 @@ function handleChangeCameraRightPositionY(_event) {
     // move the camera in the scene
     cameraRight.position.y = _event.target.value;
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraRightPositionZ);
@@ -374,7 +401,8 @@ function handleChangeCameraRightPositionZ(_event) {
     // move the camera in the scene
     cameraRight.position.z = _event.target.value;
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 // Make the Right Camera Parameters adjustable
@@ -416,6 +444,17 @@ function resetDomElementForPoint(_point) {
     document.getElementById("pointCoordX").value = _point.position.x;
     document.getElementById("pointCoordY").value = _point.position.y;
     document.getElementById("pointCoordZ").value = _point.position.z;
+    /* picture plane coordinates */ //TODO: round coordinate values in function
+    // camera left
+    cameraLeft.updateEverything();
+    let pointLeftImgCoord = cameraLeft.getImageCoord(_point.position);
+    document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoord.x;
+    document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoord.y;
+    // camera right
+    cameraRight.updateEverything();
+    let pointRightImgCoord = cameraRight.getImageCoord(_point.position);
+    document.getElementById("pointCoordXRight").innerHTML = pointRightImgCoord.x;
+    document.getElementById("pointCoordYRight").innerHTML = pointRightImgCoord.y;
 }
 
 function resetDomElementForLine(_line) {
@@ -427,9 +466,15 @@ function resetDomElementForLine(_line) {
 
 function emptyDomElementForPoint(_point) {
     document.getElementById("pointName").innerText = "";
+    // world coordinates
     document.getElementById("pointCoordX").value = 0;
     document.getElementById("pointCoordY").value = 0;
     document.getElementById("pointCoordZ").value = 0;
+    // picture plane coordinates
+    document.getElementById("pointCoordXLeft").innerHTML = 0;
+    document.getElementById("pointCoordYLeft").innerHTML = 0;
+    document.getElementById("pointCoordXRight").innerHTML = 0;
+    document.getElementById("pointCoordYRight").innerHTML = 0;
 }
 
 function emptyDomElementForLine(_line) {
@@ -456,7 +501,8 @@ function handleDeletePoint(_event) {
         if (points.children[i].uuid == selectedPoint.uuid) {
             // remove the object
             points.remove(points.children[i]);
-            // remove ray (TODO)
+
+            handleResetBeams();
         }
     }
     // remove all lines connected to the point
@@ -482,7 +528,8 @@ function handleChangePointPositionX(_event) {
     // update connected lines
     updateLinesConnectedToPoint("change");
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 document.getElementById("pointCoordY").addEventListener("change", handleChangePointPositionY);
@@ -490,14 +537,16 @@ function handleChangePointPositionY(_event) {
     selectedPoint.position.y = _event.target.value;
     updateLinesConnectedToPoint("change");
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 document.getElementById("pointCoordZ").addEventListener("change", handleChangePointPositionZ);
 function handleChangePointPositionZ(_event) {
     selectedPoint.position.z = _event.target.value;
     updateLinesConnectedToPoint("change");
 
-    handleResetBeams()
+    resetDomElementForPoint(selectedPoint);
+    handleResetBeams();
 }
 
 function updateLinesConnectedToPoint(_operation) {

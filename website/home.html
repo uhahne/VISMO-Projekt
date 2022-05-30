@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <h1>VISMO-Projekt Version 1.1.4</h1>
+        <h1>VISMO-Projekt Version 1.1.5</h1>
         <p><a href="help.html">Help</a></p>
         <p id="aboutUs"><a href="aboutUs.html">About Us</a></p>
     </header>
@@ -39,18 +39,14 @@
                 </div>
                 <hr>
                 <div id="pointManipulation">
-                    <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <button id="deletePoint">löschen</button></p>
-                    <label><b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <img id="deletePoint" src="graphics/trashcan.png"></p>
+                    <b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
+                    <b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                    <b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
 
-                    <p><b>Linke Kamera Bildebene Koordinaten:</b></p>
-                    <label><b>x</b> = <input id="pointCoordXLeft" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="pointCoordYLeft" type="number" placeholder="0" autocomplete="off"></input></label>
-
-                    <p><b>Rechte Kamera Bildebene Koordinaten:</b></p>
-                    <label><b>x</b> = <input id="pointCoordXRight" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="pointCoordYRight" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <p><b>Bildebene Koordinaten:</b></p>
+                    <p><b>Links:</b> (<b>x</b> = <span id="pointCoordXLeft">0</span> | <b>y</b> = <span id="pointCoordYLeft">0</span>)</p>
+                    <p><b>Rechts:</b> (<b>x</b> = <span id="pointCoordXRight">0</span> | <b>y</b> = <span id="pointCoordYRight">0</span>)</p>
                 </div>
             </div>
             <div id="lineUI">
@@ -62,7 +58,7 @@
                 </div>
                 <hr>
                 <div id="lineManipulation">
-                    <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <button id="deleteLine">löschen</button></p>
+                    <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <img id="deleteLine" src="graphics/trashcan.png"></p>
                 </div>
             </div>
 

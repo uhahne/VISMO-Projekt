@@ -82,6 +82,11 @@ button:hover {
     background-color: #acacac;
 }
 
+#deletePoint:hover, #deleteLine:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+
 a:link, a:visited, a:active {
     color: white;
     text-decoration: none;
