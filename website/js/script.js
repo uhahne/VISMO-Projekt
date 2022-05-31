@@ -133,7 +133,7 @@ function animate() {
     // render scene
     renderer.clear();
     controls.update();
-
+    
     //set viewport for 3D viewer
     renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
     
@@ -533,7 +533,7 @@ function onWindowResize() {
 
     renderer.setSize(canvasWidth, canvasHeight);
 
-    cameraScene.aspect = canvasAspect * 1.5;
+    cameraScene.aspect = canvasAspect * 2;
     cameraScene.updateProjectionMatrix();
 
     cameraLeft.aspect = canvasAspect;
