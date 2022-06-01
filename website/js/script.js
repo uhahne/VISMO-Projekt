@@ -168,14 +168,14 @@ function animate() {
     renderer.setViewport(0, 0, canvasWidth / 2, canvasHeight / 2); 
 
     cameraHelperLeft.visible = false;
-    cameraHelperRight.visible = true;
+    cameraHelperRight.visible = false;
 
     renderer.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
     renderer.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2); 
 
-    cameraHelperLeft.visible = true;
+    cameraHelperLeft.visible = false;
     cameraHelperRight.visible = false;
 
     renderer.render(scene, cameraRight);
@@ -291,11 +291,19 @@ function showLeftCameraParameters(_point) {
     document.getElementById("leftCamCoordX").value = cameraLeft.position.x;
     document.getElementById("leftcamCoordY").value = cameraLeft.position.y;
     document.getElementById("leftCamCoordZ").value = cameraLeft.position.z;
+    
+    document.getElementById("leftCamPrincipalPointX").value = cameraLeft.principalPoint.x;
+    document.getElementById("leftCamPrincipalPointY").value = cameraLeft.principalPoint.y;
+    document.getElementById("leftCamPrincipalPointZ").value = cameraLeft.principalPoint.z;
+
+    document.getElementById("leftCamDistance").value = cameraLeft.distance;
+
 
     document.getElementById("leftFieldOfView").value = cameraLeft.fov;
-    document.getElementById("leftAspectRatio").value = cameraLeft.aspect;
+    document.getElementById("leftAspectRatio").innerHTML = cameraLeft.aspect.toFixed(3);
     document.getElementById("leftNearPlane").value = cameraLeft.near;
-    document.getElementById("leftFarPlane").value = cameraLeft.far;
+    
+    console.log(cameraLeft.principalPoint)
 }
 
 function showRightCameraParameters(_point) {
@@ -303,10 +311,18 @@ function showRightCameraParameters(_point) {
     document.getElementById("rightCamCoordY").value = cameraRight.position.y;
     document.getElementById("rightCamCoordZ").value = cameraRight.position.z;
 
+    document.getElementById("rightCamPrincipalPointX").value = cameraRight.principalPoint.x;
+   // document.getElementById("rightCamPrincipalPointy").value = cameraRight.principalPoint.y;
+    document.getElementById("rightCamPrincipalPointZ").value = cameraRight.principalPoint.z;
+
+
+    document.getElementById("rightCamDistance").value = cameraLeft.distance;
+
+    
+    
     document.getElementById("rightFieldOfView").value = cameraRight.fov;
-    document.getElementById("rightAspectRatio").value = cameraRight.aspect;
+    document.getElementById("rightAspectRatio").innerHTML = cameraRight.aspect.toFixed(3);
     document.getElementById("rightNearPlane").value = cameraRight.near;
-    document.getElementById("rightFarPlane").value = cameraRight.far;
 }
 
 showLeftCameraParameters();
@@ -350,6 +366,7 @@ function handleChangeCameraLeftFOV(_event) {
     cameraLeft.updateProjectionMatrix();
 }
 
+/* Aspect Ratio not interactive anymore
 document.getElementById("leftAspectRatio").addEventListener("change", handleChangeCameraLeftAspectRatio);
 function handleChangeCameraLeftAspectRatio(_event) {
     // adjust the AspectRatio
@@ -357,7 +374,7 @@ function handleChangeCameraLeftAspectRatio(_event) {
     cameraLeft.updateProjectionMatrix();
 
 }
-
+*/
 document.getElementById("leftNearPlane").addEventListener("change", handleChangeCameraLeftNearPlane);
 function handleChangeCameraLeftNearPlane(_event) {
     // adjust the NearPlane
@@ -365,7 +382,7 @@ function handleChangeCameraLeftNearPlane(_event) {
     cameraLeft.updateProjectionMatrix();
 
 }
-
+/* 
 document.getElementById("leftFarPlane").addEventListener("change", handleChangeCameraLeftFarPlane);
 function handleChangeCameraLeftFarPlane(_event) {
     // adjust the FarPlane
@@ -373,7 +390,7 @@ function handleChangeCameraLeftFarPlane(_event) {
     cameraLeft.updateProjectionMatrix();
 
 }
-
+*/
 // Nice to Have a rest button
 
 // create EventListener for the changing of the x-y-z-coordinate value for the right Camera & Camera Parameters
@@ -412,7 +429,7 @@ function handleChangeCameraRightFOV(_event) {
     cameraRight.fov = parseFloat(_event.target.value);
     cameraRight.updateProjectionMatrix();
 }
-
+/* Aspect Ratio not interactive anymore
 document.getElementById("rightAspectRatio").addEventListener("change", handleChangeCameraRightAspectRatio);
 function handleChangeCameraRightAspectRatio(_event) {
     // adjust the AspectRatio
@@ -420,7 +437,7 @@ function handleChangeCameraRightAspectRatio(_event) {
     cameraRight.updateProjectionMatrix();
 
 }
-
+*/
 document.getElementById("rightNearPlane").addEventListener("change", handleChangeCameraRightNearPlane);
 function handleChangeCameraRightNearPlane(_event) {
     // adjust the NearPlane
@@ -428,7 +445,7 @@ function handleChangeCameraRightNearPlane(_event) {
     cameraRight.updateProjectionMatrix();
 
 }
-
+/*
 document.getElementById("rightFarPlane").addEventListener("change", handleChangeCameraRightFarPlane);
 function handleChangeCameraRightFarPlane(_event) {
     // adjust the FarPlane
@@ -436,7 +453,7 @@ function handleChangeCameraRightFarPlane(_event) {
     cameraRight.updateProjectionMatrix();
 
 }
-
+*/
 function resetDomElementForPoint(_point) {
     // input the name of the point
     document.getElementById("pointName").innerText = _point.name;

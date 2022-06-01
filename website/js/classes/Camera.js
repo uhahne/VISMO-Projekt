@@ -11,7 +11,7 @@ export default class Camera extends THREE.PerspectiveCamera {
 
     constructor(_position, _distance, _aspect) {
         super();
-        this.fov = 50;
+        this.fov = 110;
         this.aspect = _aspect;
         this.near = _distance; // imgPlane, so = distance
         this.far = 20;

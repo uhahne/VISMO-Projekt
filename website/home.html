@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <h1>VISMO-Projekt Version 1.1.5</h1>
+        <h1>VISMO-Projekt Version 1.1.6</h1>
         <p><a href="help.html">Help</a></p>
         <p id="aboutUs"><a href="aboutUs.html">About Us</a></p>
     </header>
@@ -66,46 +66,62 @@
             <div id="camUI">
                 <div id="camPosition">
                     <h3><b>Left Kamera</b>: <span id="camLeft"></span></h3>
-                    <p><b>Position:</b></p>
+                    <p><b>Projektionszentrum:</b></p>
                     <label><b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="leftcamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>z</b> = <input id="leftCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
                 <hr>
                 <div id="jsParameter">
-                    <label><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><p><b>Hauptpunkt: </b></p>
+                    <label><b>x</b> = <input id="leftCamPrincipalPointX" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>y</b> = <input id="leftCamPrincipalPointY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>z</b> = <input id="leftCamPrincipalPointZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                <hr>
                     <br>
-                    <label><b>Aspect Ratio</b> = <input id="leftAspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Distanz</b> = <input id="leftCamDistance" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <br>
+                    <label><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
                     <label><b>Near Plane</b> = <input id="leftNearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
-                    <label><b>Far Plane</b> = <input id="leftFarPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
+
                 </div>
 
                 <hr>
                     <h3><b>Right Kamera</b>: <span id="camRight"></span></h3>
-                    <p><b>Position:</b></p>
+                    <p><b>Projektionszentrum:</b></p>
                     <label><b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
                     <label><b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
                 </div>
                 <hr>
                 <div id="jsParameter">
-                    <label><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><p><b>Hauptpunkt: </b></p>
+                        <label><b>x</b> = <input id="rightCamPrincipalPointX" type="number" placeholder="0" autocomplete="off"></input></label>
+                        <label><b>y</b> = <input id="rightCamPrincipalPointY" type="number" placeholder="0" autocomplete="off"></input></label>
+                        <label><b>z</b> = <input id="rightCamPrincipalPointZ" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <hr>
+                        <br>
+                    <label><b>Distanz</b> = <input id="rightCamDistance" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
-                    <label><b>Aspect Ratio</b> = <input id="rightAspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
                     <label><b>Near Plane</b> = <input id="rightNearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
                     <br>
-                    <label><b>Far Plane</b> = <input id="rightFarPlane" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
+
                 </div>
             </div>
 
             <!-- input fields for parameter tab -->
             <div id="paramUI">
-                <h3><b>Parameter Kamera 1</b></h3>
-                <label><b>Bildebene</b> = <input id="imgagePlane" type="number" placeholder="0" autocomplete="off"></input></label>
-                <br>
-                <label><b>Projektionszentrum</b> = <input id="projectionCentre" type="number" placeholder="0" autocomplete="off"></input></label>
+                <h3><b>Right Kamera</b></h3>
+                <label><b>Projektionszentrum</b> = <br>
+                <label><b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
+                <label><b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                <label><b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
+
                 <br>
                 <label><b>Hauptpunkt</b> = <input id="mainPoint" type="number" placeholder="0" autocomplete="off"></input></label>
                 <br>
@@ -143,6 +159,10 @@
 
             <div id="output">
                 <h3>Ausgabe</h3>
+                <label><b>Bildebene Linke Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0" autocomplete="off"></span></label>
+                <br>
+                <label><b>Bildebene Rechte Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0" autocomplete="off"></span></label>
+
             </div>
 
         </div>
