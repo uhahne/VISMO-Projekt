@@ -122,7 +122,6 @@ function init() {
   scene.add(new Grid());
 
   document.getElementById("camUI").setAttribute("style", "display: none");
-  document.getElementById("paramUI").setAttribute("style", "display: none");
   document.getElementById("settingsUI").setAttribute("style", "display: none");
 }
 
@@ -168,7 +167,6 @@ document
   .getElementById("building")
   .addEventListener("click", handleBuildingTab);
 document.getElementById("camera").addEventListener("click", handleCamTab);
-document.getElementById("parameter").addEventListener("click", handleParamTab);
 document
   .getElementById("settings")
   .addEventListener("click", handleSettingsTab);
@@ -183,33 +181,21 @@ function handleBuildingTab(_event) {
     .getElementById("lineUI")
     .setAttribute("style", "visibility: visible");
   document.getElementById("settingsUI").setAttribute("style", "display: none");
-  document.getElementById("paramUI").setAttribute("style", "display: none");
 }
 
 // display input fields for camera
 function handleCamTab(_event) {
   document.getElementById("pointUI").setAttribute("style", "display: none");
   document.getElementById("lineUI").setAttribute("style", "display: none");
-  document.getElementById("paramUI").setAttribute("style", "display: none");
   document.getElementById("settingsUI").setAttribute("style", "display: none");
   document.getElementById("camUI").setAttribute("style", "visibility: visible");
 }
 
-function handleParamTab(_event) {
-  document.getElementById("pointUI").setAttribute("style", "display: none");
-  document.getElementById("lineUI").setAttribute("style", "display: none");
-  document.getElementById("camUI").setAttribute("style", "display: none");
-  document.getElementById("settingsUI").setAttribute("style", "display: none");
-  document
-    .getElementById("paramUI")
-    .setAttribute("style", "visibility: visible");
-}
 
 function handleSettingsTab(_event) {
   document.getElementById("pointUI").setAttribute("style", "display: none");
   document.getElementById("lineUI").setAttribute("style", "display: none");
   document.getElementById("camUI").setAttribute("style", "display: none");
-  document.getElementById("paramUI").setAttribute("style", "display: none");
   document
     .getElementById("settingsUI")
     .setAttribute("style", "visibility: visible");

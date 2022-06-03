@@ -17,7 +17,7 @@
 <body>
     <div class="header">
         <div class="header-left">
-            <h1>VISMO-Projekt Version 1.1.6</h1>
+            <h1>VISMO-Projekt Version 1.1.7</h1>
         </div>
         <div class="header-right">
             <button class="btnRefresh" onClick="document.location.reload(true)"><i class="fa fa-refresh"></i></button>
@@ -30,7 +30,6 @@
         <div id="nav">
             <button type="button" class="buttonactive featuredBtn active" id="building">Gebäude</button>
             <button type="button" class="buttonactive featuredBtn" id="camera">Kameras</button>
-            <button type="button" class="buttonactive featuredBtn" id="parameter">Parameter</button>
             <button type="button" class="buttonactive featuredBtn" id="settings">Einstell.</button>
             <!-- <button id="matrices">Matrizen</button> -->
         </div>
@@ -53,11 +52,6 @@
                     <b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
                     <b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
 
-                    <p><b>Bildebene Koordinaten:</b></p>
-                    <p><b>Links:</b> (<b>x</b> = <span id="pointCoordXLeft">0</span> | <b>y</b> = <span
-                            id="pointCoordYLeft">0</span>)</p>
-                    <p><b>Rechts:</b> (<b>x</b> = <span id="pointCoordXRight">0</span> | <b>y</b> = <span
-                            id="pointCoordYRight">0</span>)</p>
                 </div>
             </div>
 
@@ -112,8 +106,6 @@
                             <br>
                             <label><b>Near Plane</b> = <input id="leftNearPlane" type="number" placeholder="0"
                                     autocomplete="off"></input></label>
-                            <br>
-                            <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
                     </div>
 
                     <hr>
@@ -146,55 +138,7 @@
                         <br>
                         <label><b>Near Plane</b> = <input id="rightNearPlane" type="number" placeholder="0"
                                 autocomplete="off"></input></label>
-                        <br>
-                        <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
                 </div>
-            </div>
-
-            <!-- input fields for parameter tab -->
-            <div id="paramUI">
-                <h3><b>Right Kamera</b></h3>
-                <label><b>Projektionszentrum</b> = <br>
-                    <label><b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0"
-                            autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0"
-                            autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0"
-                            autocomplete="off"></input></label>
-
-                    <br>
-                    <label><b>Hauptpunkt</b> = <input id="mainPoint" type="number" placeholder="0"
-                            autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Distanz</b> = <input id="distance" type="number" placeholder="0"
-                            autocomplete="off"></input></label>
-
-                    <div id="coordSystem1">
-                        <hr>
-                        <h3><b>KO-System 1</b></h3>
-                        <label><b>x</b> = <input id="worldCoordX" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                        <label><b>y</b> = <input id="worldCoordY" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                        <label><b>z</b> = <input id="worldCoordZ" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                    </div>
-
-                    <div id="coordSystem2">
-                        <h3><b>KO-System 2</b></h3>
-                        <label><b>x</b> = <input id="co2CoordX" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                        <label><b>y</b> = <input id="co2CoordY" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                    </div>
-
-                    <div id="coordSystem3">
-                        <h3><b>KO-System 3</b></h3>
-                        <label><b>x</b> = <input id="co3CoordX" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                        <label><b>y</b> = <input id="co3CoordY" type="number" placeholder="0"
-                                autocomplete="off"></input></label>
-                    </div>
             </div>
 
             <!-- settings tab -->
@@ -209,12 +153,31 @@
 
             <div id="output">
                 <hr>
-                <h3>Ausgabe</h3>
-                <label><b>Bildebene Linke Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0"
+                <h2>Ausgabe</h2>
+                <h3>Linke Camera</h3>
+
+                <label><b>Bildebene Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0"
+                        autocomplete="off"></span></label>
+
+                <br>
+                <p><b>Bildebene Koordinaten:</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> | <b>y</b> = <span
+                        id="pointCoordYLeft">0</span>)</p>
+
+                <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
+
+
+                <h3>Rechte Camera</h3>
+
+                <label><b>Bildebene Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0"
                         autocomplete="off"></span></label>
                 <br>
-                <label><b>Bildebene Rechte Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0"
-                        autocomplete="off"></span></label>
+                
+                <p><b>Bildebene Koordinaten:</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> | <b>y</b> = <span
+                        id="pointCoordYRight">0</span>)</p>
+
+                <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
+
+    
             </div>
         </div>
         <div id="viewport">
