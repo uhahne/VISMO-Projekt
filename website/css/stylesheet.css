@@ -8,7 +8,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: small;
-  background-color: #4f99bb;
+  background-color: #6498b0;
   margin: 0;
 }
 
@@ -17,7 +17,7 @@ body {
 }
 
 .header {
-  color: white;
+  color: #f8f9fa;
   overflow: hidden;
   padding: 20px 10px;
 }
@@ -30,8 +30,7 @@ body {
   float: left;
 }
 
-.header a,
-.btnRefresh{
+.header a {
   float: left;
   text-align: center;
   margin-top: 5px;
@@ -62,11 +61,6 @@ body {
   }
 }
 
-/* main {
-  margin-left: 5px;
-} */
-
-
 #nav {
   position: fixed;
   z-index: 1;
@@ -76,7 +70,7 @@ body {
   position: fixed;
   margin-top: 35px;
   z-index: 1;
-  background-color: white;
+  background-color: #f8f9fa;
   padding-left: 5px;
   border-radius: 5px;
 }
@@ -92,7 +86,6 @@ body {
 
 input {
   width: 65px;
-  /* color: #008c5a; */
 }
 
 #viewport {
@@ -100,28 +93,25 @@ input {
   z-index: 0;
 }
 
-h3 {
-  margin-top: 10px;
-}
-
-#pointUI input,
-#lineUI input,
-#paramUI input,
-#settingsUI input {
-  margin-bottom: 20px;
-}
-
 #camUI input {
   margin-bottom: 5px;
 }
 
 #camUI p {
-  margin-top: 10px;
-  margin-bottom: 2px;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+#leftCamDistance {
+  margin-top: 3%;
+}
+
+#rightCamDistance {
+  margin-top: 3%;
 }
 
 button {
-  background-color: white;
+  background-color: #f8f9fa;
   border-radius: 5px;
 }
 
@@ -131,20 +121,24 @@ button:hover {
 }
 
 .featuredBtn.active {
-  background-color: #4f99bb;
-  color: white;
+  background-color: #6498b0;
+  color: #f8f9fa;
+}
+
+#newPointName {
+  margin-bottom: 0%;
 }
 
 #deletePoint:hover,
 #deleteLine:hover {
   cursor: pointer;
-  opacity: 80%;
+  opacity: 70%;
 }
 
 a:link,
 a:visited,
 a:active {
-  color: white;
+  color: #f8f9fa;
   text-decoration: none;
 }
 
@@ -157,4 +151,140 @@ a:hover {
   color: red;
   font-weight: bold;
   font-size: 20px;
+}
+
+/*check01 - left Kamera*/
+#check01CSS {
+  margin-top: 2%;
+  font-size: 125%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#check01CSS:hover {
+  background-color: #ddd;
+}
+
+/*hide the inputs/checkmarks and submenu*/
+input.check01,
+ul.submenu {
+  display: none;
+}
+
+/*position the label*/
+label {
+  position: relative;
+  display: block;
+}
+
+/*show the submenu when input is checked*/
+input.check01:checked ~ ul.submenu {
+  display: block;
+}
+
+/* check02 - right Kamera */
+#check02CSS {
+  font-size: 125%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#check02CSS:hover {
+  background-color: #ddd;
+}
+
+input.check02,
+ul.submenu02 {
+  display: none;
+}
+
+input.check02:checked ~ ul.submenu02 {
+  display: block;
+}
+
+/*check03 - Punkt*/
+#check03CSS {
+  margin-top: 2%;
+  font-size: 125%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#check03CSS:hover {
+  background-color: #ddd;
+}
+
+/*hide the inputs/checkmarks and submenu*/
+input.check03,
+ul.submenu {
+  display: none;
+}
+
+/*position the label*/
+label {
+  position: relative;
+  display: block;
+}
+
+/*show the submenu when input is checked*/
+input.check03:checked ~ ul.submenu {
+  display: block;
+}
+
+/*check04 - Linie*/
+#check04CSS {
+  margin-top: 2%;
+  font-size: 125%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#check04CSS:hover {
+  background-color: #ddd;
+}
+
+/*hide the inputs/checkmarks and submenu*/
+input.check04,
+ul.submenu {
+  display: none;
+}
+
+/*position the label*/
+label {
+  position: relative;
+  display: block;
+}
+
+/*show the submenu when input is checked*/
+input.check04:checked ~ ul.submenu {
+  display: block;
+}
+
+.submenu {
+  margin-bottom: 0%;
+}
+
+label {
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+#ausgabe {
+  font-size: 125%;
+  font-weight: bold;
+}
+
+#ausgabeLinkeCamera {
+  font-size: 100%;
+  font-weight: bold;
+}
+
+#ausgabeRechteCamera {
+  font-size: 100%;
+  font-weight: bold;
+}
+
+#strahlen {
+  font-size: 125%;
+  font-weight: bold;
 }
