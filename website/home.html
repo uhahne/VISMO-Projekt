@@ -20,8 +20,8 @@
             <h1>VISMO-Projekt Version 1.1.7</h1>
         </div>
         <div class="header-right">
-            <a class="active" href="#home">Help</a>
-            <a href="#contact">About Us</a>
+            <a class="active" href="home.html">Help</a>
+            <a href="aboutUs.html">About Us</a>
         </div>
     </div>
     <main>
@@ -34,8 +34,9 @@
         <div id="leftColumn">
             <!-- input fields for model points -->
             <div id="pointUI">
-                <input id="check03" class="check03" type="checkbox" name="menu" />
-                <label id="check03CSS" for="check03">Punkt </label>
+                <input id="check01" class="check01" type="checkbox" name="menu" />
+                <label id="check01CSS" for="check01">Punkt <img id="dropdownPoint"
+                    src="graphics/dropdown.png"> </label>
                 <ul class="submenu">
                     <div id="pointCreation">
                         <p>
@@ -54,9 +55,10 @@
             </div>
             </ul>
             <div id="lineUI">
-                <input id="check04" class="check04" type="checkbox" name="menu" />
+                <input id="check02" class="check02" type="checkbox" name="menu" />
                 <hr>
-                <label id="check04CSS" for="check04">Linie </label>
+                <label id="check02CSS" for="check02">Linie <img id="dropdownLine"
+                    src="graphics/dropdown.png"> </label>
                 <ul class="submenu">
                     <div id="lineCreation">
                         <p><button type="button" id="setStartPoint">Punkt setzen</button> <b>Anfang</b>: <span
@@ -75,10 +77,9 @@
             <!-- input fields for cameras -->
             <div id="camUI">
                 <div id="camPosition">
-                    <input id="check01" class="check01" type="checkbox" name="menu" />
-                    <label id="check01CSS" for="check01">Left Kamera </label>
-                    <!-- <img id="dropDown"
-                                        src="graphics/caret-down-solid.svg"> -->
+                    <input id="check03" class="check03" type="checkbox" name="menu" />
+                    <label id="check03CSS" for="check03">Left Kamera <img id="dropdownLeftCam"
+                        src="graphics/dropdown.png"> </label> </label>
                     <ul class="submenu">
                         <p><b>Projektionszentrum:</b></p>
                         <!-- untereinander: x, y, z als <label> machen -->
@@ -109,8 +110,9 @@
                         </div>
                     </ul>
                     <hr>
-                    <input id="check02" class="check02" type="checkbox" name="menu02" />
-                    <label id="check02CSS" for="check02">Right Kamera</label>
+                    <input id="check04" class="check04" type="checkbox" name="menu02" />
+                    <label id="check04CSS" for="check04">Right Kamera <img id="dropdownRightCam"
+                        src="graphics/dropdown.png"> </label>
                     <ul class="submenu02">
                         <p><b>Projektionszentrum:</b></p>
                         <b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input>

@@ -135,6 +135,16 @@ button:hover {
   opacity: 70%;
 }
 
+#dropdownPoint, 
+#dropdownLine, 
+#dropdownLeftCam, 
+#dropdownRightCam {
+  position: absolute;
+  left: 85%;
+  width: 15px;
+  height: 15px;
+}
+
 a:link,
 a:visited,
 a:active {
@@ -153,85 +163,23 @@ a:hover {
   font-size: 20px;
 }
 
-/*check01 - left Kamera*/
-#check01CSS {
-  margin-top: 2%;
-  font-size: 125%;
-  font-weight: bold;
-  cursor: pointer;
-}
 
-#check01CSS:hover {
+/*check01 - point*/
+/*check02 - line*/
+/*check03 - left camera*/
+/*check04 - right camera*/
+
+#check01CSS:hover,
+#check02CSS:hover,
+#check03CSS:hover, 
+#check04CSS:hover {
   background-color: #ddd;
+  opacity: 75%;
 }
 
-/*hide the inputs/checkmarks and submenu*/
-input.check01,
-ul.submenu {
-  display: none;
-}
-
-/*position the label*/
-label {
-  position: relative;
-  display: block;
-}
-
-/*show the submenu when input is checked*/
-input.check01:checked ~ ul.submenu {
-  display: block;
-}
-
-/* check02 - right Kamera */
-#check02CSS {
-  font-size: 125%;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#check02CSS:hover {
-  background-color: #ddd;
-}
-
-input.check02,
-ul.submenu02 {
-  display: none;
-}
-
-input.check02:checked ~ ul.submenu02 {
-  display: block;
-}
-
-/*check03 - Punkt*/
-#check03CSS {
-  margin-top: 2%;
-  font-size: 125%;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#check03CSS:hover {
-  background-color: #ddd;
-}
-
-/*hide the inputs/checkmarks and submenu*/
-input.check03,
-ul.submenu {
-  display: none;
-}
-
-/*position the label*/
-label {
-  position: relative;
-  display: block;
-}
-
-/*show the submenu when input is checked*/
-input.check03:checked ~ ul.submenu {
-  display: block;
-}
-
-/*check04 - Linie*/
+#check01CSS,
+#check02CSS,
+#check03CSS,
 #check04CSS {
   margin-top: 2%;
   font-size: 125%;
@@ -239,13 +187,11 @@ input.check03:checked ~ ul.submenu {
   cursor: pointer;
 }
 
-#check04CSS:hover {
-  background-color: #ddd;
-}
-
 /*hide the inputs/checkmarks and submenu*/
-input.check04,
-ul.submenu {
+input.check01, ul.submenu,
+input.check02, ul.submenu,
+input.check03, ul.submenu,
+input.check04, ul.submenu02  {
   display: none;
 }
 
@@ -253,20 +199,29 @@ ul.submenu {
 label {
   position: relative;
   display: block;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 /*show the submenu when input is checked*/
-input.check04:checked ~ ul.submenu {
+input.check01:checked ~ ul.submenu {
+  display: block;
+}
+
+input.check02:checked ~ ul.submenu {
+  display: block;
+}
+
+input.check03:checked ~ ul.submenu {
+  display: block;
+}
+
+input.check04:checked ~ ul.submenu02 {
   display: block;
 }
 
 .submenu {
   margin-bottom: 0%;
-}
-
-label {
-  margin-top: 3%;
-  margin-bottom: 3%;
 }
 
 #ausgabe {
