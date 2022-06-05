@@ -43,17 +43,17 @@ main {
     z-index: 1;
 }
 #leftColumn {
+    text-shadow: 0.5px 1px 3px #000000;
     color: white;
     position: fixed;
     margin-top: 75px;
     z-index: 1;
-    background-color: #3f3f3f;
+    background-color: #212529;
     width: 278px;
 }
 
 input {
     width: 45px;
-    color: #008C5A;
 }
 
 #viewport {
@@ -66,21 +66,21 @@ h3 {
     margin-top: 0px;
     padding: 5px 10px;
     width: fit-content;
-    border-style: solid;
-    border-color: white;
-    border-radius: 10px;
-    border-width: 1px;
 }
 
-#leftColumn, #pointUI, #lineUI, #camUI, #paramUI, #settingsUI, #output {
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
+hr {
+  background-color: white;
 }
 
 #pointUI, #lineUI, #camUI, #paramUI, #settingsUI, #output {
-     border-radius: 10px;
-     margin: 5px;
+    /* border-style: solid;
+    border-width: 1px; */
+    /* border-color: white; */
+    box-shadow: 0.5px 1px 3px #000000;
+    background-color: #3f3f3f;
+    border-radius: 10px;
+    margin: 8px;
+    padding: 8px;
 }
 
 span {
@@ -89,7 +89,9 @@ span {
 
 button {
     font-size: small;
-    background-color: white;
+    background-color: #E9ECEF;
+    border-radius: 8px;
+    border-color: #212529;
 }
 
 button:hover {
