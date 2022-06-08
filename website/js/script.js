@@ -446,7 +446,7 @@ function resetDomElementForPoint(_point) {
     /* picture plane coordinates */ //TODO: round coordinate values in function
     // camera left
     cameraLeft.updatePrincipalPoint();
-    cameraHelperRight.updateProjectionMatrixArray();
+    cameraLeft.updateProjectionMatrixArray();
     let pointLeftImgCoord = cameraLeft.getImageCoord(_point.position);
     document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoord.x;
     document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoord.y;
