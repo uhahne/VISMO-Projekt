@@ -17,7 +17,7 @@
 <body>
     <div class="header">
         <div class="header-left">
-            <h1>VISMO-Projekt Version 1.1.7</h1>
+            <h1>VISMO-Projekt Version 1.1.8</h1>
         </div>
         <div class="header-right">
             <a class="active" href="home.html">Help</a>
@@ -96,16 +96,10 @@
                                     autocomplete="off"></input>
                                 <b>z</b> = <input id="leftCamPrincipalPointZ" type="number" placeholder="0"
                                     autocomplete="off"></input>
-
                                 <label><b>Distanz</b> = <input id="leftCamDistance" type="number" placeholder="0"
                                         autocomplete="off"></input></label>
-
                                 <label><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0"
                                         autocomplete="off"></input></label>
-
-                                <label><b>Near Plane</b> = <input id="leftNearPlane" type="number" placeholder="0"
-                                        autocomplete="off"></input></label>
-
                                 <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
                         </div>
                     </ul>
@@ -131,8 +125,6 @@
                                         autocomplete="off"></input></label>
                                 <label><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0"
                                         autocomplete="off"></input></label>
-                                <label><b>Near Plane</b> = <input id="rightNearPlane" type="number" placeholder="0"
-                                        autocomplete="off"></input></label>
                                 <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
                         </div>
                     </ul>
@@ -152,18 +144,19 @@
                 <label id="ausgabe">Ausgabe</label>
                 <label id="ausgabeLinkeCamera">Linke Camera</label>
 
-                <label><b>Bildebene Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0"
-                        autocomplete="off"></span></label>
-                <br>
+                <p><b>Bildebene Kamera AKG:</b></p>
+                <p><span id="imagePlaneCamLeftAKG"></span></p>
+
                 <p><b>Bildebene Koordinaten:</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> | <b>y</b> = <span
                     id="pointCoordYLeft">0</span>)</p>
 
                 <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
                 <hr>
                 <label id="ausgabeRechteCamera">Rechte Camera</label>
-                <label><b>Bildebene Kamera AKG</b> = 0<span id="imgagePlane" type="number" placeholder="0"
-                        autocomplete="off"></span></label>
-                <br>
+
+                <p><b>Bildebene Kamera AKG:</b></p>
+                <p><span id="imagePlaneCamRightAKG"></span></p>
+
                 <p><b>Bildebene Koordinaten:</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> | <b>y</b> = <span
                     id="pointCoordYRight">0</span>)</p>
                 <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>

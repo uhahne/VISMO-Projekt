@@ -4,16 +4,14 @@ export default class Camera extends THREE.PerspectiveCamera {
     //imagePlane; // = Bildebene
     //coordinateSystem; // = Koordinatensystem
     principalPoint = new THREE.Vector3(); // = Hauptpunkt 
-    projectionCenter = new THREE.Vector3(); // = Projektionszentrum Z = camera.position
-    distance = 1; // = Distanz (zwischen Projektionszentrum und Hauptpunkt)
     projectionMatrixArray = []; // new THREE.Matrix4(); -> Calculation see ViSMo_Arbeitsblatt-1
 
 
-    constructor(_position, _distance, _aspect) {
+    constructor(_projectionCenterPosition, _distance, _aspect) { // _projectionCenterPosition: THREE.Vector3 | _distance: number | _aspect: number
         super();
         this.fov = 110;
         this.aspect = _aspect;
-        this.near = _distance; // imgPlane, so = distance
+        this.near = _distance; // = distance from projectionCenter to imgPlane
         this.far = 20;
 
         this.name = "Camera";
@@ -23,53 +21,39 @@ export default class Camera extends THREE.PerspectiveCamera {
         //this.coordinateSystem = new THREE.AxesHelper();
         //this.add(this.coordinateSystem);
 
-        this.projectionCenter = new THREE.Vector3(this.position.x, this.position.y, this.position.z);
-        this.updateEverything();
+        this.updatePrincipalPoint(); // get principal point
+        this.updateProjectionMatrixArray(); // get projection matrix
 
-        this.distance = _distance; // to get the position if the opticalCenter
-
-        this.projectionMatrixArray = this.updateProjectionMatrixArray();
-
-        // position the camera
-        this.position.x = _position.x;
-        this.position.y = _position.y;
-        this.position.z = _position.z;
+        // position the camera (position = projectionCenter)
+        this.position.set(Number(_projectionCenterPosition.x), Number(_projectionCenterPosition.y), Number(_projectionCenterPosition.z));
     }
 
-    updateEverything() { // TODO: needs to happen after every camera manipulation (position)
+    updatePrincipalPoint() {
         // !!! CAMERA 1 TEST VALUES !!!
-        // this.projectionCenter = new THREE.Vector3(this.position.x, this.position.y, this.position.z);
         // this.principalPoint = new THREE.Vector3(0, 0, 1);
         // !!! CAMERA 2 TEST VALUES !!!
-        // this.projectionCenter = new THREE.Vector3(this.position.x, this.position.y, this.position.z);
         // this.principalPoint = new THREE.Vector3(5 - 1 / Math.sqrt(2), 0, 2 + 1 / Math.sqrt(2));
-
-        /* UPDATE PROJECTION CENTER */
-        // (if the position of the object == projection center (which for now it does))
-        this.projectionCenter = new THREE.Vector3(Number(this.position.x), Number(this.position.y), Number(this.position.z));
 
         /* UPDATE PRINCIPAL POINT */
         // get the camera's normal (direction it's facing)
         let normal = new THREE.Vector3();
         this.getWorldDirection(normal);
         // calculate the principal via "projection center", "distance" and "normal"
-        this.principalPoint = new THREE.Vector3(this.projectionCenter.x + normal.x * this.distance, this.projectionCenter.y + normal.y * this.distance, this.projectionCenter.z + normal.z * this.distance);
-    
-        this.updateProjectionMatrixArray();
+        this.principalPoint = new THREE.Vector3(this.position.x + normal.x * this.near, this.position.y + normal.y * this.near, this.position.z + normal.z * this.near);
     }
 
     updateProjectionMatrixArray() {
         // get Z (projection center)
         let z = new THREE.Vector4(
-            this.projectionCenter.x,
-            this.projectionCenter.y,
-            this.projectionCenter.z,
+            this.position.x,
+            this.position.y,
+            this.position.z,
             1
         );
 
         // get the normal from the projection center to the principal point)
         let normal = new THREE.Vector3();
-        normal.subVectors(this.principalPoint, this.projectionCenter).normalize();
+        normal.subVectors(this.principalPoint, this.position).normalize();
 
         // get D from linear equation (= AKG/Allgemeine Koordinatengleichung)
         let d = -(normal.x * this.principalPoint.x + normal.y * this.principalPoint.y + normal.z * this.principalPoint.z);
@@ -133,8 +117,21 @@ export default class Camera extends THREE.PerspectiveCamera {
         ];
 
         // turn vector into image coordinates
-        let imageCoord = new THREE.Vector2(coord[0].toFixed(4), coord[1].toFixed(4))
+        let imageCoord = new THREE.Vector2(coord[0].toFixed(3), coord[1].toFixed(3))
 
         return imageCoord;
+    }
+
+    getAKG() { // returns string
+        let akg = "ax + by + cz = d";
+
+        let normal = new THREE.Vector3();
+        this.getWorldDirection(normal);
+
+        this.updatePrincipalPoint();
+
+        let d = normal.x * this.principalPoint.x + normal.y * this.principalPoint.y + normal.z * this.principalPoint.z;
+
+        return akg = normal.x.toFixed(3) + "x + " + normal.y.toFixed(3) + "y + " + normal.z.toFixed(3) + "z = " + d.toFixed(3);
     }
 } 
