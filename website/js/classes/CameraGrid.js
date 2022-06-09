@@ -1,14 +1,13 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
-export default class Grid extends THREE.LineSegments {
+export default class CameraGrid extends THREE.LineSegments {
 
     constructor() {
-        let size = 100
-        let divisions = 100
+        let size = 50;
+        let divisions = 50;
 
         let xAxisColor = new THREE.Color(0x9D3C4A);
-        //let yAxisColor = new THREE.Color(0x648B26);
-        let zAxisColor = new THREE.Color(0x38679D);
+        let yAxisColor = new THREE.Color(0x648B26);
         let gridColor = new THREE.Color(0x4F4F4F);
 
         let center = divisions / 2;
@@ -27,7 +26,7 @@ export default class Grid extends THREE.LineSegments {
                 color = xAxisColor;
                 color.toArray(colors, j); j += 3;
                 color.toArray(colors, j); j += 3;
-                color = zAxisColor;
+                color = yAxisColor;
                 color.toArray(colors, j); j += 3;
                 color.toArray(colors, j); j += 3;
             } else {
@@ -48,5 +47,12 @@ export default class Grid extends THREE.LineSegments {
         super(geometry, material);
 
         this.type = 'Grid';
+    }
+
+    update() { /* DISCLAIMER: parent must be camera! */
+        let distance = this.parent.near; // get camera's distance from center to image plane
+        this.position.z = 0 - (distance + 0.01); // move grid in front of image plane
+        this.scale.x = distance; // scale grid
+        this.scale.z = distance; // scale grid
     }
 }

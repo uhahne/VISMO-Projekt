@@ -5,7 +5,10 @@ import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
 import Beam from "./classes/Beam.js";
 import Grid from "./classes/Grid.js";
+import CameraGrid from "./classes/CameraGrid.js";
 import Camera from "./classes/Camera.js";
+import CameraCoordinateSystem from "./classes/CameraCoordinateSystem.js";
+import CoordinateSystem from "./classes/CoordinateSystem.js";
 
 let renderer, scene, controls;
 
@@ -15,6 +18,11 @@ let cameraHelperLeft, cameraHelperRight;
 let selectables;
 let points, lines;
 let beams, toggleBeams;
+
+let worldCoordinateSystem;
+
+let cameraLeftGrid, cameraRightGrid;
+let cameraLeftCoordinateSystem, cameraRightCoordinateSystem;
 
 let selectedPoint, selectedLine;
 let lineStartPoint, lineEndPoint; // for line creation
@@ -112,8 +120,36 @@ function init() {
     beams = new THREE.Group();
     toggleBeams = "none";
 
-    // grid
+    // #region (GRID)
+    // world grid
     scene.add(new Grid());
+    // left camera grid
+    cameraLeftGrid = new CameraGrid();
+    cameraLeft.add(cameraLeftGrid);
+    cameraLeftGrid.rotateX(Math.PI/2); // parallel to camera
+    cameraLeftGrid.update(); // adjust position
+    // right camera grid
+    cameraRightGrid = new CameraGrid();
+    cameraRight.add(cameraRightGrid);
+    cameraRightGrid.rotateX(Math.PI/2);
+    cameraRightGrid.update();
+    // #endregion (GRID)
+
+    // #region (COORDINATE SYSTEMS)
+    // wold coordinate system
+    worldCoordinateSystem = new CoordinateSystem();
+    scene.add(worldCoordinateSystem);
+    // left camera coordinate system
+    cameraLeftCoordinateSystem = new CameraCoordinateSystem();
+    cameraLeft.add(cameraLeftCoordinateSystem);
+    cameraLeftCoordinateSystem.rotateY(Math.PI);
+    cameraLeftCoordinateSystem.update();
+    // right camera coordinate system
+    cameraRightCoordinateSystem = new CameraCoordinateSystem();
+    cameraRight.add(cameraRightCoordinateSystem);
+    cameraRightCoordinateSystem.rotateY(Math.PI);
+    cameraRightCoordinateSystem.update();
+    // #endregion (COORDINATE SYSTEMS)
 
     // needed for raycasting
     raycaster = new THREE.Raycaster();
@@ -182,6 +218,11 @@ function animate() {
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
+    worldCoordinateSystem.visible = true;
+    cameraLeftGrid.visible = false;
+    cameraRightGrid.visible = false;
+    cameraLeftCoordinateSystem.visible = false;
+    cameraRightCoordinateSystem.visible = false;
 
     renderer.render(scene, cameraScene);
 
@@ -190,6 +231,11 @@ function animate() {
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = false;
+    worldCoordinateSystem.visible = false;
+    cameraLeftGrid.visible = true;
+    cameraRightGrid.visible = false;
+    cameraLeftCoordinateSystem.visible = true;
+    cameraRightCoordinateSystem.visible = false;
 
     renderer.render(scene, cameraLeft);
 
@@ -198,6 +244,11 @@ function animate() {
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = false;
+    worldCoordinateSystem.visible = false;
+    cameraLeftGrid.visible = false;
+    cameraRightGrid.visible = true;
+    cameraLeftCoordinateSystem.visible = false;
+    cameraRightCoordinateSystem.visible = true;
 
     renderer.render(scene, cameraRight);
 }
@@ -482,6 +533,8 @@ function handleChangeCameraLeftCamDistance(_event) {
     cameraLeft.near = parseFloat(_event.target.value);
     cameraLeft.updateProjectionMatrix();
     cameraHelperLeft.update();
+    cameraLeftGrid.update();
+    cameraLeftCoordinateSystem.update();
 }
 
 function handleChangeCameraRightPositionX(_event) {
@@ -532,6 +585,8 @@ function handleChangeCameraRightCamDistance(_event) {
     cameraRight.near = parseFloat(_event.target.value);
     cameraRight.updateProjectionMatrix();
     cameraHelperRight.update();
+    cameraRightGrid.update();
+    cameraRightCoordinateSystem.update();
 }
 // #endregion (CAMERAS)
 
@@ -558,9 +613,11 @@ function onWindowResize() {
 
     cameraLeft.aspect = canvasAspect;
     cameraLeft.updateProjectionMatrix();
+    document.getElementById("leftAspectRatio").innerHTML = cameraLeft.aspect.toFixed(3);
 
     cameraRight.aspect = canvasAspect;
     cameraRight.updateProjectionMatrix();
+    document.getElementById("rightAspectRatio").innerHTML = cameraRight.aspect.toFixed(3);
 }
 // #endregion (RESPONSIVE DESIGN)
 

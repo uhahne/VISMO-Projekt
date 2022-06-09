@@ -1,11 +1,8 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
 export default class Camera extends THREE.PerspectiveCamera {
-    //imagePlane; // = Bildebene
-    //coordinateSystem; // = Koordinatensystem
     principalPoint = new THREE.Vector3(); // = Hauptpunkt 
     projectionMatrixArray = []; // new THREE.Matrix4(); -> Calculation see ViSMo_Arbeitsblatt-1
-
 
     constructor(_projectionCenterPosition, _distance, _aspect) { // _projectionCenterPosition: THREE.Vector3 | _distance: number | _aspect: number
         super();
@@ -15,11 +12,6 @@ export default class Camera extends THREE.PerspectiveCamera {
         this.far = 20;
 
         this.name = "Camera";
-
-        //this.imagePlane = new THREE.Plane();
-
-        //this.coordinateSystem = new THREE.AxesHelper();
-        //this.add(this.coordinateSystem);
 
         this.updatePrincipalPoint(); // get principal point
         this.updateProjectionMatrixArray(); // get projection matrix
