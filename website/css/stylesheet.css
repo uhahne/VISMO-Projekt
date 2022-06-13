@@ -8,7 +8,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: small;
-  background-color: #6498b0;
   margin: 0;
 }
 
@@ -17,13 +16,13 @@ body {
 }
 
 .header {
-  color: #f8f9fa;
+  z-index: 1;
+  position: fixed;
+  background-color: #6498b0;
   overflow: hidden;
-  /* padding: 20px 10px; */
-}
-
-.header h1 {
-  font-size: 30px;
+  width: 100%;
+  height: 55px;
+  box-shadow: 0px 1px 3px #212529;
 }
 
 .header-left {
@@ -34,8 +33,9 @@ body {
   float: left;
   text-align: center;
   margin-top: 5px;
-  padding: 20px;
-  line-height: 25px;
+  margin-right: 15px;
+  padding: 10px 20px;
+  /* line-height: 25px; */
   border-radius: 5px;
 }
 
@@ -46,7 +46,14 @@ body {
 
 .header-right {
   float: right;
-  font-size: 30px;
+  font-size: 20px;
+}
+
+#logo {
+  position: absolute;
+  top: 1px;
+  margin-left: 15px;
+  max-width: 165px;
 }
 
 @media screen and (max-width: 500px) {
@@ -63,6 +70,7 @@ body {
 
 #nav {
   position: fixed;
+  margin-top: 60px;
   z-index: 1;
 }
 
@@ -70,7 +78,7 @@ body {
   overflow: scroll;
   overflow-x: hidden;
   position: fixed;
-  margin-top: 30px;
+  margin-top: 90px;
   padding-bottom: 200px;
   z-index: 1;
   background-color: #f8f9fa;
@@ -114,6 +122,7 @@ input {
 
 #viewport {
   position: fixed;
+  top: 50px;
   z-index: 0;
 }
 
