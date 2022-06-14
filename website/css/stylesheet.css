@@ -11,6 +11,12 @@ body {
   margin: 0;
 }
 
+#versionNr {
+  color: #ffffff;
+  position: relative;
+  left: 200px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -154,7 +160,7 @@ hr {
   background-color: white;
 }
 
-#pointUI, #lineUI, #camUI, #paramUI, #settingsUI, #output {
+#pointUI, #lineUI, #camUI, #paramUI, #settingsUI, #output, #rightCamUI, #leftCamUI {
     /* border-style: solid;
     border-width: 1px; */
     /* border-color: white; */
@@ -200,7 +206,7 @@ button:hover {
 
 .featuredBtn.active {
   background-color: #6498b0;
-  color: #f8f9fa;
+  color: #ffffff;
 }
 
 #newPointName {
@@ -263,6 +269,9 @@ a:active {
 #check04CSS:hover {
   background-color: #ddd;
   opacity: 75%;
+  color: #000000;
+  text-shadow: none;
+  border-radius: 5px;
 }
 
 #check01CSS,
