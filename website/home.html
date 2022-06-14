@@ -3,160 +3,165 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, inital-scale=1.0,  user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, inital-scale=1.0,  user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script type="module" src="js/script.js" defer></script>
     <script type="module" src="js/classes/Point.js" defer></script>
     <script type="module" src="js/classes/DefaultModel.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/stylesheet.css">
     <title>VISMO-Projekt</title>
 </head>
 
 <body>
-    <header>
-        <h1>VISMO-Projekt Version 1.1.4</h1>
-        <p><a href="help.html">Help</a></p>
-        <p id="aboutUs"><a href="aboutUs.html">About Us</a></p>
-    </header>
+    <div class="header">
+        <div class="header-left">
+            <img id="logo"
+                src="graphics/Vismo_LogoWortBild_weiß_final.svg">
+                <!-- <h2>Version 1.1.9</h2> -->
+        </div>
+        <div class="header-right">
+            <a class="active" href="help.html">Hilfe</a>
+            <a href="aboutUs.html">Über uns</a>
+        </div>
+    </div>
     <main>
         <div id="nav">
-            <button id="building">Gebäude</button>
-            <button id="camera">Kameras</button>
-            <button id="parameter">Parameter</button>
-            <button id="settings">Einstell.</button>
-            <!-- <button id="matrices">Matrizen</button> -->
+            <button type="button" class="buttonactive featuredBtn active" id="building">Gebäude</button>
+            <button type="button" class="buttonactive featuredBtn" id="camera">Kameras</button>
+            <button type="button" class="buttonactive featuredBtn" id="settings">Einstellungen</button>
         </div>
-
-        
         <div id="leftColumn">
-            
             <!-- input fields for model points -->
             <div id="pointUI">
-                <h3>Punkt</h3>
-                <div id="pointCreation">
-                    <p>
-                        <input id="newPointName" type="text" placeholder="Name" autocomplete="off"> <button id="createPoint">+</button> <span id="pointNameFeedback"></span>
-                    </p>
-                </div>
-                <hr>
-                <div id="pointManipulation">
-                    <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <button id="deletePoint">löschen</button></p>
-                    <label><b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
-
-                    <p><b>Linke Kamera Bildebene Koordinaten:</b></p>
-                    <label><b>x</b> = <input id="pointCoordXLeft" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="pointCoordYLeft" type="number" placeholder="0" autocomplete="off"></input></label>
-
-                    <p><b>Rechte Kamera Bildebene Koordinaten:</b></p>
-                    <label><b>x</b> = <input id="pointCoordXRight" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="pointCoordYRight" type="number" placeholder="0" autocomplete="off"></input></label>
-                </div>
+                <input id="check01" class="check01" type="checkbox" name="menu" />
+                <label id="check01CSS" for="check01">Punkt <img id="dropdownPoint"
+                    src="graphics/dropdown.png"> </label>
+                <ul class="submenu">
+                    <div id="pointCreation">
+                        <p>
+                            <b>Neuer Punkt:</b>
+                            <input id="newPointName" type="text" placeholder="Name" autocomplete="off"> <button
+                                id="createPoint">+</button> <span id="pointNameFeedback"></span>
+                        </p>
+                    </div>
+                    <div id="pointManipulation">
+                        <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <img id="deletePoint"
+                                src="graphics/trashcan.png"></p>
+                        <b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
+                        <b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                        <b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
+                    </div>
             </div>
+            </ul>
             <div id="lineUI">
-                <h3>Linie</h3>
-                <div id="lineCreation">
-                    <p><button id="setStartPoint">Punkt setzen</button> <b>Anfang</b>: <span id="startPointName"></span></p>
-                    <p><button id="setEndPoint">Punkt setzen</button> <b>Ende</b>: <span id="endPointName"></span></p>
-                    <p><button id="createLine">+</button> <span id="lineFeedback"></span></p>
-                </div>
+                <input id="check02" class="check02" type="checkbox" name="menu" />
                 <hr>
-                <div id="lineManipulation">
-                    <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <button id="deleteLine">löschen</button></p>
-                </div>
+                <label id="check02CSS" for="check02">Linie <img id="dropdownLine"
+                    src="graphics/dropdown.png"> </label>
+                <ul class="submenu">
+                    <div id="lineCreation">
+                        <p><button type="button" id="setStartPoint">Punkt setzen</button> <b>Anfang</b>: <span
+                                id="startPointName"></span>
+                        </p>
+                        <p><button type="button" id="setEndPoint">Punkt setzen</button> <b>Ende</b>: <span
+                                id="endPointName"></span></p>
+                        <p><button type="button" id="createLine">+</button> <span id="lineFeedback"></span></p>
+                    </div>
+                    <div id="lineManipulation">
+                        <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <img id="deleteLine"
+                                src="graphics/trashcan.png"></p>
+                    </div>
             </div>
-
+            </ul>
             <!-- input fields for cameras -->
             <div id="camUI">
                 <div id="camPosition">
-                    <h3><b>Left Kamera</b>: <span id="camLeft"></span></h3>
-                    <p><b>Position:</b></p>
-                    <label><b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="leftcamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="leftCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
-                <hr>
-                <div id="jsParameter">
-                    <label><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Aspect Ratio</b> = <input id="leftAspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Near Plane</b> = <input id="leftNearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Far Plane</b> = <input id="leftFarPlane" type="number" placeholder="0" autocomplete="off"></input></label>
-                </div>
-
-                <hr>
-                    <h3><b>Right Kamera</b>: <span id="camRight"></span></h3>
-                    <p><b>Position:</b></p>
-                    <label><b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
-                </div>
-                <hr>
-                <div id="jsParameter">
-                    <label><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Aspect Ratio</b> = <input id="rightAspectRatio" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Near Plane</b> = <input id="rightNearPlane" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <br>
-                    <label><b>Far Plane</b> = <input id="rightFarPlane" type="number" placeholder="0" autocomplete="off"></input></label>
-                </div>
-            </div>
-
-            <!-- input fields for parameter tab -->
-            <div id="paramUI">
-                <h3><b>Parameter Kamera 1</b></h3>
-                <label><b>Bildebene</b> = <input id="imgagePlane" type="number" placeholder="0" autocomplete="off"></input></label>
-                <br>
-                <label><b>Projektionszentrum</b> = <input id="projectionCentre" type="number" placeholder="0" autocomplete="off"></input></label>
-                <br>
-                <label><b>Hauptpunkt</b> = <input id="mainPoint" type="number" placeholder="0" autocomplete="off"></input></label>
-                <br>
-                <label><b>Distanz</b> = <input id="distance" type="number" placeholder="0" autocomplete="off"></input></label>
-                <hr>
-                <div id="coordSystem1">
-                    <h3><b>KO-System 1</b></h3>
-                    <label><b>x</b> = <input id="worldCoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="worldCoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>z</b> = <input id="worldCoordZ" type="number" placeholder="0" autocomplete="off"></input></label>
-                </div>
-                <hr>
-                <div id="coordSystem2">
-                    <h3><b>KO-System 2</b></h3>
-                    <label><b>x</b> = <input id="co2CoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="co2CoordY" type="number" placeholder="0" autocomplete="off"></input></label>
-                </div>
-                <hr>
-                <div id="coordSystem3">
-                    <h3><b>KO-System 3</b></h3>
-                    <label><b>x</b> = <input id="co3CoordX" type="number" placeholder="0" autocomplete="off"></input></label>
-                    <label><b>y</b> = <input id="co3CoordY" type="number" placeholder="0" autocomplete="off"></input></label>
+                    <input id="check03" class="check03" type="checkbox" name="menu" />
+                    <label id="check03CSS" for="check03">Linke Kamera <img id="dropdownLeftCam"
+                        src="graphics/dropdown.png"> </label>
+                    <ul class="submenu">
+                        <p><b>Projektionszentrum:</b></p>
+                        <!-- untereinander: x, y, z als <label> machen -->
+                            <p>
+                                <b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0" autocomplete="off"></input>
+                                <b>y</b> = <input id="leftcamCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                                <b>z</b> = <input id="leftCamCoordZ" type="number" placeholder="0" autocomplete="off"></input>
+                            </p>
+                        <div id="jsParameter">
+                            <p><b>Hauptpunkt: </b></p>
+                            <p>
+                                <b>x</b> = <input id="leftCamPrincipalPointX" type="number" placeholder="0" autocomplete="off"></input>
+                                <b>y</b> = <input id="leftCamPrincipalPointY" type="number" placeholder="0" autocomplete="off"></input>
+                                <b>z</b> = <input id="leftCamPrincipalPointZ" type="number" placeholder="0" autocomplete="off"></input>    
+                            </p>
+                            <p><b>Distanz</b> = <input id="leftCamDistance" type="number" placeholder="0" autocomplete="off"></input></p>
+                            <p><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0" autocomplete="off"></input></p>
+                        </div>
+                    </ul>
+                    <hr>
+                    <input id="check04" class="check04" type="checkbox" name="menu02" />
+                    <label id="check04CSS" for="check04">Rechte Kamera <img id="dropdownRightCam"
+                        src="graphics/dropdown.png"> </label>
+                    <ul class="submenu02">
+                        <p><b>Projektionszentrum:</b></p>
+                        <p>
+                            <b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0" autocomplete="off"></input>
+                            <b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                            <b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0" autocomplete="off"></input>
+                        </p>
+                        <div id="jsParameter">
+                            <p><b>Hauptpunkt: </b></p>
+                            <p>
+                                <b>x</b> = <input id="rightCamPrincipalPointX" type="number" placeholder="0" autocomplete="off"></input>
+                                <b>y</b> = <input id="rightCamPrincipalPointY" type="number" placeholder="0" autocomplete="off"></input>
+                                <b>z</b> = <input id="rightCamPrincipalPointZ" type="number" placeholder="0" autocomplete="off"></input>    
+                            </p>
+                            <p><b>Distanz</b> = <input id="rightCamDistance" type="number" placeholder="0" autocomplete="off"></input></p>
+                            <p><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0" autocomplete="off"></input></p>
+                        </div>
+                    </ul>
                 </div>
             </div>
-
             <!-- settings tab -->
             <div id="settingsUI">
-                <h3><b>Strahlen</b></h3>
+                <label id="strahlen">Strahlen</label>
+
                 <select id="beams">
                     <option value="none">Keine</option>
                     <option value="all">Alle</option>
                     <option value="one">Ausgewählte Punkt</option>
                 </select>
             </div>
-
             <div id="output">
-                <h3>Ausgabe</h3>
-            </div>
+                <hr>
+                <label id="ausgabe">Ausgabe</label>
+                <label id="ausgabeLinkeCamera">Linke Kamera</label>
 
+                <p><b>Bildebene Kamera AKG:</b></p>
+                <p><span id="imagePlaneCamLeftAKG"></span></p>
+
+                <p><b>Bildebenen-Koordinaten:</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> | <b>y</b> = <span
+                    id="pointCoordYLeft">0</span>)</p>
+
+                <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
+                <hr>
+                <label id="ausgabeRechteCamera">Rechte Kamera</label>
+
+                <p><b>Bildebene Kamera AKG:</b></p>
+                <p><span id="imagePlaneCamRightAKG"></span></p>
+
+                <p><b>Bildebenen-Koordinaten:</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> | <b>y</b> = <span
+                    id="pointCoordYRight">0</span>)</p>
+                <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
+            </div>
         </div>
-        <div id="viewport"> 
+        <div id="viewport">
             <canvas id="vismoViewport" width="128" height="128"></canvas>
         </div>
-       
     </main>
     <footer>
-        
     </footer>
 </body>
 
