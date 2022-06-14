@@ -212,7 +212,7 @@ function animate() {
     // render scene
     renderer.clear();
     controls.update();
-
+    
     //set viewport for 3D viewer
     renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
 
