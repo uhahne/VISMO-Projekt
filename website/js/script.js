@@ -356,9 +356,6 @@ function resetDomElementForPoint(_point) {
     // camera left
     cameraLeft.updatePrincipalPoint();
     cameraLeft.updateProjectionMatrixArray();
-    let pointLeftImgCoord = cameraLeft.getImageCoord(_point.position);
-    document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoord.x;
-    document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoord.y;
     let pointLeftImgCoordWorld = cameraLeft.getImageCoordWorld(_point.position);
     document.getElementById("pointCoordXLeftWorld").innerHTML = pointLeftImgCoordWorld.x.toFixed(3);
     document.getElementById("pointCoordYLeftWorld").innerHTML = pointLeftImgCoordWorld.y.toFixed(3);
@@ -366,9 +363,6 @@ function resetDomElementForPoint(_point) {
     // camera right
     cameraRight.updatePrincipalPoint();
     cameraRight.updateProjectionMatrixArray();
-    let pointRightImgCoord = cameraRight.getImageCoord(_point.position);
-    document.getElementById("pointCoordXRight").innerHTML = pointRightImgCoord.x;
-    document.getElementById("pointCoordYRight").innerHTML = pointRightImgCoord.y;
     let pointRightImgCoordWorld = cameraRight.getImageCoordWorld(_point.position);
     document.getElementById("pointCoordXRightWorld").innerHTML = pointRightImgCoordWorld.x.toFixed(3);
     document.getElementById("pointCoordYRightWorld").innerHTML = pointRightImgCoordWorld.y.toFixed(3);

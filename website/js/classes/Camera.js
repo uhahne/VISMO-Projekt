@@ -21,12 +21,6 @@ export default class Camera extends THREE.PerspectiveCamera {
     }
 
     updatePrincipalPoint() {
-        // !!! CAMERA 1 TEST VALUES !!!
-        // this.principalPoint = new THREE.Vector3(0, 0, 1);
-        // !!! CAMERA 2 TEST VALUES !!!
-        // this.principalPoint = new THREE.Vector3(5 - 1 / Math.sqrt(2), 0, 2 + 1 / Math.sqrt(2));
-
-        /* UPDATE PRINCIPAL POINT */
         // get the camera's normal (direction it's facing)
         let normal = new THREE.Vector3();
         this.getWorldDirection(normal);
@@ -45,9 +39,10 @@ export default class Camera extends THREE.PerspectiveCamera {
 
         // get the normal from the projection center to the principal point)
         let normal = new THREE.Vector3();
-        normal.subVectors(this.principalPoint, this.position).normalize();
+        this.getWorldDirection(normal);
 
         // get D from linear equation (= AKG/Allgemeine Koordinatengleichung)
+        this.updatePrincipalPoint();
         let d = -(normal.x * this.principalPoint.x + normal.y * this.principalPoint.y + normal.z * this.principalPoint.z);
 
         // get L
@@ -94,7 +89,22 @@ export default class Camera extends THREE.PerspectiveCamera {
         ]
     }
 
-    getImageCoord(_pointCoord) { // _pointCoord: THREE.Vector3
+    getAKG() { // returns string
+        let akg = "ax + by + cz = d";
+
+        let normal = new THREE.Vector3();
+        this.getWorldDirection(normal);
+
+        this.updatePrincipalPoint();
+
+        let d = normal.x * this.principalPoint.x + normal.y * this.principalPoint.y + normal.z * this.principalPoint.z;
+
+        return akg = normal.x.toFixed(3) + "x + " + normal.y.toFixed(3) + "y + " + normal.z.toFixed(3) + "z = " + d.toFixed(3);
+    }
+
+    /*
+    // by using the projectionMatrix
+    getImageCoordWorld(_pointCoord) { // _pointCoord: THREE.Vector3
         // apply matrix to point coordinates
         let coord = [
             this.projectionMatrixArray[0] * _pointCoord.x + this.projectionMatrixArray[1] * _pointCoord.y + this.projectionMatrixArray[2] * _pointCoord.z + this.projectionMatrixArray[3] * 1,
@@ -109,26 +119,15 @@ export default class Camera extends THREE.PerspectiveCamera {
         ];
 
         // turn vector into image coordinates
-        let imageCoord = new THREE.Vector2(coord[0].toFixed(3), coord[1].toFixed(3))
+        let imageCoord = new THREE.Vector3(coord[0], coord[1], coord[2])
 
         return imageCoord;
     }
-
-    getAKG() { // returns string
-        let akg = "ax + by + cz = d";
-
-        let normal = new THREE.Vector3();
-        this.getWorldDirection(normal);
-
-        this.updatePrincipalPoint();
-
-        let d = normal.x * this.principalPoint.x + normal.y * this.principalPoint.y + normal.z * this.principalPoint.z;
-
-        return akg = normal.x.toFixed(3) + "x + " + normal.y.toFixed(3) + "y + " + normal.z.toFixed(3) + "z = " + d.toFixed(3);
-    }
-
+    */
+    
+    // by getting the intersection point
     getImageCoordWorld(_pointCoord) { // _pointCoord: THREE.Vector3
-        /* CALCULATES THE INTERSECTION OF IMAGE PLANE AND LINE (= point->projectionCenter) in a work-around way that works in simple code */
+        // CALCULATES THE INTERSECTION OF IMAGE PLANE AND LINE (= point->projectionCenter) in a work-around way that works in simple code
 
         // get normal coordinates
         let normal = new THREE.Vector3();
@@ -155,9 +154,8 @@ export default class Camera extends THREE.PerspectiveCamera {
 
         // insert t into the line equation to get the intersection point (s)
         let s = new THREE.Vector3(_pointCoord.x + u.x * t, _pointCoord.y + u.y * t, _pointCoord.z + u.z * t);
-    
-        console.log(s);
 
         return s;
     }
+    
 } 
