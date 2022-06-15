@@ -352,19 +352,27 @@ function resetDomElementForPoint(_point) {
     document.getElementById("pointCoordX").value = _point.position.x;
     document.getElementById("pointCoordY").value = _point.position.y;
     document.getElementById("pointCoordZ").value = _point.position.z;
-    /* picture plane coordinates */ //TODO: round coordinate values in function
+    /* picture plane coordinates */
     // camera left
     cameraLeft.updatePrincipalPoint();
     cameraLeft.updateProjectionMatrixArray();
     let pointLeftImgCoord = cameraLeft.getImageCoord(_point.position);
     document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoord.x;
     document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoord.y;
+    let pointLeftImgCoordWorld = cameraLeft.getImageCoordWorld(_point.position);
+    document.getElementById("pointCoordXLeftWorld").innerHTML = pointLeftImgCoordWorld.x.toFixed(3);
+    document.getElementById("pointCoordYLeftWorld").innerHTML = pointLeftImgCoordWorld.y.toFixed(3);
+    document.getElementById("pointCoordZLeftWorld").innerHTML = pointLeftImgCoordWorld.z.toFixed(3);
     // camera right
     cameraRight.updatePrincipalPoint();
     cameraRight.updateProjectionMatrixArray();
     let pointRightImgCoord = cameraRight.getImageCoord(_point.position);
     document.getElementById("pointCoordXRight").innerHTML = pointRightImgCoord.x;
     document.getElementById("pointCoordYRight").innerHTML = pointRightImgCoord.y;
+    let pointRightImgCoordWorld = cameraRight.getImageCoordWorld(_point.position);
+    document.getElementById("pointCoordXRightWorld").innerHTML = pointRightImgCoordWorld.x.toFixed(3);
+    document.getElementById("pointCoordYRightWorld").innerHTML = pointRightImgCoordWorld.y.toFixed(3);
+    document.getElementById("pointCoordZRightWorld").innerHTML = pointRightImgCoordWorld.z.toFixed(3);
 }
 
 function emptyDomElementForPoint(_point) {
@@ -378,6 +386,13 @@ function emptyDomElementForPoint(_point) {
     document.getElementById("pointCoordYLeft").innerHTML = 0;
     document.getElementById("pointCoordXRight").innerHTML = 0;
     document.getElementById("pointCoordYRight").innerHTML = 0;
+    // picture plane coordinates in world coordinate system
+    document.getElementById("pointCoordXLeftWorld").innerHTML = 0;
+    document.getElementById("pointCoordYLeftWorld").innerHTML = 0;
+    document.getElementById("pointCoordZLeftWorld").innerHTML = 0;
+    document.getElementById("pointCoordXRightWorld").innerHTML = 0;
+    document.getElementById("pointCoordYRightWorld").innerHTML = 0;
+    document.getElementById("pointCoordZRightWorld").innerHTML = 0;
 }
 // #endregion (POINTS)
 
@@ -698,7 +713,6 @@ function onDocumentMouseDown(_event) {
 }
 
 function castRay(_event, _renderer, _camera, _selectableObjects) {
-    // TODO: these bounds do not reflect the new viewports (*4 in line 584 fixes it for now)
     let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
 
     // save the coordinates of the point on which the user clicked

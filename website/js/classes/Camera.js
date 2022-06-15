@@ -126,4 +126,38 @@ export default class Camera extends THREE.PerspectiveCamera {
 
         return akg = normal.x.toFixed(3) + "x + " + normal.y.toFixed(3) + "y + " + normal.z.toFixed(3) + "z = " + d.toFixed(3);
     }
+
+    getImageCoordWorld(_pointCoord) { // _pointCoord: THREE.Vector3
+        /* CALCULATES THE INTERSECTION OF IMAGE PLANE AND LINE (= point->projectionCenter) in a work-around way that works in simple code */
+
+        // get normal coordinates
+        let normal = new THREE.Vector3();
+        this.getWorldDirection(normal);
+
+        // calculate normal * p (p = _pointCoord = Stützvektor)
+        let np = normal.x * _pointCoord.x + normal.y * _pointCoord.y + normal.z * _pointCoord.z;
+
+        // get d
+        this.updatePrincipalPoint();
+        let d = normal.x * this.principalPoint.x + normal.y * this.principalPoint.y + normal.z * this.principalPoint.z;
+
+        // calculate d - (normal * p)
+        d -= np;
+
+        // get u (= Richtungsvektor = _pointCoord - this.position)
+        let u = new THREE.Vector3(_pointCoord.x - this.position.x, _pointCoord.y - this.position.y, _pointCoord.z - this.position.z);
+
+        // calculate normal * u
+        let nu = normal.x * u.x + normal.y * u.y + normal.z * u.z;
+
+        // calculate d / (normal * u)
+        let t = d / nu;
+
+        // insert t into the line equation to get the intersection point (s)
+        let s = new THREE.Vector3(_pointCoord.x + u.x * t, _pointCoord.y + u.y * t, _pointCoord.z + u.z * t);
+    
+        console.log(s);
+
+        return s;
+    }
 } 
