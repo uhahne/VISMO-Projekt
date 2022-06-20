@@ -9,8 +9,9 @@ import CameraGrid from "./classes/CameraGrid.js";
 import Camera from "./classes/Camera.js";
 import CameraCoordinateSystem from "./classes/CameraCoordinateSystem.js";
 import CoordinateSystem from "./classes/CoordinateSystem.js";
+import { TransformControls } from "../threejs/TransformControls.js";
 
-let renderer, scene, controls;
+let renderer, scene, controls, cameraLeftControls, cameraRightControls;
 
 let cameras, cameraScene, cameraLeft, cameraRight;
 let cameraHelperLeft, cameraHelperRight;
@@ -62,7 +63,9 @@ function init() {
     scene.add(cameraScene);
 
     // cameraScene controls
-    controls = new OrbitControls(cameraScene, renderer.domElement);
+    let trackPad = document.getElementById("trackPad");
+    controls = new OrbitControls(cameraScene, trackPad);
+    scene.add(controls);
 
     // cameraLeft = Camera 2 from the exercise
     cameraLeft = new Camera(new THREE.Vector3(5, 0, 2), 1, canvasAspect);
@@ -73,6 +76,12 @@ function init() {
     cameras.add(cameraLeft);
     cameraHelperLeft = new THREE.CameraHelper(cameraLeft);
     scene.add(cameraHelperLeft);
+    cameraLeftControls = new TransformControls(cameraScene, renderer.domElement);
+    cameraLeftControls.size = 2;
+    cameraLeftControls.attach(cameraLeft);
+    scene.add(cameraLeftControls);
+
+    
 
     // cameraRight = Camera 1 Test from the exercise
     cameraRight = new Camera(new THREE.Vector3(0, 0, 0), 1, canvasAspect);
@@ -82,6 +91,10 @@ function init() {
     cameras.add(cameraRight);
     cameraHelperRight = new THREE.CameraHelper(cameraRight);
     scene.add(cameraHelperRight);
+    cameraRightControls = new TransformControls(cameraScene, renderer.domElement);
+    cameraRightControls.size = 2;
+    cameraRightControls.attach(cameraRight);
+    scene.add(cameraRightControls);
 
     // points group
     points = new THREE.Group();
@@ -212,6 +225,7 @@ function animate() {
     // render scene
     renderer.clear();
     controls.update();
+    cameraLeftControls.update();
     
     //set viewport for 3D viewer
     renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
