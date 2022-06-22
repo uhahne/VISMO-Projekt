@@ -336,6 +336,10 @@ border-radius: 5px;
   font-weight: bold;
 }
 
+#version{
+  padding-left: 10px;
+}
+
 /* style for viewport */
 #viewport {
   position: fixed;
