@@ -3,6 +3,9 @@
     height: 100%;
     width: 20%;
   }
+  div#nav {
+    width: 20%;
+  }
 }
 
 body {
@@ -64,13 +67,39 @@ a:active {
 #nav {
   position: fixed;
   margin-top: 60px;
-  margin-left: 12px;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 12px;
+  
 }
 
 #nav button {
-  font-size: 18px;
+  border-radius: 5px;
+  background-color: #212529;
+  border: #6498b0;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+  padding: 13px 15px;
+  font-size: 14px;  
+  font-weight: bold;
 }
+
+#nav button:hover {
+  background-color: #acacac;
+  cursor: pointer;
+}
+
+#nav .featuredBtn.active {
+  background-color: #6498b0;
+  color: #ffffff;
+  border: #212529;
+  border-style: solid;
+  border-width: 1px;
+}
+
+/* "+"-Button */
 
 button {
   border-radius: 5px;
@@ -79,16 +108,53 @@ button {
   border-style: solid;
   border-width: 1px;
   color: white;
-  padding: 13px 20px;
+  padding: 5px 7px 2px 7px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
 }
 
 button:hover {
   background-color: #acacac;
   cursor: pointer;
+}
+
+/* "Start-/ Endpoint"-Button */
+
+#setStartPoint {
+  border-radius: 5px;
+  background-color: #212529;
+  border: #6498b0;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: small;
+}
+
+#setStartPoint:hover {
+  background-color: #acacac;
+  cursor: pointer;
+  }
+
+#setEndPoint {
+  border-radius: 5px;
+  background-color: #212529;
+  border: #6498b0;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: small;
+}
+
+#setEndPoint:hover {
+background-color: #acacac;
+cursor: pointer;
 }
 
 .featuredBtn.active {
@@ -98,6 +164,7 @@ button:hover {
   border-style: solid;
   border-width: 1px;
 }
+
 
 /* left Column */
 #leftColumn {
@@ -213,8 +280,13 @@ ul.submenu,
 input.check03,
 ul.submenu,
 input.check04,
-ul.submenu02 {
+ul.submenu02{
   display: none;
+}
+
+input.check03,
+img#dropdownLeftCam{
+  transform: rotate(0deg);
 }
 
 /*show the submenu when input is checked*/
@@ -229,6 +301,12 @@ input.check02:checked ~ ul.submenu {
 input.check03:checked ~ ul.submenu {
   display: block;
 }
+
+/*
+input.check03:checked, img#dropdownLeftCam {
+  transform: rotate(180deg);
+}
+*/
 
 input.check04:checked ~ ul.submenu02 {
   display: block;
@@ -257,6 +335,7 @@ input.check04:checked ~ ul.submenu02 {
 #deletePoint,
 #deleteLine {
   width: 15px;
+  margin-left: 10px;
 }
 
 #deletePoint:hover,

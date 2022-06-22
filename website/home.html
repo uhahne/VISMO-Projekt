@@ -30,9 +30,17 @@
     <main>
         <!-- buttons for Building, Cameras, Settings -->
         <div id="nav">
-            <button type="button" class="buttonactive featuredBtn active" id="building">Gebäude</button>
-            <button type="button" class="buttonactive featuredBtn" id="camera">Kameras</button>
-            <button type="button" class="buttonactive featuredBtn" id="settings">Einstellungen</button>
+            <div class="navButton">
+                <button type="button" class="buttonactive featuredBtn active" id="building">Gebäude</button>
+            </div>
+
+            <div class="navButton">
+                <button type="button" class="buttonactive featuredBtn" id="camera">Kameras</button>
+            </div>
+
+            <div class="navButton">
+                <button type="button" class="buttonactive featuredBtn" id="settings">Einstellungen</button>
+            </div>
         </div>
 
         <!-- COLUMN left -->
@@ -71,10 +79,10 @@
                 </label>
                 <ul class="submenu">
                     <div id="lineCreation">
-                        <p><button type="button" id="setStartPoint">Punkt setzen</button> <b>Anfang</b>: <span
+                        <p><button type="button" id="setStartPoint">Punkt setzen</button> <b>Startpunkt</b>: <span
                                 id="startPointName"></span>
                         </p>
-                        <p><button type="button" id="setEndPoint">Punkt setzen</button> <b>Ende</b>: <span
+                        <p><button type="button" id="setEndPoint">Punkt setzen</button> <b>Endpunkt</b>: <span
                                 id="endPointName"></span></p>
                         <p><button type="button" id="createLine" title="Linie hinzufügen"><img class="plusIcon" src="graphics/plusIcon_white.png"></button> <span
                                 id="lineFeedback"></span></p>
@@ -96,7 +104,7 @@
                     <label id="check03CSS" for="check03">Linke Kamera <img id="dropdownLeftCam"
                             src="graphics/dropdown_white.png"> </label>
                     <ul class="submenu">
-                        <p><b>Projektionszentrum:</b></p>
+                        <p><b>Projektionszentrum (Position):</b></p>
                         <!-- untereinander: x, y, z als <label> machen -->
                         <p>
                             <b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0"
@@ -207,9 +215,11 @@
                 <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
             </div>
 
+            
             <div id="version">
                 <p> Version 1.1.13 </p>
             </div>
+
 
         </div>
 
@@ -217,6 +227,7 @@
         <div id="viewport">
             <canvas id="vismoViewport" width="128" height="128"></canvas>
         </div>
+    
     </main>
 </body>
 
