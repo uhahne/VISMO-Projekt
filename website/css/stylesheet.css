@@ -123,6 +123,7 @@ button:hover {
 
 /* left Column */
 #leftColumn {
+
   color: white;
   margin-top: 110px;
   z-index: 1;
@@ -146,6 +147,10 @@ button:hover {
 
 #leftColumn h3 {
   margin-bottom: 10px;
+}
+
+hr {
+  background: #ffffff;
 }
 
 /* Scrollbar */
@@ -256,8 +261,8 @@ input.check04:checked~ul.submenu02 {
 #dropdownRightCam {
   position: absolute;
   left: 85%;
-  /* width: 15px; */
-  height: 15px;
+  margin-top: 5px;
+  height: 10px;
 }
 
 #newPointName {
@@ -307,15 +312,16 @@ input.check04:checked~ul.submenu02 {
 #ausgabe {
   font-size: 125%;
   font-weight: bold;
+  margin-bottom: 15px;
 }
 
 #ausgabeLinkeCamera {
-  font-size: 100%;
+  font-size: 110%;
   font-weight: bold;
 }
 
 #ausgabeRechteCamera {
-  font-size: 100%;
+  font-size: 110%;
   font-weight: bold;
 }
 
