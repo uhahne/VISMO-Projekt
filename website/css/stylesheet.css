@@ -31,7 +31,6 @@ body {
   /* overflow: hidden; */
   width: 100%;
   height: 55px;
-  box-shadow: 0px 1px 3px #212529;
 }
 
 /* .header-left {
@@ -58,9 +57,13 @@ body {
   border-radius: 5px;
 }
 
-.header a:hover {
+.header .header-right a:hover {
   background-color: #ddd;
   color: black;
+}
+
+.header .header-left .noHover a:hover{
+  background-color: transparent;
 }
 
 a:link,
@@ -85,12 +88,24 @@ a:active {
 /* Nav with Buttons/Tabs */
 #nav {
   position: fixed;
-  margin-top: 55px;
+  margin-top: 60px;
+  margin-left: 12px;
   z-index: 1;
+
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 5px;
+  background-color: #212529; 
+  border: #6498B0;
+  border-style: solid;
+  border-width: 1px;
+  color: white;
+  padding: 13px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 button:hover {
@@ -101,13 +116,15 @@ button:hover {
 .featuredBtn.active {
   background-color: #6498b0;
   color: #ffffff;
+  border: #212529;
+  border-style: solid;
+  border-width: 1px;
 }
 
 /* left Column */
 #leftColumn {
-  text-shadow: 0.5px 1px 3px #000000;
   color: white;
-  margin-top: 85px;
+  margin-top: 110px;
   z-index: 1;
   background-color: #212529;
   overflow: scroll;
@@ -117,6 +134,9 @@ button:hover {
   /*background-color: #f8f9fa;*/
   padding-left: 5px;
   border-radius: 5px;
+  border: #212529;
+  border-style: solid;
+  border-width: 7px 0px 0px 0px;
 }
 
 #leftColumn p {
@@ -142,7 +162,7 @@ button:hover {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 /* Handle on hover */
@@ -159,9 +179,8 @@ button:hover {
 #output,
 #rightCamUI,
 #leftCamUI {
-  box-shadow: 0.5px 1px 3px #000000;
   background-color: #3f3f3f;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 8px;
   padding: 8px;
 }
@@ -184,7 +203,6 @@ button:hover {
   background-color: #ddd;
   opacity: 75%;
   color: #000000;
-  text-shadow: none;
   border-radius: 5px;
 }
 
