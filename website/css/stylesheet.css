@@ -127,6 +127,9 @@ button:hover {
 
 hr {
   background: #ffffff;
+  border: 1px solid;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 /* Scrollbar */
@@ -172,7 +175,7 @@ hr {
 #check03CSS,
 #check04CSS {
   margin-top: 2%;
-  font-size: 125%;
+  font-size: 135%;
   font-weight: bold;
   cursor: pointer;
 }
@@ -242,6 +245,10 @@ input.check04:checked ~ ul.submenu02 {
   height: 10px;
 }
 
+.plusIcon {
+  height: 15px;
+}
+
 #newPointName {
   margin-bottom: 0%;
 }
@@ -301,19 +308,21 @@ input.check04:checked ~ ul.submenu02 {
 
 /* style for output area */
 #ausgabe {
-  font-size: 125%;
+  font-size: 140%;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 #ausgabeLinkeCamera {
-  font-size: 110%;
+  font-size: 125%;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 #ausgabeRechteCamera {
-  font-size: 110%;
+  font-size: 125%;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 #version {
