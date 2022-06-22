@@ -223,6 +223,7 @@ label {
 
 input {
   width: 65px;
+  border-radius: 5px;
 }
 
 /* hide the inputs/checkmarks and submenu*/
@@ -270,6 +271,12 @@ input.check04:checked~ul.submenu02 {
 }
 
 /* style of deletePoint img */
+
+#deletePoint,
+#deleteLine {
+  width: 15px;
+}
+
 #deletePoint:hover,
 #deleteLine:hover {
   cursor: pointer;
@@ -306,6 +313,10 @@ input.check04:checked~ul.submenu02 {
 #strahlen {
   font-size: 125%;
   font-weight: bold;
+}
+
+#beams {
+border-radius: 5px;
 }
 
 /* style for output area */
