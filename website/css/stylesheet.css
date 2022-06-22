@@ -414,3 +414,21 @@ input.check04:checked ~ ul.submenu02 {
   top: 50px;
   z-index: 0;
 }
+
+#beams {
+  border: #6498b0;
+  border-style: solid;
+  border-width: 1px;
+  color: #ffffff;
+  background-color: #212529;
+  padding: 7px 12px;
+}
+
+/*
+#beams:hover {
+  background-color: #6498b0;
+  cursor: pointer;
+}
+*/  
+
+
