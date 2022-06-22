@@ -158,4 +158,22 @@ export default class Camera extends THREE.PerspectiveCamera {
         return s;
     }
     
+    getImageCoordCamera(_pointCoord) { // _pointCoord: THREE.Vector3
+        // get the image coordinates in the world coordinate system
+        let imageCoordCamera = this.getImageCoordWorld(_pointCoord);
+
+        // transform the world coordinates into camera coordinates
+        imageCoordCamera.applyMatrix4(this.matrixWorldInverse);
+
+        // rotate 180° around the y-axis (because z has to turn the opposite direction)
+        let rotationMatrix = new THREE.Matrix3();
+        rotationMatrix.set(
+            -1, 0, 0,
+            0, 1, 0,
+            0, 0, -1
+        );
+        imageCoordCamera.applyMatrix3(rotationMatrix);
+
+        return imageCoordCamera;  
+    }
 } 
