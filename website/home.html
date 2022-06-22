@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/stylesheet.css">
-    <link rel="icon" href="graphics/LogoVismo1.png">
+    <link rel="icon" href="graphics/LogoIcon.png">
     <title>VISMO-Projekt</title>
 </head>
 
@@ -19,8 +19,7 @@
     <!-- HEADER top -->
     <div class="header">
         <div class="header-left">
-            <img id="logo" src="graphics/Vismo_LogoWortBild_weiß_final.svg">
-            <!-- <h2>Version 1.1.11</h2> -->
+            <a class="noHover" href="home.html"><img id="logo" src="graphics/Vismo_LogoWortBild_weiß_final.svg"></a>
         </div>
         <div class="header-right">
             <a class="active" href="help.html">Hilfe</a>
@@ -41,18 +40,20 @@
             <!-- input fields for model POINTS -->
             <div id="pointUI">
                 <input id="check01" class="check01" type="checkbox" name="menu" />
-                <label id="check01CSS" for="check01">Punkt <img id="dropdownPoint" src="graphics/dropdown.png"> </label>
+                <label id="check01CSS" for="check01">Punkt <img id="dropdownPoint" src="graphics/dropdown_white.png">
+                </label>
                 <ul class="submenu">
                     <div id="pointCreation">
                         <p>
                             <b>Neuer Punkt:</b>
                             <input id="newPointName" type="text" placeholder="Name" autocomplete="off"> <button
-                                id="createPoint">+</button> <span id="pointNameFeedback"></span>
+                                id="createPoint" title="Punkt hinzufügen">+</button> <span
+                                id="pointNameFeedback"></span>
                         </p>
                     </div>
                     <div id="pointManipulation">
                         <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <img id="deletePoint"
-                                src="graphics/trashcan.png"></p>
+                                src="graphics/trashcan_deletePoint.png" title="Punkt löschen"></p>
                         <b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
                         <b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
                         <b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
@@ -66,7 +67,8 @@
                 <!-- input fields for LINES -->
                 <input id="check02" class="check02" type="checkbox" name="menu" />
 
-                <label id="check02CSS" for="check02">Linie <img id="dropdownLine" src="graphics/dropdown.png"> </label>
+                <label id="check02CSS" for="check02">Linie <img id="dropdownLine" src="graphics/dropdown_white.png">
+                </label>
                 <ul class="submenu">
                     <div id="lineCreation">
                         <p><button type="button" id="setStartPoint">Punkt setzen</button> <b>Anfang</b>: <span
@@ -74,11 +76,12 @@
                         </p>
                         <p><button type="button" id="setEndPoint">Punkt setzen</button> <b>Ende</b>: <span
                                 id="endPointName"></span></p>
-                        <p><button type="button" id="createLine">+</button> <span id="lineFeedback"></span></p>
+                        <p><button type="button" id="createLine" title="Linie hinzufügen">+</button> <span
+                                id="lineFeedback"></span></p>
                     </div>
                     <div id="lineManipulation">
                         <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <img id="deleteLine"
-                                src="graphics/trashcan.png"></p>
+                                src="graphics/trashcan_deletePoint.png" title="Linie löschen"></p>
                     </div>
             </div>
 
@@ -91,7 +94,7 @@
 
                     <!-- LEFT CAMERA -->
                     <label id="check03CSS" for="check03">Linke Kamera <img id="dropdownLeftCam"
-                            src="graphics/dropdown.png"> </label>
+                            src="graphics/dropdown_white.png"> </label>
                     <ul class="submenu">
                         <p><b>Projektionszentrum:</b></p>
                         <!-- untereinander: x, y, z als <label> machen -->
@@ -125,7 +128,7 @@
                     <!-- RIGHT CAMERA -->
                     <input id="check04" class="check04" type="checkbox" name="menu02" />
                     <label id="check04CSS" for="check04">Rechte Kamera <img id="dropdownRightCam"
-                            src="graphics/dropdown.png"> </label>
+                            src="graphics/dropdown_white.png"> </label>
                     <ul class="submenu02">
                         <p><b>Projektionszentrum:</b></p>
                         <p>
@@ -204,7 +207,11 @@
                 <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
             </div>
 
-            
+
+            <div id="version">
+                <p> Version 1.1.12 </p>
+            </div>
+
 
         </div>
         <div id="trackPad">
