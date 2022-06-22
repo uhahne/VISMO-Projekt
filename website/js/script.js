@@ -352,21 +352,34 @@ function resetDomElementForPoint(_point) {
     document.getElementById("pointCoordX").value = _point.position.x;
     document.getElementById("pointCoordY").value = _point.position.y;
     document.getElementById("pointCoordZ").value = _point.position.z;
-    /* picture plane coordinates */
-    // camera left
+
+    // #region (picture coordinates)
+    // CAMERA LEFT
     cameraLeft.updatePrincipalPoint();
     cameraLeft.updateProjectionMatrixArray();
+    // world coordinate system
     let pointLeftImgCoordWorld = cameraLeft.getImageCoordWorld(_point.position);
     document.getElementById("pointCoordXLeftWorld").innerHTML = pointLeftImgCoordWorld.x.toFixed(3);
     document.getElementById("pointCoordYLeftWorld").innerHTML = pointLeftImgCoordWorld.y.toFixed(3);
     document.getElementById("pointCoordZLeftWorld").innerHTML = pointLeftImgCoordWorld.z.toFixed(3);
-    // camera right
+    // camera coordinate system
+    let pointLeftImgCoordCamera = cameraLeft.getImageCoordCamera(_point.position);
+    document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoordCamera.x.toFixed(3);
+    document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoordCamera.y.toFixed(3);
+
+    // CAMERA RIGHT
     cameraRight.updatePrincipalPoint();
     cameraRight.updateProjectionMatrixArray();
+    // world coordinate system
     let pointRightImgCoordWorld = cameraRight.getImageCoordWorld(_point.position);
     document.getElementById("pointCoordXRightWorld").innerHTML = pointRightImgCoordWorld.x.toFixed(3);
     document.getElementById("pointCoordYRightWorld").innerHTML = pointRightImgCoordWorld.y.toFixed(3);
     document.getElementById("pointCoordZRightWorld").innerHTML = pointRightImgCoordWorld.z.toFixed(3);
+    // camera coordinate system
+    let pointRightImgCoordCamera = cameraRight.getImageCoordCamera(_point.position);
+    document.getElementById("pointCoordXRight").innerHTML = pointRightImgCoordCamera.x.toFixed(3);
+    document.getElementById("pointCoordYRight").innerHTML = pointRightImgCoordCamera.y.toFixed(3);
+    // #endregion (picture coordinates)
 }
 
 function emptyDomElementForPoint(_point) {
