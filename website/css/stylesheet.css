@@ -1,6 +1,4 @@
-@media screen and (min-width: 994px),
-(max-width: 994px),
-(max-height: 994px) {
+@media screen and (min-width: 994px), (max-width: 994px), (max-height: 994px) {
   div#leftColumn {
     height: 100%;
     width: 20%;
@@ -13,12 +11,6 @@ body {
   margin: 0;
 }
 
-/* #versionNr {
-  color: #ffffff;
-  position: relative;
-  left: 200px;
-} */
-
 * {
   box-sizing: border-box;
 }
@@ -28,14 +20,9 @@ body {
   z-index: 1;
   position: fixed;
   background-color: #6498b0;
-  /* overflow: hidden; */
   width: 100%;
   height: 55px;
 }
-
-/* .header-left {
-  float: left;
-} */
 
 #logo {
   position: absolute;
@@ -62,7 +49,7 @@ body {
   color: black;
 }
 
-.header .header-left .noHover a:hover{
+.header .header-left .noHover a:hover {
   background-color: transparent;
 }
 
@@ -73,31 +60,22 @@ a:active {
   text-decoration: none;
 }
 
-/* @media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-
-  .header-right {
-    float: none;
-  }
-} */
-
 /* Nav with Buttons/Tabs */
 #nav {
   position: fixed;
   margin-top: 60px;
   margin-left: 12px;
   z-index: 1;
+}
 
+#nav button {
+  font-size: 18px;
 }
 
 button {
   border-radius: 5px;
-  background-color: #212529; 
-  border: #6498B0;
+  background-color: #212529;
+  border: #6498b0;
   border-style: solid;
   border-width: 1px;
   color: white;
@@ -123,7 +101,6 @@ button:hover {
 
 /* left Column */
 #leftColumn {
-
   color: white;
   margin-top: 110px;
   z-index: 1;
@@ -132,7 +109,6 @@ button:hover {
   overflow-x: hidden;
   position: fixed;
   padding-bottom: 200px;
-  /*background-color: #f8f9fa;*/
   padding-left: 5px;
   border-radius: 5px;
   border: #212529;
@@ -239,19 +215,19 @@ ul.submenu02 {
 }
 
 /*show the submenu when input is checked*/
-input.check01:checked~ul.submenu {
+input.check01:checked ~ ul.submenu {
   display: block;
 }
 
-input.check02:checked~ul.submenu {
+input.check02:checked ~ ul.submenu {
   display: block;
 }
 
-input.check03:checked~ul.submenu {
+input.check03:checked ~ ul.submenu {
   display: block;
 }
 
-input.check04:checked~ul.submenu02 {
+input.check04:checked ~ ul.submenu02 {
   display: block;
 }
 
@@ -271,7 +247,6 @@ input.check04:checked~ul.submenu02 {
 }
 
 /* style of deletePoint img */
-
 #deletePoint,
 #deleteLine {
   width: 15px;
@@ -316,7 +291,12 @@ input.check04:checked~ul.submenu02 {
 }
 
 #beams {
-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#beams:hover {
+  /* background-color: #acacac; */
+  cursor: pointer;
 }
 
 /* style for output area */
@@ -336,7 +316,7 @@ border-radius: 5px;
   font-weight: bold;
 }
 
-#version{
+#version {
   padding-left: 10px;
 }
 
