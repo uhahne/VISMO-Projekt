@@ -238,7 +238,11 @@ hr {
 #check01CSS,
 #check02CSS,
 #check03CSS,
-#check04CSS {
+#check04CSS,
+#check05CSS,
+#check06CSS,
+#check07CSS,
+#check08CSS {
   margin-top: 2%;
   font-size: 135%;
   font-weight: bold;
@@ -248,7 +252,11 @@ hr {
 #check01CSS:hover,
 #check02CSS:hover,
 #check03CSS:hover,
-#check04CSS:hover {
+#check04CSS:hover,
+#check05CSS:hover,
+#check06CSS:hover,
+#check07CSS:hover,
+#check08CSS:hover {
   background-color: #ddd;
   opacity: 75%;
   color: #000000;
@@ -271,14 +279,16 @@ input {
 }
 
 /* hide the inputs/checkmarks and submenu*/
+ul.submenu,
+ul.submenu02,
 input.check01,
-ul.submenu,
 input.check02,
-ul.submenu,
 input.check03,
-ul.submenu,
 input.check04,
-ul.submenu02 {
+input.check05,
+input.check06,
+input.check07,
+input.check08 {
   display: none;
 }
 
@@ -308,6 +318,27 @@ input.check03:checked, img#dropdownLeftCam {
 
 input.check04:checked ~ ul.submenu02 {
   display: block;
+}
+
+input.check05:checked ~ ul.submenu {
+  display: block;
+}
+
+input.check06:checked ~ ul.submenu {
+  display: block;
+}
+
+input.check07:checked ~ ul.submenu {
+  display: block;
+}
+
+input.check08:checked ~ ul.submenu {
+  display: block;
+}
+
+#helpText ul {
+  margin-left: -20px;
+  padding-right: 40px;
 }
 
 /* dropdown-arrow img*/
@@ -435,11 +466,45 @@ input.check04:checked ~ ul.submenu02 {
 
 #helpText {
   margin-top: 55px;
-  padding: 25px;
+  padding-right: 50px;
+  padding-left: 50px;
   height: 90vh;
   overflow-y: auto;
 }
 
 #helpText p {
+  font-size: 25px;
   color: #000000;
+  text-align: justify;
+}
+
+#helpText a {
+  padding: 0px;
+}
+
+#helpText img:hover {
+  transform: scale(1.025);
+}
+
+#helpText img {
+  transition: transform 0.2s; /* Animation */
+}
+
+.columnPic {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+.viewer {
+  float: right;
+  padding-left: 60px;
+  padding-right: 20px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
