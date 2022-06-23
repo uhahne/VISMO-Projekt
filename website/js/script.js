@@ -18,6 +18,7 @@ let cameraHelperLeft, cameraHelperRight;
 let selectables;
 let points, lines;
 let beams, toggleBeams;
+let epipoleLeft, epipoleRight;
 
 let worldCoordinateSystem;
 
@@ -119,6 +120,12 @@ function init() {
     // beams group
     beams = new THREE.Group();
     toggleBeams = "none";
+
+    // epipoles
+    epipoleLeft = new Point("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
+    epipoleLeft.material.color.set(0xff9900);
+    epipoleRight = new Point("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
+    epipoleRight.material.color.set(0xff9900);
 
     // #region (GRID)
     // world grid
@@ -223,6 +230,8 @@ function animate() {
     cameraRightGrid.visible = false;
     cameraLeftCoordinateSystem.visible = false;
     cameraRightCoordinateSystem.visible = false;
+    epipoleLeft.visible = false;
+    epipoleRight.visible = false;
 
     renderer.render(scene, cameraScene);
 
@@ -236,6 +245,8 @@ function animate() {
     cameraRightGrid.visible = false;
     cameraLeftCoordinateSystem.visible = true;
     cameraRightCoordinateSystem.visible = false;
+    epipoleLeft.visible = true;
+    epipoleRight.visible = true;
 
     renderer.render(scene, cameraLeft);
 
@@ -249,6 +260,8 @@ function animate() {
     cameraRightGrid.visible = true;
     cameraLeftCoordinateSystem.visible = false;
     cameraRightCoordinateSystem.visible = true;
+    epipoleLeft.visible = true;
+    epipoleRight.visible = true;
 
     renderer.render(scene, cameraRight);
 }
@@ -693,16 +706,22 @@ function handleBeams(_event) {
         case "none":
             toggleBeams = "none";
             beams.removeFromParent();
+            epipoleLeft.removeFromParent();
+            epipoleRight.removeFromParent();
             break;
         case "all":
             toggleBeams = "all";
             createBeams(cameras, points);
             scene.add(beams);
+            cameraLeft.add(epipoleLeft);
+            cameraRight.add(epipoleRight);
             break;
         case "one":
             toggleBeams = "one";
             createBeam(cameras, selectedPoint);
             scene.add(beams);
+            cameraLeft.add(epipoleLeft);
+            cameraRight.add(epipoleRight);
             break;
     }
 }

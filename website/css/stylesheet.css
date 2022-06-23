@@ -434,8 +434,10 @@ input.check04:checked ~ ul.submenu02 {
 }
 
 #helpText {
-  margin-top: 50px;
+  margin-top: 55px;
   padding: 25px;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 #helpText p {
