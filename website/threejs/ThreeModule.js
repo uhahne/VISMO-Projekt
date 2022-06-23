@@ -47145,12 +47145,13 @@ class CameraHelper extends LineSegments {
 
 		// colors
 
-		const colorFrustum = new Color( 0xffaa00 );
-		const colorCone = new Color( 0xff0000 );
-		const colorUp = new Color( 0x00aaff );
+		const colorFrustum = new Color( 0x52b9eb );
+		const colorCone = new Color( 0x52b9eb );
+		const colorUp = new Color( 0x52b9eb );
+        /*
 		const colorTarget = new Color( 0xffffff );
 		const colorCross = new Color( 0x333333 );
-
+        */
 		// near
 
 		addLine( 'n1', 'n2', colorFrustum );
