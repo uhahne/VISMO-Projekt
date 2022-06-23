@@ -71,7 +71,6 @@ a:active {
   display: flex;
   justify-content: space-between;
   padding-left: 12px;
-  
 }
 
 #nav button {
@@ -82,7 +81,7 @@ a:active {
   border-width: 1px;
   color: white;
   padding: 13px 10px;
-  font-size: 14px;  
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -137,7 +136,7 @@ button:hover {
 #setStartPoint:hover {
   background-color: #acacac;
   cursor: pointer;
-  }
+}
 
 #setEndPoint {
   border-radius: 5px;
@@ -153,8 +152,8 @@ button:hover {
 }
 
 #setEndPoint:hover {
-background-color: #acacac;
-cursor: pointer;
+  background-color: #acacac;
+  cursor: pointer;
 }
 
 .featuredBtn.active {
@@ -164,7 +163,6 @@ cursor: pointer;
   border-style: solid;
   border-width: 1px;
 }
-
 
 /* left Column */
 #leftColumn {
@@ -280,12 +278,12 @@ ul.submenu,
 input.check03,
 ul.submenu,
 input.check04,
-ul.submenu02{
+ul.submenu02 {
   display: none;
 }
 
 input.check03,
-img#dropdownLeftCam{
+img#dropdownLeftCam {
   transform: rotate(0deg);
 }
 
@@ -347,7 +345,7 @@ input.check04:checked ~ ul.submenu02 {
 /* for newPointName -> name is already taken */
 #pointNameFeedback,
 #lineFeedback {
-  color: red;
+  color: rgb(255, 50, 50);
   font-weight: bold;
   font-size: 20px;
 }
@@ -392,20 +390,18 @@ input.check04:checked ~ ul.submenu02 {
   margin-bottom: 20px;
 }
 
+/* left camera */
 #ausgabeLinkeCamera {
   font-size: 125%;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
+/* right camera */
 #ausgabeRechteCamera {
   font-size: 125%;
   font-weight: bold;
   margin-bottom: 20px;
-}
-
-#version {
-  padding-left: 10px;
 }
 
 /* style for viewport */
@@ -415,6 +411,7 @@ input.check04:checked ~ ul.submenu02 {
   z-index: 0;
 }
 
+/* button for beams */
 #beams {
   border: #6498b0;
   border-style: solid;
@@ -429,6 +426,18 @@ input.check04:checked ~ ul.submenu02 {
   background-color: #6498b0;
   cursor: pointer;
 }
-*/  
+*/
 
+/* version of application */
+#version {
+  padding-left: 10px;
+}
 
+#helpText {
+  margin-top: 50px;
+  padding: 25px;
+}
+
+#helpText p {
+  color: #000000;
+}

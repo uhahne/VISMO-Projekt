@@ -283,13 +283,13 @@ function handleCreatePoint(_event) {
 
     // check if user put in a name
     if (document.getElementById("newPointName").value == "") {
-        document.getElementById("pointNameFeedback").innerHTML = "Name eingeben!";
+        document.getElementById("pointNameFeedback").innerHTML = "Bitte Name eingeben";
         return;
     }
     // check if the name already exists
     if (points.getObjectByName(pointName) != undefined) {
         document.getElementById("pointNameFeedback").innerHTML =
-            "Bereits vergeben!";
+            "Dieser Name ist bereits vergeben";
         return;
     }
     let newPoint = new Point(pointName, new THREE.Vector3(0, 0, 0), 0.25); // create new point
@@ -419,12 +419,12 @@ function handleCreateLine(_event) {
 
     // check if the start & end point are undefined
     if (lineStartPoint == undefined || lineEndPoint == undefined) {
-        document.getElementById("lineFeedback").innerHTML = "Punkte auswählen!";
+        document.getElementById("lineFeedback").innerHTML = "Bitte Punkte auswählen";
         return;
     }
     // check if the start & end point are identical
     if (lineStartPoint == lineEndPoint) {
-        document.getElementById("lineFeedback").innerHTML = "Punkte identisch!";
+        document.getElementById("lineFeedback").innerHTML = "Punkte sind identisch";
         return;
     }
     // check if an identical line already exists (by name)
@@ -434,7 +434,7 @@ function handleCreateLine(_event) {
         lines.getObjectByName(lineEndPoint.name + "-" + lineStartPoint.name) !=
         undefined
     ) {
-        document.getElementById("lineFeedback").innerHTML = "Existiert bereits!";
+        document.getElementById("lineFeedback").innerHTML = "Diese Linie existiert bereits";
         return;
     }
     let newLine = new Line(lineStartPoint, lineEndPoint); // create new line
