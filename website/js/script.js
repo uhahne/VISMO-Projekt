@@ -1,5 +1,7 @@
 import * as THREE from "../threejs/ThreeModule.js";
 import { OrbitControls } from "../threejs/OrbitControls.js";
+import { GLTFLoader } from '../threejs/GLTFLoader.js';
+import { RGBELoader } from '../threejs/RGBELoader.js';
 import Point from "../js/classes/Point.js";
 import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
@@ -18,7 +20,6 @@ let cameraHelperLeft, cameraHelperRight;
 let selectables;
 let points, lines;
 let beams, toggleBeams;
-let epipoleLeft, epipoleRight;
 
 let worldCoordinateSystem;
 
@@ -30,6 +31,10 @@ let lineStartPoint, lineEndPoint; // for line creation
 
 let canvasScene = document.getElementById("vismoViewport"); // get canvas
 let canvasWidth, canvasHeight, canvasAspect; // define canvas size
+
+// glb Data
+let glbData = ['giraffe.gltf', 'test1.glb', 'untitled.glb']
+let modelIndex = 0
 
 canvasWidth = window.innerWidth;
 canvasHeight = window.innerHeight;
@@ -117,15 +122,24 @@ function init() {
     selectables.add(lines);
     scene.add(selectables);
 
+    // load first model
+    loadModel('giraffe.gltf')
+
+    // environment
+    new RGBELoader()
+        .setPath()
+        .load('', function (texture) {
+
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+
+            //scene.background = texture;
+            scene.environment = texture;
+
+        });
+
     // beams group
     beams = new THREE.Group();
     toggleBeams = "none";
-
-    // epipoles
-    epipoleLeft = new Point("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
-    epipoleLeft.material.color.set(0xff9900);
-    epipoleRight = new Point("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
-    epipoleRight.material.color.set(0xff9900);
 
     // #region (GRID)
     // world grid
@@ -133,12 +147,12 @@ function init() {
     // left camera grid
     cameraLeftGrid = new CameraGrid();
     cameraLeft.add(cameraLeftGrid);
-    cameraLeftGrid.rotateX(Math.PI/2); // parallel to camera
+    cameraLeftGrid.rotateX(Math.PI / 2); // parallel to camera
     cameraLeftGrid.update(); // adjust position
     // right camera grid
     cameraRightGrid = new CameraGrid();
     cameraRight.add(cameraRightGrid);
-    cameraRightGrid.rotateX(Math.PI/2);
+    cameraRightGrid.rotateX(Math.PI / 2);
     cameraRightGrid.update();
     // #endregion (GRID)
 
@@ -165,7 +179,7 @@ function init() {
     // UI
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("settingsUI").setAttribute("style", "display: none");
-    
+
     document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
     document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
 
@@ -213,13 +227,37 @@ $(".buttonactive").click(function () {
     $(this).addClass("active");
 });
 
+// loader function
+function loadModel(_model) {
+    // gltf
+    const loader = new GLTFLoader().setPath('model/');
+    loader.load(_model, function (gltf) {
+        //gltf.scene.scale(1.5)
+        gltf.scene.position.set(0, 0, 4.5)
+        scene.add(gltf.scene);
+
+        // renderer.render( scene, camera );
+
+    });
+}
+
+// change model
+function changeModel () {
+    if (modelIndex < glbData.length) {
+        modelIndex ++
+        loadModel(glbData[modelIndex])
+    } else {
+        modelIndex = 0
+    }
+}
+
 function animate() {
     requestAnimationFrame(animate);
 
     // render scene
     renderer.clear();
     controls.update();
-    
+
     //set viewport for 3D viewer
     renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
 
@@ -230,8 +268,6 @@ function animate() {
     cameraRightGrid.visible = false;
     cameraLeftCoordinateSystem.visible = false;
     cameraRightCoordinateSystem.visible = false;
-    epipoleLeft.visible = false;
-    epipoleRight.visible = false;
 
     renderer.render(scene, cameraScene);
 
@@ -245,8 +281,6 @@ function animate() {
     cameraRightGrid.visible = false;
     cameraLeftCoordinateSystem.visible = true;
     cameraRightCoordinateSystem.visible = false;
-    epipoleLeft.visible = true;
-    epipoleRight.visible = true;
 
     renderer.render(scene, cameraLeft);
 
@@ -260,8 +294,6 @@ function animate() {
     cameraRightGrid.visible = true;
     cameraLeftCoordinateSystem.visible = false;
     cameraRightCoordinateSystem.visible = true;
-    epipoleLeft.visible = true;
-    epipoleRight.visible = true;
 
     renderer.render(scene, cameraRight);
 }
@@ -271,6 +303,7 @@ function handleBuildingTab(_event) {
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("pointUI").setAttribute("style", "visibility: visible");
     document.getElementById("lineUI").setAttribute("style", "visibility: visible");
+    document.getElementById("modelUI").setAttribute("style", "visibility: visible");
     document.getElementById("settingsUI").setAttribute("style", "display: none");
 }
 
@@ -279,6 +312,7 @@ function handleCamTab(_event) {
     document.getElementById("lineUI").setAttribute("style", "display: none");
     document.getElementById("settingsUI").setAttribute("style", "display: none");
     document.getElementById("camUI").setAttribute("style", "visibility: visible");
+    document.getElementById("modelUI").setAttribute("style", "display: none");
 }
 
 function handleSettingsTab(_event) {
@@ -286,6 +320,7 @@ function handleSettingsTab(_event) {
     document.getElementById("lineUI").setAttribute("style", "display: none");
     document.getElementById("camUI").setAttribute("style", "display: none");
     document.getElementById("settingsUI").setAttribute("style", "visibility: visible");
+    document.getElementById("modelUI").setAttribute("style", "display: none");
 }
 // #endregion (UI TABS)
 
@@ -296,13 +331,13 @@ function handleCreatePoint(_event) {
 
     // check if user put in a name
     if (document.getElementById("newPointName").value == "") {
-        document.getElementById("pointNameFeedback").innerHTML = "Bitte Name eingeben";
+        document.getElementById("pointNameFeedback").innerHTML = "Name eingeben!";
         return;
     }
     // check if the name already exists
     if (points.getObjectByName(pointName) != undefined) {
         document.getElementById("pointNameFeedback").innerHTML =
-            "Dieser Name ist bereits vergeben";
+            "Bereits vergeben!";
         return;
     }
     let newPoint = new Point(pointName, new THREE.Vector3(0, 0, 0), 0.25); // create new point
@@ -365,34 +400,19 @@ function resetDomElementForPoint(_point) {
     document.getElementById("pointCoordX").value = _point.position.x;
     document.getElementById("pointCoordY").value = _point.position.y;
     document.getElementById("pointCoordZ").value = _point.position.z;
-
-    // #region (picture coordinates)
-    // CAMERA LEFT
+    /* picture plane coordinates */ //TODO: round coordinate values in function
+    // camera left
     cameraLeft.updatePrincipalPoint();
     cameraLeft.updateProjectionMatrixArray();
-    // world coordinate system
-    let pointLeftImgCoordWorld = cameraLeft.getImageCoordWorld(_point.position);
-    document.getElementById("pointCoordXLeftWorld").innerHTML = pointLeftImgCoordWorld.x.toFixed(3);
-    document.getElementById("pointCoordYLeftWorld").innerHTML = pointLeftImgCoordWorld.y.toFixed(3);
-    document.getElementById("pointCoordZLeftWorld").innerHTML = pointLeftImgCoordWorld.z.toFixed(3);
-    // camera coordinate system
-    let pointLeftImgCoordCamera = cameraLeft.getImageCoordCamera(_point.position);
-    document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoordCamera.x.toFixed(3);
-    document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoordCamera.y.toFixed(3);
-
-    // CAMERA RIGHT
+    let pointLeftImgCoord = cameraLeft.getImageCoord(_point.position);
+    document.getElementById("pointCoordXLeft").innerHTML = pointLeftImgCoord.x;
+    document.getElementById("pointCoordYLeft").innerHTML = pointLeftImgCoord.y;
+    // camera right
     cameraRight.updatePrincipalPoint();
     cameraRight.updateProjectionMatrixArray();
-    // world coordinate system
-    let pointRightImgCoordWorld = cameraRight.getImageCoordWorld(_point.position);
-    document.getElementById("pointCoordXRightWorld").innerHTML = pointRightImgCoordWorld.x.toFixed(3);
-    document.getElementById("pointCoordYRightWorld").innerHTML = pointRightImgCoordWorld.y.toFixed(3);
-    document.getElementById("pointCoordZRightWorld").innerHTML = pointRightImgCoordWorld.z.toFixed(3);
-    // camera coordinate system
-    let pointRightImgCoordCamera = cameraRight.getImageCoordCamera(_point.position);
-    document.getElementById("pointCoordXRight").innerHTML = pointRightImgCoordCamera.x.toFixed(3);
-    document.getElementById("pointCoordYRight").innerHTML = pointRightImgCoordCamera.y.toFixed(3);
-    // #endregion (picture coordinates)
+    let pointRightImgCoord = cameraRight.getImageCoord(_point.position);
+    document.getElementById("pointCoordXRight").innerHTML = pointRightImgCoord.x;
+    document.getElementById("pointCoordYRight").innerHTML = pointRightImgCoord.y;
 }
 
 function emptyDomElementForPoint(_point) {
@@ -406,13 +426,6 @@ function emptyDomElementForPoint(_point) {
     document.getElementById("pointCoordYLeft").innerHTML = 0;
     document.getElementById("pointCoordXRight").innerHTML = 0;
     document.getElementById("pointCoordYRight").innerHTML = 0;
-    // picture plane coordinates in world coordinate system
-    document.getElementById("pointCoordXLeftWorld").innerHTML = 0;
-    document.getElementById("pointCoordYLeftWorld").innerHTML = 0;
-    document.getElementById("pointCoordZLeftWorld").innerHTML = 0;
-    document.getElementById("pointCoordXRightWorld").innerHTML = 0;
-    document.getElementById("pointCoordYRightWorld").innerHTML = 0;
-    document.getElementById("pointCoordZRightWorld").innerHTML = 0;
 }
 // #endregion (POINTS)
 
@@ -432,12 +445,12 @@ function handleCreateLine(_event) {
 
     // check if the start & end point are undefined
     if (lineStartPoint == undefined || lineEndPoint == undefined) {
-        document.getElementById("lineFeedback").innerHTML = "Bitte Punkte auswählen";
+        document.getElementById("lineFeedback").innerHTML = "Punkte auswählen!";
         return;
     }
     // check if the start & end point are identical
     if (lineStartPoint == lineEndPoint) {
-        document.getElementById("lineFeedback").innerHTML = "Punkte sind identisch";
+        document.getElementById("lineFeedback").innerHTML = "Punkte identisch!";
         return;
     }
     // check if an identical line already exists (by name)
@@ -447,7 +460,7 @@ function handleCreateLine(_event) {
         lines.getObjectByName(lineEndPoint.name + "-" + lineStartPoint.name) !=
         undefined
     ) {
-        document.getElementById("lineFeedback").innerHTML = "Diese Linie existiert bereits";
+        document.getElementById("lineFeedback").innerHTML = "Existiert bereits!";
         return;
     }
     let newLine = new Line(lineStartPoint, lineEndPoint); // create new line
@@ -706,22 +719,16 @@ function handleBeams(_event) {
         case "none":
             toggleBeams = "none";
             beams.removeFromParent();
-            epipoleLeft.removeFromParent();
-            epipoleRight.removeFromParent();
             break;
         case "all":
             toggleBeams = "all";
             createBeams(cameras, points);
             scene.add(beams);
-            cameraLeft.add(epipoleLeft);
-            cameraRight.add(epipoleRight);
             break;
         case "one":
             toggleBeams = "one";
             createBeam(cameras, selectedPoint);
             scene.add(beams);
-            cameraLeft.add(epipoleLeft);
-            cameraRight.add(epipoleRight);
             break;
     }
 }
@@ -739,6 +746,7 @@ function onDocumentMouseDown(_event) {
 }
 
 function castRay(_event, _renderer, _camera, _selectableObjects) {
+    // TODO: these bounds do not reflect the new viewports (*4 in line 584 fixes it for now)
     let canvasBounds = _renderer.getContext().canvas.getBoundingClientRect();
 
     // save the coordinates of the point on which the user clicked
