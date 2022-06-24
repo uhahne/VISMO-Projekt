@@ -117,12 +117,9 @@
                         <div id="jsParameter">
                             <p><b>Hauptpunkt: </b></p>
                             <p>
-                                <b>x</b> = <input id="leftCamPrincipalPointX" type="number" placeholder="0"
-                                    autocomplete="off"></input>
-                                <b>y</b> = <input id="leftCamPrincipalPointY" type="number" placeholder="0"
-                                    autocomplete="off"></input>
-                                <b>z</b> = <input id="leftCamPrincipalPointZ" type="number" placeholder="0"
-                                    autocomplete="off"></input>
+                                (<b>x</b> = <span id="leftCamPrincipalPointX"></span> |
+                                <b>y</b> = <span id="leftCamPrincipalPointY"></span> |
+                                <b>z</b> = <span id="leftCamPrincipalPointZ"></span>)
                             </p>
                             <p><b>Distanz</b> = <input id="leftCamDistance" type="number" placeholder="0"
                                     autocomplete="off"></input></p>
@@ -150,12 +147,9 @@
                         <div id="jsParameter">
                             <p><b>Hauptpunkt: </b></p>
                             <p>
-                                <b>x</b> = <input id="rightCamPrincipalPointX" type="number" placeholder="0"
-                                    autocomplete="off"></input>
-                                <b>y</b> = <input id="rightCamPrincipalPointY" type="number" placeholder="0"
-                                    autocomplete="off"></input>
-                                <b>z</b> = <input id="rightCamPrincipalPointZ" type="number" placeholder="0"
-                                    autocomplete="off"></input>
+                                (<b>x</b> = <span id="rightCamPrincipalPointX"></span> |
+                                <b>y</b> = <span id="rightCamPrincipalPointY"></span> |
+                                <b>z</b> = <span id="rightCamPrincipalPointZ"></span>)
                             </p>
                             <p><b>Distanz</b> = <input id="rightCamDistance" type="number" placeholder="0"
                                     autocomplete="off"></input></p>
@@ -170,12 +164,30 @@
 
             <!-- SETTINGS -->
             <div id="settingsUI">
-                <label id="strahlen">Strahlen</label>
-                <select id="beams">
-                    <option value="none">Keine</option>
-                    <option value="all">Alle</option>
-                    <option value="one">Ausgewählte Punkt</option>
-                </select>
+                <div>
+                    <label id="strahlen">Strahlen</label>
+                    <select class="settingSelection" id="beams">
+                        <option value="none">Keine</option>
+                        <option value="all">Alle</option>
+                        <option value="one">Ausgewählte Punkt</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Kamera-Rotation</p>
+                    <select class="settingSelection" id="cameraRotation">
+                        <option value="on">Ein</option>
+                        <option value="leftCamera">Nur linke Kamera</option>
+                        <option value="rightCamera">Nur rechte Kamera</option>
+                        <option value="off">Aus</option>
+                    </select>
+                </div>
+                <div>
+                    <p>Weltkoordinatensystem</p>
+                    <select class="settingSelection" id="worldCoordSystem">
+                        <option value="show">Ein</option>
+                        <option value="hide">Aus</option>
+                    </select>
+                </div>
             </div>
 
             <!-- OUTPUT area-->
@@ -215,13 +227,17 @@
                 <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
             </div>
 
-
             <div id="version">
-                <p> Version 1.1.15 </p>
+                <p> Version 1.1.16 </p>
             </div>
 
-
         </div>
+
+        <div>
+            <canvas id="transformControlsCanvas"></canvas>
+        </div>
+
+        <div id="trackPad"></div>
 
         <!-- viewport area -->
         <div id="viewport">
