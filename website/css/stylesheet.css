@@ -236,6 +236,7 @@ label {
   position: relative;
   display: block;
   margin-bottom: 3%;
+  padding: 5px;
 }
 
 .submenu {
@@ -259,11 +260,6 @@ input.check06,
 input.check07,
 input.check08 {
   display: none;
-}
-
-input.check03,
-img#dropdownLeftCam {
-  transform: rotate(0deg);
 }
 
 /*show the submenu when input is checked*/
@@ -292,6 +288,14 @@ input.check08:checked ~ ul.submenu {
   left: 85%;
   margin-top: 5px;
   height: 10px;
+}
+
+.dropdown {
+  transform: rotate(0deg);
+}
+
+.dropdownOpen{
+  transform: rotate(180deg);
 }
 
 .plusIcon {

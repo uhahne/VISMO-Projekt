@@ -199,6 +199,11 @@ function init() {
     document.getElementById("building").addEventListener("click", handleBuildingTab);
     document.getElementById("camera").addEventListener("click", handleCamTab);
     document.getElementById("settings").addEventListener("click", handleSettingsTab);
+    //Dropdown Icons
+    document.getElementById("check01CSS").addEventListener("click", handleDropdownIconPoint);
+    document.getElementById("check02CSS").addEventListener("click", handleDropdownIconLine);
+    document.getElementById("check03CSS").addEventListener("click", handleDropdownIconLeftCam);
+    document.getElementById("check04CSS").addEventListener("click", handleDropdownIconRightCam);
     // Points
     document.getElementById("createPoint").addEventListener("click", handleCreatePoint);
     document.getElementById("pointCoordX").addEventListener("change", handleChangePointPositionX);
@@ -321,6 +326,48 @@ function handleSettingsTab(_event) {
     document.getElementById("settingsUI").setAttribute("style", "visibility: visible");
 }
 // #endregion (UI TABS)
+
+// #region (DROPDOWN ICONS)
+function handleDropdownIconPoint (_event) {
+    let icon = document.getElementById("dropdownPoint");
+
+    if(icon.className == 'dropdown') {
+        icon.className = 'dropdownOpen'; 
+    } else {
+        icon.className = 'dropdown';
+    }
+}
+
+function handleDropdownIconLine (_event) {
+    let icon = document.getElementById("dropdownLine");
+
+    if(icon.className == 'dropdown') {
+        icon.className = 'dropdownOpen'; 
+    } else {
+        icon.className = 'dropdown';
+    }
+}
+
+function handleDropdownIconLeftCam (_event) {
+    let icon = document.getElementById("dropdownLeftCam");
+
+    if(icon.className == 'dropdown') {
+        icon.className = 'dropdownOpen'; 
+    } else {
+        icon.className = 'dropdown';
+    }
+}
+
+function handleDropdownIconRightCam (_event) {
+    let icon = document.getElementById("dropdownRightCam");
+
+    if(icon.className == 'dropdown') {
+        icon.className = 'dropdownOpen'; 
+    } else {
+        icon.className = 'dropdown';
+    }
+} 
+// #endregion (DROPDOWN ICONS)
 
 // #region (POINTS)
 function handleCreatePoint(_event) {
