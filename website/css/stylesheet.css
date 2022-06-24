@@ -67,7 +67,7 @@ a:active {
 #nav {
   position: fixed;
   margin-top: 60px;
-  z-index: 1;
+  z-index: 4;
   display: flex;
   justify-content: space-between;
   padding-left: 12px;
@@ -125,7 +125,7 @@ button {
 #leftColumn {
   color: white;
   margin-top: 110px;
-  z-index: 1;
+  z-index: 4;
   background-color: #212529;
   overflow: scroll;
   overflow-x: hidden;
@@ -343,8 +343,13 @@ input.check08:checked ~ ul.submenu {
   font-weight: bold;
 }
 
-#beams {
+.settingSelection {
   border-radius: 5px;
+}
+
+.settingSelection:hover {
+  /* background-color: #acacac; */
+  cursor: pointer;
 }
 
 /* style for output area */
@@ -369,6 +374,33 @@ input.check08:checked ~ ul.submenu {
   position: fixed;
   top: 50px;
   z-index: 0;
+}
+
+#transformControlsCanvas {
+  position: fixed;
+  top: 50px; /* should be same as "#viewport" */
+  z-index: 2;
+}
+
+#trackPad {
+  width: 100px; 
+  height: 100px; 
+  background-color: gray; 
+  position: relative; 
+  left: 90vw; 
+  top: 100px; 
+  z-index: 3; 
+  border-radius: 50px
+}
+
+/* button for setting selection */
+.settingSelection {
+  border: #6498b0;
+  border-style: solid;
+  border-width: 1px;
+  color: #ffffff;
+  background-color: #212529;
+  padding: 7px 12px;
 }
 
 /* version of application */
