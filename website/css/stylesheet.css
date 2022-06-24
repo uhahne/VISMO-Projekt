@@ -92,8 +92,7 @@ a:active {
 #createPoint:hover,
 #createLine:hover,
 #setStartPoint:hover,
-#setEndPoint:hover,
-#beams:hover {
+#setEndPoint:hover {
   background-color: #acacac;
   cursor: pointer;
 }
@@ -213,6 +212,8 @@ hr {
 
 #check01CSS,
 #check02CSS,
+#check03CSS,
+#check04CSS,
 #CamerasCSS {
   padding-left: 5px;
 }
@@ -343,6 +344,11 @@ input.check08:checked ~ ul.submenu {
   font-weight: bold;
 }
 
+#settingsUI,
+#version  {
+  padding-left: 15px;
+}
+
 .settingSelection {
   border-radius: 5px;
 }
@@ -383,14 +389,14 @@ input.check08:checked ~ ul.submenu {
 }
 
 #trackPad {
-  width: 100px; 
-  height: 100px; 
-  background-color: gray; 
-  position: relative; 
-  left: 90vw; 
-  top: 100px; 
-  z-index: 3; 
-  border-radius: 50px
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+  position: relative;
+  left: 90vw;
+  top: 100px;
+  z-index: 3;
+  border-radius: 50px;
 }
 
 /* button for setting selection */
@@ -401,11 +407,6 @@ input.check08:checked ~ ul.submenu {
   color: #ffffff;
   background-color: #212529;
   padding: 7px 12px;
-}
-
-/* version of application */
-#version {
-  padding-left: 10px;
 }
 
 /* HILFE-SEITE */
