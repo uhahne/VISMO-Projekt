@@ -227,7 +227,7 @@ input.check01, ul.submenu,
 input.check02, ul.submenu,
 input.check03, ul.submenu,
 input.check04, ul.submenu02,
-input.check05, ul.submenu02  {
+input.check05, ul.submenu  {
   display: none;
 }
 
@@ -256,7 +256,7 @@ input.check04:checked ~ ul.submenu02 {
   display: block;
 }
 
-input.check05:checked ~ ul.submenu02 {
+input.check05:checked ~ ul.submenu {
   display: block;
 }
 
