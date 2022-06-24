@@ -74,28 +74,28 @@ a:active {
 }
 
 #nav button {
-  border-radius: 5px;
-  background-color: #212529;
-  border: #6498b0;
-  border-style: solid;
-  border-width: 1px;
-  color: white;
   padding: 13px 10px;
-  font-size: 14px;
   font-weight: bold;
 }
 
-#nav button:hover {
-  background-color: #acacac;
-  cursor: pointer;
-}
-
-#nav .featuredBtn.active {
+/* active tab style */
+.featuredBtn.active {
   background-color: #6498b0;
   color: #ffffff;
   border: #212529;
   border-style: solid;
   border-width: 1px;
+}
+
+/* hover style  */
+#nav button:hover,
+#createPoint:hover,
+#createLine:hover,
+#setStartPoint:hover,
+#setEndPoint:hover,
+#beams:hover {
+  background-color: #acacac;
+  cursor: pointer;
 }
 
 /* "+"-Button */
@@ -113,55 +113,12 @@ button {
   font-size: 16px;
 }
 
-button:hover {
-  background-color: #acacac;
-  cursor: pointer;
-}
-
 /* "Start-/ Endpoint"-Button */
-
-#setStartPoint {
-  border-radius: 5px;
-  background-color: #212529;
-  border: #6498b0;
-  border-style: solid;
-  border-width: 1px;
-  color: white;
-  padding: 7px 12px;
-  text-align: center;
-  text-decoration: none;
-  font-size: small;
-}
-
-#setStartPoint:hover {
-  background-color: #acacac;
-  cursor: pointer;
-}
-
+#setStartPoint,
 #setEndPoint {
-  border-radius: 5px;
-  background-color: #212529;
-  border: #6498b0;
-  border-style: solid;
-  border-width: 1px;
-  color: white;
-  padding: 7px 12px;
-  text-align: center;
-  text-decoration: none;
   font-size: small;
-}
-
-#setEndPoint:hover {
-  background-color: #acacac;
-  cursor: pointer;
-}
-
-.featuredBtn.active {
-  background-color: #6498b0;
-  color: #ffffff;
-  border: #212529;
-  border-style: solid;
-  border-width: 1px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
 }
 
 /* left Column */
@@ -234,6 +191,11 @@ hr {
   padding: 8px;
 }
 
+#pointUI .submenu,
+#lineUI .submenu {
+  padding-left: 5px;
+}
+
 /* style of dropdown-regions*/
 #check01CSS,
 #check02CSS,
@@ -247,6 +209,12 @@ hr {
   font-size: 135%;
   font-weight: bold;
   cursor: pointer;
+}
+
+#check01CSS,
+#check02CSS,
+#CamerasCSS {
+  padding-left: 5px;
 }
 
 #check01CSS:hover,
@@ -298,40 +266,13 @@ img#dropdownLeftCam {
 }
 
 /*show the submenu when input is checked*/
-input.check01:checked ~ ul.submenu {
-  display: block;
-}
-
-input.check02:checked ~ ul.submenu {
-  display: block;
-}
-
-input.check03:checked ~ ul.submenu {
-  display: block;
-}
-
-/*
-input.check03:checked, img#dropdownLeftCam {
-  transform: rotate(180deg);
-}
-*/
-
-input.check04:checked ~ ul.submenu02 {
-  display: block;
-}
-
-input.check05:checked ~ ul.submenu {
-  display: block;
-}
-
-input.check06:checked ~ ul.submenu {
-  display: block;
-}
-
-input.check07:checked ~ ul.submenu {
-  display: block;
-}
-
+input.check01:checked ~ ul.submenu,
+input.check02:checked ~ ul.submenu,
+input.check03:checked ~ ul.submenu,
+input.check04:checked ~ ul.submenu02,
+input.check05:checked ~ ul.submenu,
+input.check06:checked ~ ul.submenu,
+input.check07:checked ~ ul.submenu,
 input.check08:checked ~ ul.submenu {
   display: block;
 }
@@ -391,10 +332,7 @@ input.check08:checked ~ ul.submenu {
   margin-bottom: 3%;
 }
 
-#leftCamDistance {
-  margin-top: 3%;
-}
-
+#leftCamDistance,
 #rightCamDistance {
   margin-top: 3%;
 }
@@ -409,30 +347,21 @@ input.check08:checked ~ ul.submenu {
   border-radius: 5px;
 }
 
-#beams:hover {
-  /* background-color: #acacac; */
-  cursor: pointer;
-}
-
 /* style for output area */
 #ausgabe {
   font-size: 140%;
   font-weight: bold;
   margin-bottom: 20px;
+  padding-left: 5px;
 }
 
-/* left camera */
-#ausgabeLinkeCamera {
-  font-size: 125%;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* right camera */
+/* left and right camera */
+#ausgabeLinkeCamera,
 #ausgabeRechteCamera {
   font-size: 125%;
   font-weight: bold;
   margin-bottom: 20px;
+  padding-left: 5px;
 }
 
 /* style for viewport */
@@ -442,28 +371,13 @@ input.check08:checked ~ ul.submenu {
   z-index: 0;
 }
 
-/* button for beams */
-#beams {
-  border: #6498b0;
-  border-style: solid;
-  border-width: 1px;
-  color: #ffffff;
-  background-color: #212529;
-  padding: 7px 12px;
-}
-
-/*
-#beams:hover {
-  background-color: #6498b0;
-  cursor: pointer;
-}
-*/
-
 /* version of application */
 #version {
   padding-left: 10px;
 }
 
+/* HILFE-SEITE */
+/* text */
 #helpText {
   margin-top: 55px;
   padding-right: 50px;
@@ -482,24 +396,11 @@ input.check08:checked ~ ul.submenu {
   padding: 0px;
 }
 
-#helpText img:hover {
-  transform: scale(1.025);
-}
-
-#helpText img {
-  transition: transform 0.2s; /* Animation */
-}
-
+/* style for pictures */
 .columnPic {
   float: left;
   width: 33.33%;
   padding: 5px;
-}
-
-.viewer {
-  float: right;
-  padding-left: 60px;
-  padding-right: 20px;
 }
 
 /* Clearfix (clear floats) */
@@ -508,3 +409,18 @@ input.check08:checked ~ ul.submenu {
   clear: both;
   display: table;
 }
+
+#helpText img:hover {
+  transform: scale(1.025);
+}
+
+#helpText img {
+  transition: transform 0.2s; /* Animation */
+}
+
+/* Bild von 3D-Viewer */
+/* .viewer {
+  float: right;
+  padding-left: 60px;
+  padding-right: 20px;
+} */

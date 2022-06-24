@@ -54,9 +54,11 @@
                     <div id="pointCreation">
                         <p>
                             <b>Neuer Punkt:</b>
-                            <input id="newPointName" type="text" placeholder="Name" autocomplete="off"> <button
-                                id="createPoint" title="Punkt hinzufügen"><img class="plusIcon"
-                                    src="graphics/plusIcon_white.png"></button> <span id="pointNameFeedback"></span>
+                            <input id="newPointName" type="text" placeholder="Name" autocomplete="off">
+                            <button id="createPoint" title="Punkt hinzufügen"><img class="plusIcon"
+                                    src="graphics/plusIcon_white.png"></button>
+
+                            <span id="pointNameFeedback"></span>
                         </p>
                     </div>
                     <div id="pointManipulation">
@@ -64,6 +66,7 @@
                                 src="graphics/trashcan_deletePoint.png" title="Punkt löschen"></p>
                         <b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
                         <b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                        <br>
                         <b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
                     </div>
             </div>
@@ -79,11 +82,15 @@
                 </label>
                 <ul class="submenu">
                     <div id="lineCreation">
-                        <p><button type="button" id="setStartPoint">Punkt setzen</button> <b>Startpunkt</b>: <span
-                                id="startPointName"></span>
+                        <p><button type="button" id="setStartPoint">Punkt setzen</button>
+                            <br>
+                            <b>Startpunkt</b>: <span id="startPointName"></span>
                         </p>
-                        <p><button type="button" id="setEndPoint">Punkt setzen</button> <b>Endpunkt</b>: <span
-                                id="endPointName"></span></p>
+
+                        <p><button type="button" id="setEndPoint">Punkt setzen</button>
+                            <br>
+                            <b>Endpunkt</b>: <span id="endPointName"></span>
+                        </p>
                         <p><button type="button" id="createLine" title="Linie hinzufügen"><img class="plusIcon"
                                     src="graphics/plusIcon_white.png"></button> <span id="lineFeedback"></span></p>
                     </div>
@@ -185,42 +192,42 @@
                 <!-- output for LEFT camera -->
                 <label id="ausgabeLinkeCamera">Linke Kamera</label>
 
-                <p><b>Bildebene Kamera AKG:</b></p>
-                <p><span id="imagePlaneCamLeftAKG"></span></p>
+                <div id="CamerasCSS">
+                    <p><b>Bildebene Kamera AKG:</b></p>
+                    <p><span id="imagePlaneCamLeftAKG"></span></p>
 
-                <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> |
-                <b>y</b> = <span id="pointCoordYLeft">0</span>)</p>
+                    <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> |
+                    <b>y</b> = <span id="pointCoordYLeft">0</span>)</p>
 
-                <p><b>Bildpunkt-Koordinaten (Welt):</b></p> (<b>x</b> = <span id="pointCoordXLeftWorld">0</span> |
-                <b>y</b> = <span id="pointCoordYLeftWorld">0</span> | <b>z</b> = <span
-                    id="pointCoordZLeftWorld">0</span>)</p>
+                    <p><b>Bildpunkt-Koordinaten (Welt):</b></p> (<b>x</b> = <span id="pointCoordXLeftWorld">0</span> |
+                    <b>y</b> = <span id="pointCoordYLeftWorld">0</span> | <b>z</b> = <span
+                        id="pointCoordZLeftWorld">0</span>)</p>
 
-                <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
-
+                    <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
+                </div>
                 <hr>
 
                 <!-- output for RIGHT camera -->
                 <label id="ausgabeRechteCamera">Rechte Kamera</label>
 
-                <p><b>Bildebene Kamera AKG:</b></p>
-                <p><span id="imagePlaneCamRightAKG"></span></p>
+                <div id="CamerasCSS">
+                    <p><b>Bildebene Kamera AKG:</b></p>
+                    <p><span id="imagePlaneCamRightAKG"></span></p>
 
-                <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> |
-                <b>y</b> = <span id="pointCoordYRight">0</span>)</p>
+                    <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> |
+                    <b>y</b> = <span id="pointCoordYRight">0</span>)</p>
 
-                <p><b>Bildpunkt-Koordinaten (Welt):</b></p> (<b>x</b> = <span id="pointCoordXRightWorld">0</span> |
-                <b>y</b> = <span id="pointCoordYRightWorld">0</span> | <b>z</b> = <span
-                    id="pointCoordZRightWorld">0</span>)</p>
+                    <p><b>Bildpunkt-Koordinaten (Welt):</b></p> (<b>x</b> = <span id="pointCoordXRightWorld">0</span> |
+                    <b>y</b> = <span id="pointCoordYRightWorld">0</span> | <b>z</b> = <span
+                        id="pointCoordZRightWorld">0</span>)</p>
 
-                <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
+                    <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
+                </div>
             </div>
-
 
             <div id="version">
-                <p> Version 1.1.15 </p>
+                <p> Version 1.1.16 </p>
             </div>
-
-
         </div>
 
         <!-- viewport area -->
