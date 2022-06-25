@@ -417,17 +417,32 @@ input.check08:checked ~ ul.submenu {
 
 /* HILFE-SEITE */
 /* text */
-#helpText {
+#helpText, #aboutUsText {
   margin-top: 55px;
   padding-right: 50px;
   padding-left: 50px;
   height: 90vh;
   overflow-y: auto;
+  color: #3f3f3f;
+  line-height: 35px;
 }
 
-#helpText p {
+#aboutUsText h1, #helpText h1 {
+  text-align: center;
+  font-size: 50px;
+}
+
+#helpText h2 {
+  font-size: 35px;
+}
+
+#helpText h3 {
+  font-size: 27px;
+}
+
+#helpText p, #aboutUsText p {
   font-size: 25px;
-  color: #000000;
+  color: #3f3f3f;
   text-align: justify;
 }
 
