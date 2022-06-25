@@ -253,7 +253,7 @@ function animate() {
     controls.update();
     
     //set viewport for 3D viewer
-    renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
+    renderer.setViewport(0, canvasHeight / 2 +10, canvasWidth, canvasHeight / 2);
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
@@ -287,7 +287,7 @@ function animate() {
     renderer.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
-    renderer.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2);
+    renderer.setViewport(canvasWidth / 2 +10, 0, canvasWidth / 2, canvasHeight / 2);
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = false;

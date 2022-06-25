@@ -76,6 +76,7 @@ a:active {
 #nav button {
   padding: 13px 10px;
   font-weight: bold;
+  font-size: 16px;
 }
 
 /* active tab style */
@@ -322,9 +323,10 @@ input.check08:checked ~ ul.submenu {
 /* for newPointName -> name is already taken */
 #pointNameFeedback,
 #lineFeedback {
-  color: rgb(255, 50, 50);
+  color: #FE3E3E;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
+  opacity: 90%;
 }
 
 /* style within cameras tab */
@@ -461,3 +463,26 @@ input.check08:checked ~ ul.submenu {
   padding-left: 60px;
   padding-right: 20px;
 } */
+
+
+
+/*Nav Adjustments for Smaller Screens*/
+@media screen and (max-width: 1550px) {
+
+
+/* Nav with Buttons/Tabs */
+#nav {
+  position: fixed;
+  margin-top: 60px;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 12px;
+}
+
+#nav button {
+  padding: 14px 7px;
+  font-weight: bold;
+  font-size: 14px;
+}
+}

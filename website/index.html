@@ -57,17 +57,19 @@
                             <input id="newPointName" type="text" placeholder="Name" autocomplete="off">
                             <button id="createPoint" title="Punkt hinzufügen"><img class="plusIcon"
                                     src="graphics/plusIcon_white.png"></button>
-
+<br>
                             <span id="pointNameFeedback"></span>
                         </p>
                     </div>
                     <div id="pointManipulation">
                         <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <img id="deletePoint"
                                 src="graphics/trashcan_deletePoint.png" title="Punkt löschen"></p>
-                        <b>x</b> = <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
-                        <b>y</b> = <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                        <b>x = </b>  <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
                         <br>
-                        <b>z</b> = <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
+
+                        <b>y = </b> <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
+                        <br>
+                        <b>z =</b>  <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
                     </div>
             </div>
 
@@ -92,7 +94,9 @@
                             <b>Endpunkt</b>: <span id="endPointName"></span>
                         </p>
                         <p><button type="button" id="createLine" title="Linie hinzufügen"><img class="plusIcon"
-                                    src="graphics/plusIcon_white.png"></button> <span id="lineFeedback"></span></p>
+                                    src="graphics/plusIcon_white.png"></button> 
+                                    <br>
+                                    <span id="lineFeedback"></span></p>
                     </div>
                     <div id="lineManipulation">
                         <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <img id="deleteLine"
@@ -114,23 +118,27 @@
                         <p><b>Projektionszentrum (Position):</b></p>
                         <!-- untereinander: x, y, z als <label> machen -->
                         <p>
-                            <b>x</b> = <input id="leftCamCoordX" type="number" placeholder="0"
+                            <b>x = </b> <input id="leftCamCoordX" type="number" placeholder="0"
                                 autocomplete="off"></input>
-                            <b>y</b> = <input id="leftcamCoordY" type="number" placeholder="0"
+                                <br>
+                            <b>y =</b>  <input id="leftcamCoordY" type="number" placeholder="0"
                                 autocomplete="off"></input>
-                            <b>z</b> = <input id="leftCamCoordZ" type="number" placeholder="0"
+                                <br>
+                            <b>z =</b>  <input id="leftCamCoordZ" type="number" placeholder="0"
                                 autocomplete="off"></input>
                         </p>
                         <div id="jsParameter">
                             <p><b>Hauptpunkt: </b></p>
                             <p>
-                                (<b>x</b> = <span id="leftCamPrincipalPointX"></span> |
-                                <b>y</b> = <span id="leftCamPrincipalPointY"></span> |
-                                <b>z</b> = <span id="leftCamPrincipalPointZ"></span>)
+                                <b>x =</b>  <span id="leftCamPrincipalPointX"></span> 
+                                <br>
+                                <b>y =</b>  <span id="leftCamPrincipalPointY"></span> 
+                                <br>
+                                <b>z =</b>  <span id="leftCamPrincipalPointZ"></span>
                             </p>
-                            <p><b>Distanz</b> = <input id="leftCamDistance" type="number" placeholder="0"
+                            <p><b>Distanz =</b>  <input id="leftCamDistance" type="number" placeholder="0"
                                     autocomplete="off"></input></p>
-                            <p><b>Field of View</b> = <input id="leftFieldOfView" type="number" placeholder="0"
+                            <p><b>Field of View =</b>  <input id="leftFieldOfView" type="number" placeholder="0"
                                     autocomplete="off"></input></p>
                         </div>
 
@@ -144,23 +152,25 @@
                     <ul class="submenu02">
                         <p><b>Projektionszentrum:</b></p>
                         <p>
-                            <b>x</b> = <input id="rightCamCoordX" type="number" placeholder="0"
+                            <b>x =</b>  <input id="rightCamCoordX" type="number" placeholder="0"
                                 autocomplete="off"></input>
-                            <b>y</b> = <input id="rightCamCoordY" type="number" placeholder="0"
+                                <br>
+                            <b>y =</b>  <input id="rightCamCoordY" type="number" placeholder="0"
                                 autocomplete="off"></input>
-                            <b>z</b> = <input id="rightCamCoordZ" type="number" placeholder="0"
+                                <br>
+                            <b>z =</b>  <input id="rightCamCoordZ" type="number" placeholder="0"
                                 autocomplete="off"></input>
                         </p>
                         <div id="jsParameter">
                             <p><b>Hauptpunkt: </b></p>
                             <p>
-                                (<b>x</b> = <span id="rightCamPrincipalPointX"></span> |
-                                <b>y</b> = <span id="rightCamPrincipalPointY"></span> |
-                                <b>z</b> = <span id="rightCamPrincipalPointZ"></span>)
+                                <b>x =</b>  <span id="rightCamPrincipalPointX"></span> <br>
+                                <b>y =</b>  <span id="rightCamPrincipalPointY"></span> <br>
+                                <b>z =</b>  <span id="rightCamPrincipalPointZ"></span>
                             </p>
-                            <p><b>Distanz</b> = <input id="rightCamDistance" type="number" placeholder="0"
+                            <p><b>Distanz =</b>  <input id="rightCamDistance" type="number" placeholder="0"
                                     autocomplete="off"></input></p>
-                            <p><b>Field of View</b> = <input id="rightFieldOfView" type="number" placeholder="0"
+                            <p><b>Field of View =</b>  <input id="rightFieldOfView" type="number" placeholder="0"
                                     autocomplete="off"></input></p>
                         </div>
 
