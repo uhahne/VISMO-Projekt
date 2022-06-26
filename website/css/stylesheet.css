@@ -334,11 +334,12 @@ input.check08:checked ~ ul.submenu {
 #lineFeedback {
   color: #FE3E3E;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 125%;
   opacity: 90%;
 }
 
 /* style within cameras tab */
+
 
 
 #camUI p {
@@ -353,7 +354,7 @@ input.check08:checked ~ ul.submenu {
 
 /* style within settings tab */
 #strahlen {
-  font-size: 140%;
+  font-size: 125%;
   font-weight: bold;
 }
 
@@ -419,7 +420,7 @@ input.check08:checked ~ ul.submenu {
   border-width: 1px;
   color: #ffffff;
   background-color: #212529;
-  padding: 7px 12px;
+  padding: 7px 12px 7px 12px;
 }
 
 /* HILFE-SEITE */
