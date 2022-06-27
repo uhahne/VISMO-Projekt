@@ -184,7 +184,8 @@ hr {
 #settingsUI,
 #output,
 #rightCamUI,
-#leftCamUI {
+#leftCamUI,
+#modelUI {
   background-color: #3f3f3f;
   border-radius: 5px;
   margin: 8px;
@@ -204,7 +205,8 @@ hr {
 #check05CSS,
 #check06CSS,
 #check07CSS,
-#check08CSS {
+#check08CSS,
+#check09CSS {
   margin-top: 2%;
   font-size: 140%;
   font-weight: bold;
@@ -215,7 +217,8 @@ hr {
 #check02CSS,
 #check03CSS,
 #check04CSS,
-#CamerasCSS {
+#CamerasCSS,
+#check09CSS {
   padding-left: 5px;
 }
 
@@ -226,7 +229,8 @@ hr {
 #check05CSS:hover,
 #check06CSS:hover,
 #check07CSS:hover,
-#check08CSS:hover {
+#check08CSS:hover,
+#check09CSS:hover {
   background-color: #ddd;
   opacity: 75%;
   color: #000000;
@@ -268,7 +272,8 @@ input.check04,
 input.check05,
 input.check06,
 input.check07,
-input.check08 {
+input.check08,
+input.check09 {
   display: none;
 }
 
@@ -280,7 +285,8 @@ input.check04:checked ~ ul.submenu02,
 input.check05:checked ~ ul.submenu,
 input.check06:checked ~ ul.submenu,
 input.check07:checked ~ ul.submenu,
-input.check08:checked ~ ul.submenu {
+input.check08:checked ~ ul.submenu,
+input.check09:checked ~ ul.submenu {
   display: block;
 }
 

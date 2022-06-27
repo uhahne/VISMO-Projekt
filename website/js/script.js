@@ -1,5 +1,7 @@
 import * as THREE from "../threejs/ThreeModule.js";
 import { OrbitControls } from "../threejs/OrbitControls.js";
+import { GLTFLoader } from '../threejs/GLTFLoader.js';
+import { RGBELoader } from '../threejs/RGBELoader.js';
 import Point from "../js/classes/Point.js";
 import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
@@ -32,6 +34,11 @@ let lineStartPoint, lineEndPoint; // for line creation
 
 let canvasScene = document.getElementById("vismoViewport"); // get canvas
 let canvasWidth, canvasHeight, canvasAspect; // define canvas size
+
+
+// glb Data
+let glbData = ['untitled.glb', 'giraffe.gltf']
+let modelIndex = 0
 
 canvasWidth = window.innerWidth;
 canvasHeight = window.innerHeight;
@@ -132,6 +139,33 @@ function init() {
     selectables.add(lines);
     scene.add(selectables);
 
+ 
+document.getElementById("giraffe").onclick = function() {changeModel(),deleteAllPointsAndLines()};
+
+function deleteAllPointsAndLines() {
+    for (let i = points.children.length; i >= 0; i--) {
+        points.remove(points.children[i]);
+    }
+    for (let i = lines.children.length; i >= 0; i--) {
+        lines.remove(lines.children[i]);
+    }
+}
+        // load first model
+        loadModel('')
+
+        // environment
+        new RGBELoader()
+            .setPath()
+            .load('', function (texture) {
+    
+                texture.mapping = THREE.EquirectangularReflectionMapping;
+    
+                //scene.background = texture;
+                scene.environment = texture;
+    
+            });
+
+            
     // beams group
     beams = new THREE.Group();
     toggleBeams = "none";
@@ -244,6 +278,35 @@ $(".buttonactive").click(function () {
     $(".buttonactive").removeClass("active");
     $(this).addClass("active");
 });
+
+// loader function
+function loadModel(_model) {
+
+    const light = new THREE.AmbientLight()
+scene.add(light)
+
+    // gltf
+    const loader = new GLTFLoader().setPath('model/');
+    loader.load(_model, function (gltf) {
+        //gltf.scene.scale.set(1.5)
+        gltf.scene.position.set(0, 0, 4.5)
+        scene.add(gltf.scene);
+        
+
+        // renderer.render( scene, camera );
+
+    });
+}
+
+// change model
+function changeModel () {
+    if (modelIndex < glbData.length) {
+        modelIndex ++
+        loadModel(glbData[modelIndex])
+    } else {
+        modelIndex = 0
+    }
+}
 
 function animate() {
     requestAnimationFrame(animate);
