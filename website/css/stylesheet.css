@@ -117,6 +117,10 @@ button {
   padding: 0px 15px;
 }
 
+.submenu03 {
+  padding: 0px;
+}
+
 #giraffenButton:hover {
   background-color: #acacac;
   cursor: pointer;
@@ -274,6 +278,7 @@ input {
 /* hide the inputs/checkmarks and submenu*/
 ul.submenu,
 ul.submenu02,
+ul.submenu03,
 input.check01,
 input.check02,
 input.check03,
@@ -295,7 +300,7 @@ input.check05:checked ~ ul.submenu,
 input.check06:checked ~ ul.submenu,
 input.check07:checked ~ ul.submenu,
 input.check08:checked ~ ul.submenu,
-input.check09:checked ~ ul.submenu {
+input.check09:checked ~ ul.submenu03 {
   display: block;
 }
 
