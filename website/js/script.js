@@ -36,7 +36,7 @@ let canvasScene = document.getElementById("vismoViewport"); // get canvas
 let canvasWidth, canvasHeight, canvasAspect; // define canvas size
 
 // glb Data
-let glbData = ['giraffe.gltf', 'test1.glb', 'untitled.glb']
+let glbData = ['untitled.glb', 'giraffe.gltf']
 let modelIndex = 0
 
 canvasWidth = window.innerWidth;
@@ -138,8 +138,11 @@ function init() {
     selectables.add(lines);
     scene.add(selectables);
 
+ 
+document.getElementById("giraffe").onclick = function() {changeModel()};
+
         // load first model
-        loadModel('giraffe.gltf')
+        loadModel('')
 
         // environment
         new RGBELoader()
