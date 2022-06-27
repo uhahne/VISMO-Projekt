@@ -35,6 +35,7 @@ let lineStartPoint, lineEndPoint; // for line creation
 let canvasScene = document.getElementById("vismoViewport"); // get canvas
 let canvasWidth, canvasHeight, canvasAspect; // define canvas size
 
+
 // glb Data
 let glbData = ['untitled.glb', 'giraffe.gltf']
 let modelIndex = 0
@@ -272,10 +273,14 @@ $(".buttonactive").click(function () {
 
 // loader function
 function loadModel(_model) {
+
+    const light = new THREE.AmbientLight()
+scene.add(light)
+
     // gltf
     const loader = new GLTFLoader().setPath('model/');
     loader.load(_model, function (gltf) {
-        //gltf.scene.scale(1.5)
+        //gltf.scene.scale.set(1.5)
         gltf.scene.position.set(0, 0, 4.5)
         scene.add(gltf.scene);
         
