@@ -113,6 +113,15 @@ button {
   font-size: 16px;
 }
 
+#giraffenButton {
+  padding: 0px 15px;
+}
+
+#giraffenButton:hover {
+  background-color: #acacac;
+  cursor: pointer;
+}
+
 /* "Start-/ Endpoint"-Button */
 #setStartPoint,
 #setEndPoint {
