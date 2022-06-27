@@ -282,19 +282,22 @@ $(".buttonactive").click(function () {
 // loader function
 function loadModel(_model) {
 
-    const light = new THREE.AmbientLight()
-scene.add(light)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    scene.add(ambientLight);
 
+    const spotLight = new THREE.SpotLight(0xffffff, 5);
+    spotLight.position.x = 4;
+    spotLight.position.y = 4;
+    scene.add(spotLight);
+    
     // gltf
     const loader = new GLTFLoader().setPath('model/');
+
     loader.load(_model, function (gltf) {
         //gltf.scene.scale.set(1.5)
         gltf.scene.position.set(0, 0, 4.5)
         scene.add(gltf.scene);
-        
-
         // renderer.render( scene, camera );
-
     });
 }
 
