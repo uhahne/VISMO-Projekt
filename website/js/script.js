@@ -140,8 +140,16 @@ function init() {
     scene.add(selectables);
 
  
-document.getElementById("giraffe").onclick = function() {changeModel()};
+document.getElementById("giraffe").onclick = function() {changeModel(),deleteAllPointsAndLines()};
 
+function deleteAllPointsAndLines() {
+    for (let i = points.children.length; i >= 0; i--) {
+        points.remove(points.children[i]);
+    }
+    for (let i = lines.children.length; i >= 0; i--) {
+        lines.remove(lines.children[i]);
+    }
+}
         // load first model
         loadModel('')
 
