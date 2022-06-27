@@ -21,105 +21,428 @@
         </div>
         <main>
             <div id="helpText">
-                <h1> Was ist VISMO?</h1>
-                <p>VISMO steht für “The Visualization of Structure from Motion”, eine passende Abkürzung und
+                <h1>Das VISMO-Handbuch</h1>
+                <h2>Was ist VISMO?</h2>
+                <p><b>VISMO</b> steht für “The Visualization of Structure from Motion”, eine passende Abkürzung
+                    und
                     Bezeichnung für eine Applikation, die sich mit exakt diesem Thema beschäftigt.
                     Structure from Motion beschreibt den Vorgang der 3D-Oberflächenberechnung von Bilddaten aus
-                    unterschiedlichen Perspektiven, die in 2D vorliegen. Das Ziel der VISMO-Applikation ist es, dass
-                    Nutzer einen besseren Zugang zu dem komplexen Thema erhalten und zusätzlich mit variablen Parametern
-                    experimentieren und ein praktisches Verständnis entwickeln können. </p>
+                    unterschiedlichen Perspektiven, die in 2D vorliegen.
+                    <br>
+                    Das Ziel der VISMO-Applikation ist es,
+                    dass
+                    Nutzer einen besseren Zugang zu dem komplexen Thema erhalten und zusätzlich mit variablen
+                    Parametern
+                    experimentieren und ein praktisches Verständnis entwickeln können.
+                </p>
 
-                <h1> Was ist Photogrammetrie?</h1>
-                <p>Mit Hilfe der Photogrammetrie können aus Fotos von Objekten 3D-Modelle rekonstruiert werden. Damit
-                    diese Modelle jedoch ein vollständiges Gesamtbild ergeben, werden dabei sehr viele Bilder aus
+                <h2>Was ist Photogrammetrie?</h2>
+                <p>Mit Hilfe der Photogrammetrie können aus Fotos von Objekten 3D-Modelle rekonstruiert werden.
+                    Damit
+                    diese Modelle jedoch ein vollständiges Gesamtbild ergeben, werden dabei sehr viele Bilder
+                    aus
                     unterschiedlichen Perspektiven benötigt.
-                    In den Bildern werden nämlich durch eine Photogrammetrie-Software markante Punkte erkannt und die
+                    In den Bildern werden nämlich durch eine Photogrammetrie-Software markante Punkte erkannt
+                    und die
                     Position der Punkte zueinander genau berechnet. Je mehr gemeinsame Punkte es also in den
-                    unterschiedlichen Bildern gibt, desto genauer kann die Position ermittelt und somit das 3D-Modell
+                    unterschiedlichen Bildern gibt, desto genauer kann die Position ermittelt und somit das
+                    3D-Modell
                     rekonstruiert werden.
-                    Schlussendlich kann das entstandene Modell dann wiederum in einer 3D-Grafik-Anwendung (z.B. Blender)
+                    Schlussendlich kann das entstandene Modell dann wiederum in einer 3D-Grafik-Anwendung (z.B.
+                    Blender)
                     bearbeitet und gerendert werden.</p>
 
+                <br>
+                <div class="row">
+                    <div class="columnPic">
+                        <a target="_blank" href="graphics/Giraffe1.png">
+                            <img src="graphics/Giraffe1.png" alt="Giraffe1" style="width:100%">
+                        </a>
+                    </div>
+                    <div class="columnPic">
+                        <a target="_blank" href="graphics/Giraffe2.png">
+
+                            <img src="graphics/Giraffe2.png" alt="Giraffe2" style="width:100%">
+                        </a>
+                    </div>
+                    <div class="columnPic">
+                        <a target="_blank" href="graphics/Giraffe3.png">
+
+                            <img src="graphics/Giraffe3.png" alt="Giraffe3" style="width:100%">
+                        </a>
+                    </div>
+                </div>
+                <br>
                 <h3>Und was hat jetzt “Structure from Motion” damit zu tun? </h3>
-                <p>Zur Rekonstruktion dieser Modelle spielen verschiedene Algorithmen in der Prozesskette eine wichtige
+                <p>Zur Rekonstruktion dieser Modelle spielen verschiedene Algorithmen in der Prozesskette eine
+                    wichtige
                     Rolle, um die Strukturdaten erhalten zu können.
                     Einer dieser Algorithmen ist eben das “Structure from Motion”, wodurch die vollständige
                     Dreidimensionalität des Objekts aus den Bildern gefiltert werden kann.
-                    Dabei ist Structure from Motion ein sich wiederholender Vorgang.
+                    <br><br> Dabei ist Structure from Motion ein sich wiederholender Vorgang.
                     Zuerst wird, ausgehend von zwei Bildern mit einer sehr hohen Merkmalsübereinstimmung,
-                    für alle Merkmale eine Verbindung angelegt. Danach werden weitere Bilder nacheinander hinzugefügt,
+                    für alle Merkmale eine Verbindung angelegt.
+                    Danach werden weitere Bilder nacheinander
+                    hinzugefügt,
                     um ein Grobmodell erhalten zu können. Für die finale Rekonstruktion wird dann das beste
                     Start-Bildpaar gesucht, wodurch zudem der Ursprung des 3D-Modells bestimmt wird. Durch die
                     Abstandsmessung (Triangulation) zwischen den zwei Bildern werden dann die übereinstimmenden
                     Bildpunkte im Raum platziert.
+                    <br>
+                    <br>
                     Danach passieren drei Schritte im Wechsel:
-                    Die Suche nach Bildern, die eine hohe Übereinstimmung mit den bisher rekonstruierten Punkten haben.
-                    Das Hinzufügen dieser Bildpunkte zum Modell.
-                    Die Optimierung des Gesamtmodells auf Basis der neuen Information.
-                    Diese Schleife wird so lange fortgesetzt bis alle Bilder verarbeitet wurden. Das Ergebnis ist eine
-                    Wolke aus vielen verschiedenen Punkten, welche durch die nächsten Schritten, wie das “Meshing” und
-                    “Texturing”, zu einem dreidimensionalen und farbigen Modell verarbeitet wird.</p>
+                    <br>
+                    1. Die Suche nach Bildern, die eine hohe Übereinstimmung mit den bisher rekonstruierten
+                    Punkten
+                    haben.
+                    <br>
+                    2. Das Hinzufügen dieser Bildpunkte zum Modell.
+                    <br>
+                    3. Die Optimierung des Gesamtmodells auf Basis der neuen Information.
+                    <br>
+                    <br>
+                    Diese Schleife wird so lange fortgesetzt bis alle Bilder verarbeitet wurden. Das Ergebnis
+                    ist eine
+                    Wolke aus vielen verschiedenen Punkten, welche durch die nächsten Schritten, wie das
+                    “Meshing” und
+                    “Texturing”, zu einem dreidimensionalen und farbigen Modell verarbeitet wird.
+                </p>
 
-                <h1>Wie funktioniert die Anwendung?</h1>
-                <p>Der Bereich rechts (der 3D-Viewer) enthält folgende Elemente:
-                    In dem oberen 3D-Viewer wird die gesamte Szene - Gebäude und 2 Kameras - als ein 3D-Bild
-                    dargestellt.
-                    Der untere 2D-Viewer beinhaltet die 2D-Ansichten aus Sicht der linken sowie rechten Kamera, also die
+                <h2>Wie funktioniert VISMO?</h2>
+
+
+
+
+                <!-- <div class="columnPic viewer">
+            
+                        <img src="graphics/3DViewer.png" alt="3DViewer" style="width:100%">
+            
+                </div> -->
+
+
+
+                <p>Der Bereich rechts enthält folgende Elemente:
+                    <br><br>
+                    1. In dem oberen 3D-Viewer wird die gesamte Szene - Gebäude und 2 Kameras - als ein 3D-Bild
+                    dargestellt.<br>
+                    2. Der untere 2D-Viewer beinhaltet die 2D-Ansichten aus Sicht der linken sowie rechten
+                    Kamera,
+                    also die
                     Projektion der 3D-Szene auf die Bildebene.
-                    Links befindet sich der Bereich für die Steuerungselemente für die Gebäude- und Kameraparameter
-                    sowie weitere Einstellungen. Darunter befindet sich der Ausgabebereich für berechnete Werte
-                    (Projektionsmatrix, Koordinaten etc.)
-                    Zu Beginn befindet sich in dem 3D-Viewer ein Standard-Szenen-Objekt. Dieses besteht aus Linien und
+                    <br><br>
+                    Links befindet sich der Bereich für die Steuerungselemente für die Gebäude- und
+                    Kameraparameter
+                    sowie weitere Einstellungen. Direkt darunter liegt der Ausgabebereich für einige berechnete Werte
+                    (Allgemeine Koordinatengleichung, Bildpunkt-Koordinaten etc.).
+                    <br><br>
+                    Zu Beginn steht in dem 3D-Viewer ein Standard-Szenen-Objekt. Dieses besteht aus
+                    Linien und
                     10
-                    Punkten. Es kann rotiert und skaliert werden. Bildpunkte und Linien können per Klick ausgewählt
-                    werden,
+                    Punkten. 
+                    <br>
+                    Die Punkte in der Szene sind von A bis D beschriftet. Zur Unterschiedung der Punkte wird jeweils eine andere Tiefstellung verwendet. <br><br>
+                    Punkte in der Standebene: "b" = "bottom" <br>
+                    Punkte über der Standebene: "c" = ceiling <br>
+                    Dachpunkte des Modells: "r" = "roof"<br><br>
+                    Das Modell kann rotiert und skaliert werden. Bildpunkte und Linien können per Klick
+                    ausgewählt
+                    werden und
                     im
-                    linken Bereich werden deren Koordinaten angezeigt. Die ausgewählten Elemente werden farbig
-                    hervorgehoben. Es besteht die Möglichkeit, Punkte sowie Linien umzubenennen, zu löschen und neue zu
-                    erstellen. Somit lassen sich neue 3D-Modelle definieren.
-                    Die Kameras sind als pyramidenartige 3D-Modelle dargestellt und enthalten ein Projektionszentrum und
-                    eine Bildebene mit Koordinatensystem.</p>
+                    linken Bereich werden deren Koordinaten angezeigt. Die ausgewählten Elemente werden dabei farbig
+                    hervorgehoben. Es besteht die Möglichkeit, Punkte sowie Linien umzubenennen, zu löschen und
+                    neue zu
+                    erstellen. Somit lassen sich manuell neue 3D-Modelle definieren. <br><br>
+                    Die Kameras sind als pyramidenartige 3D-Modelle dargestellt und enthalten ein
+                    Projektionszentrum und
+                    eine Bildebene mit Koordinatensystem.
+                    <br><br>
+                    Neben der Veränderung der Kameraposition, kannst Du auch die Rotation der beiden Kameras in der Szene verändern. Wähle einer der interaktiven Steuerelemente, die in Form von farbigen Kreisen an den Kameras angezeigt werden, an und rotiere so die Kamera in x-, y- und z-Richtung.
+                    <br><br>
+                    Nutze das interaktive Trackpad in der oberen rechten Ecke, um dich nun in der Szene zu bewegen. Durch Klick und Drag auf das Trackpad kann die Szenen-Kamera umpositioniert werden. Das Trackpad regelt also die Steuerung der Szenen-Kamera und über die Eingabefelder links können dann die linke und rechte Kamera bewegt werden.
+                </p>
 
-                <h1>Gebäude</h1>
+                <h2>Gebäude</h2>
                 <h3>Punkte erstellen und löschen</h3>
-                <p>Über den Reiter Gebäude können neue Punkte hinzugefügt werden, oder aber bestehende Punkte ausgewählt
-                    und gelöscht werden. Für einen Punkt, der neu hinzugefügt werden soll, muss zunächst der Name des
-                    neuen Punktes in das Input-Feld geschrieben und mit Klick auf + bestätigt werden. Über die Felder x,
-                    y und z können die entsprechenden Werte verändert und so der Punkt in der Szene verschoben werden.
-                    Die Werte können als Zahlenwert in das freie Feld eingetippt werden. Alternativ kann durch Klick auf
-                    die Pfeile nach oben/unten der bereits vordefinierte Wert Null, nach oben oder unten verändert
+                <p>Über den Reiter "Gebäude" können neue Punkte hinzugefügt werden, oder aber bestehende Punkte
+                    ausgewählt
+                    und gelöscht werden. Für einen Punkt, der neu hinzugefügt werden soll, muss zunächst der
+                    Name des
+                    neuen Punktes in das Input-Feld geschrieben und mit Klick auf "+" bestätigt werden. Über die
+                    Felder x,
+                    y und z können die entsprechenden Werte verändert und so der Punkt in der Szene verschoben
                     werden.
+                    Die Werte können als Zahlenwert in das freie Feld eingetippt werden. 
+                    <!-- Alternativ kann durch
+                    Klick auf
+                    die Pfeile nach oben/unten der bereits vordefinierte Wert Null, nach oben oder unten
+                    verändert
+                    werden. -->
                     Möchte man einen Punkt löschen, muss dieser zunächst in der Szene ausgewählt werden. Ein
-                    ausgewählter Punkt hat die Farbe Orange. Durch Klick auf das Papierkorb-Symbol im Menü, wird der
-                    ausgewählte Punkt entfernt</p>
+                    ausgewählter Punkt hat die Farbe "Orange". Durch Klick auf das Papierkorb-Symbol im Menü, wird
+                    der
+                    ausgewählte Punkt entfernt.</p>
 
                 <h3>Linien erstellen und löschen</h3>
-                <p>Um eine Linie zu erstellen, müssen zunächst die zwei Punkte definiert werden, zwischen denen die
+                <p>Um eine Linie zu erstellen, müssen zunächst die zwei Punkte definiert werden, zwischen denen
+                    die
                     Linie
                     erzeugt werden soll. Durch Klick auf einen der gewünschten Punkte in der Szene wird dieser
                     ausgewählt.
-                    Im Reiter Gebäude, unter dem Abschnitt Linie, kann nun auf Punkt setzen geklickt werden. Neben dem
-                    Button steht der ausgewählte Punkt nun unter Anfang. Mit der gleichen Methode kann nun ein zweiter
+                    Im Reiter "Gebäude", unter dem Abschnitt "Linie", kann nun auf "Punkt setzen" geklickt werden.
+                    Unter dem
+                    Button erscheint nun der ausgewählte Punkt als Startpunkt. Mit der gleichen Methode kann nun ein
+                    zweiter
                     Punkt
-                    ausgewählt und über den zweiten Punkt-setzen-Button definiert werden. Über den +-Button wird die
+                    ausgewählt und als Endpunkt definiert werden. Über den "+"-Button wird
+                    die
                     Linie
                     erzeugt und erscheint nun in der Szene.
-                    Um eine Linie zu löschen muss diese in der Szene ausgewählt werden, durch Klick auf den Papierkorb
+                    Um eine Linie zu löschen muss diese in der Szene ausgewählt werden, durch Klick auf den
+                    Papierkorb
                     im
-                    Menü, unter dem Reiter Gebäude, Abschnitt Linie, kann die Linie gelöscht werden.</p>
+                    Menü, unter dem Reiter "Gebäude", Abschnitt "Linie", kann die Linie gelöscht werden.</p>
 
-                <h1>Kamera</h1>
-                <p>Im Kamera-Reiter kannst Du nun verschiedene Änderungen an den beiden Kameras unternehmen. Die linke
-                    Kamera entspricht dabei dem Bild aus dem linken 2D-Viewer und die rechte Kamera dem aus dem rechten
+                <h2>Kamera</h2>
+                <p>Im Kamera-Reiter kannst Du nun verschiedene Änderungen an den beiden Kameras unternehmen. Die
+                    linke
+                    Kamera entspricht dabei dem Bild aus dem linken 2D-Viewer und die rechte Kamera dem aus dem
+                    rechten
                     2D-Viewer.
-                    Als aller erstes kannst Du also die Position der Kameras durch Eingabe der x-, y- und z-Werte
-                    ändern.
-                    Mit der Field of View-Eingabe wird der Öffnungswinkel der Kamera geändert. So entsteht der Effekt
-                    das von der aktuellen Kameraposition an das Gebäude heran oder heraus gezoomt wird.
-                    Im darunterliegenden Feld können die Seitenverhältnisse (Aspect Ratio) der Bilder in den 2D-Viewern
-                    manipuliert werden. Je größer die Zahl ist, desto schmaler erscheint das Gebäude. Wohingegen ein
+                    Als aller erstes kannst Du also die Position der Kameras durch Eingabe der x-, y- und
+                    z-Werte
+                    ändern.<br><br>
+                    Mit der Field of View-Eingabe wird der Öffnungswinkel der Kamera geändert. So entsteht der
+                    Effekt
+                    das von der aktuellen Kameraposition an das Gebäude heran oder heraus gezoomt wird.<br><br>
+                    Als nächstes werden die Werte des aktuellen Hauptpunkts der Kamera angezeigt. Verschiebst Du die Kamera, verändert sich somit auch die Position des Hauptpunkts.<br><br>
+                    Im darunterliegenden Feld kann die Distanz angepasst werden. Die Distanz ist der Abstand zwischen dem Hauptpunkt und dem Projektionszentrum der Kamera. Je größer dieser Abstand, desto näher rückt die Bildebene an das Objekt ran. Somit wird in der 2D-Ansicht weniger vom Objekt sichtbar.<br><br>
+                    Als letztes können die Seitenverhältnisse (Aspect Ratio) der Bilder in den
+                    2D-Viewern
+                    manipuliert werden. Je größer die Zahl ist, desto schmaler erscheint das Gebäude. Wohingegen
+                    ein
                     sehr kleiner Wert das Gebäude visuell in die Länge zieht.</p>
+
+                <h2>Ausgabe</h2>
+                <p>Im Ausgabe-Bereich wird zuerst die Allgemeine Koordinatengleichung (AKG) der Bildebene für die Kameras angegeben. 
+                    Darunter werden dann die Koordinaten der Bildpunkte berechnet. Einmal für die Kamera - also die Position des Punktes in den 2D-Viewern. Und ein weiteres Mal für das Weltkoordinatensystem im 3D-Viewer. 
+                    Der Aspect Ratio zeigt das derzeitige Seitenverhältnis der Bildebene an.
+                    </p> 
+                    
+                <h2>Einstellungen</h2>
+                <h3>Strahlen</h3>
+                <p>Eine wichtige mathematische Grundlage, zum Verständnis der Structure from Motion, ist die Epipolargeometrie. Mithilfe der Epipolargeometrie werden nämlich die geometrischen Beziehungen zwischen den verschiedenen Kamerabildern hergestellt, ohne die Kamerapositionen zu kennen. 
+                    Um das genauer nachvollziehen zu können, kannst Du Dir in den Einstellungen entweder die Strahlen für alle Szenen-Punkte oder für einen bestimmten Punkt anzeigen lassen. Dann werden nämlich Strahlen aus dem Projektionszentrum der Kamera zu dem Punkt des Modells gezogen. Dadurch wird in der 2D-Ansicht das Projektionszentrum der jeweils anderen Kamera sichtbar und somit die genauen Kamerapositionen erkennbar. 
+                    </p>
+
+                <h3>Kamera-Rotation & Weltkoordinatensystem
+                </h3>
+                <p>Ist Dir im 3D-Viewer ein bisschen zu viel los? Dann kannst du dir in den Einstellungen entweder die Visualisierungen zur Kamera-Rotation oder das Weltkoordinatensystem ausblenden lassen.</p>
             </div>
+
+            <!-- AUFKLAPPBAR  -->
+
+            <!-- <div id="helpText">
+
+                <div>
+                    <input id="check05" class="check05" type="checkbox" name="menu" />
+                    <label id="check05CSS" for="check05">Was ist VISMO? <img id="dropdownPoint"
+                            src="graphics/dropdown_white.png">
+                    </label>
+                    <ul class="submenu">
+                        <p><b>VISMO</b> steht für “The Visualization of Structure from Motion”, eine passende Abkürzung
+                            und
+                            Bezeichnung für eine Applikation, die sich mit exakt diesem Thema beschäftigt.
+                            Structure from Motion beschreibt den Vorgang der 3D-Oberflächenberechnung von Bilddaten aus
+                            unterschiedlichen Perspektiven, die in 2D vorliegen.
+                            <br>
+                            Das Ziel der VISMO-Applikation ist es,
+                            dass
+                            Nutzer einen besseren Zugang zu dem komplexen Thema erhalten und zusätzlich mit variablen
+                            Parametern
+                            experimentieren und ein praktisches Verständnis entwickeln können.
+                        </p>
+                    </ul>
+                </div>
+
+                <div>
+                    <input id="check06" class="check06" type="checkbox" name="menu" />
+                    <label id="check06CSS" for="check06"> Was ist Photogrammetrie? <img id="dropdownPoint"
+                            src="graphics/dropdown_white.png">
+                    </label>
+                    <ul class="submenu">
+                        <p>Mit Hilfe der Photogrammetrie können aus Fotos von Objekten 3D-Modelle rekonstruiert werden.
+                            Damit
+                            diese Modelle jedoch ein vollständiges Gesamtbild ergeben, werden dabei sehr viele Bilder
+                            aus
+                            unterschiedlichen Perspektiven benötigt.
+                            In den Bildern werden nämlich durch eine Photogrammetrie-Software markante Punkte erkannt
+                            und die
+                            Position der Punkte zueinander genau berechnet. Je mehr gemeinsame Punkte es also in den
+                            unterschiedlichen Bildern gibt, desto genauer kann die Position ermittelt und somit das
+                            3D-Modell
+                            rekonstruiert werden.
+                            Schlussendlich kann das entstandene Modell dann wiederum in einer 3D-Grafik-Anwendung (z.B.
+                            Blender)
+                            bearbeitet und gerendert werden.</p>
+
+                        <div class="row">
+                            <div class="columnPic">
+                                <a target="_blank" href="graphics/Giraffe1.png">
+
+
+
+                                    <img src="graphics/Giraffe1.png" alt="Giraffe1" style="width:100%">
+                                </a>
+                            </div>
+                            <div class="columnPic">
+                                <a target="_blank" href="graphics/Giraffe2.png">
+
+                                    <img src="graphics/Giraffe2.png" alt="Giraffe2" style="width:100%">
+                                </a>
+                            </div>
+                            <div class="columnPic">
+                                <a target="_blank" href="graphics/Giraffe3.png">
+
+                                    <img src="graphics/Giraffe3.png" alt="Giraffe3" style="width:100%">
+                                </a>
+                            </div>
+                        </div>
+
+                        <h3>Und was hat jetzt “Structure from Motion” damit zu tun? </h3>
+
+                        <p>Zur Rekonstruktion dieser Modelle spielen verschiedene Algorithmen in der Prozesskette eine
+                            wichtige
+                            Rolle, um die Strukturdaten erhalten zu können.
+                            Einer dieser Algorithmen ist eben das “Structure from Motion”, wodurch die vollständige
+                            Dreidimensionalität des Objekts aus den Bildern gefiltert werden kann.
+                            Dabei ist Structure from Motion ein sich wiederholender Vorgang.
+                            Zuerst wird, ausgehend von zwei Bildern mit einer sehr hohen Merkmalsübereinstimmung,
+                            für alle Merkmale eine Verbindung angelegt.
+                            Danach werden weitere Bilder nacheinander
+                            hinzugefügt,
+                            um ein Grobmodell erhalten zu können. Für die finale Rekonstruktion wird dann das beste
+                            Start-Bildpaar gesucht, wodurch zudem der Ursprung des 3D-Modells bestimmt wird. Durch die
+                            Abstandsmessung (Triangulation) zwischen den zwei Bildern werden dann die übereinstimmenden
+                            Bildpunkte im Raum platziert.
+                            <br>
+                            <br>
+                            Danach passieren drei Schritte im Wechsel:
+                            <br>
+                            1. Die Suche nach Bildern, die eine hohe Übereinstimmung mit den bisher rekonstruierten
+                            Punkten
+                            haben.
+                            <br>
+                            2. Das Hinzufügen dieser Bildpunkte zum Modell.
+                            <br>
+                            3. Die Optimierung des Gesamtmodells auf Basis der neuen Information.
+                            <br>
+                            <br>
+                            Diese Schleife wird so lange fortgesetzt bis alle Bilder verarbeitet wurden. Das Ergebnis
+                            ist eine
+                            Wolke aus vielen verschiedenen Punkten, welche durch die nächsten Schritten, wie das
+                            “Meshing” und
+                            “Texturing”, zu einem dreidimensionalen und farbigen Modell verarbeitet wird.
+                        </p>
+                    </ul>
+                </div>
+
+                <div>
+                    <input id="check07" class="check07" type="checkbox" name="menu" />
+                    <label id="check07CSS" for="check07"> Wie funktioniert die Anwendung? <img id="dropdownPoint"
+                            src="graphics/dropdown_white.png">
+                    </label>
+                    <ul class="submenu">
+
+                        <p>Der Bereich rechts (der 3D-Viewer) enthält folgende Elemente:
+                            <br>
+                            1. In dem oberen 3D-Viewer wird die gesamte Szene - Gebäude und 2 Kameras - als ein 3D-Bild
+                            dargestellt.<br>
+                            2. Der untere 2D-Viewer beinhaltet die 2D-Ansichten aus Sicht der linken sowie rechten
+                            Kamera,
+                            also die
+                            Projektion der 3D-Szene auf die Bildebene.
+                            <br><br>
+                            Links befindet sich der Bereich für die Steuerungselemente für die Gebäude- und
+                            Kameraparameter
+                            sowie weitere Einstellungen. Darunter befindet sich der Ausgabebereich für berechnete Werte
+                            (Projektionsmatrix, Koordinaten etc.)
+                            <br>  <br>
+                            Zu Beginn befindet sich in dem 3D-Viewer ein Standard-Szenen-Objekt. Dieses besteht aus
+                            Linien und
+                            10
+                            Punkten. Es kann rotiert und skaliert werden. Bildpunkte und Linien können per Klick
+                            ausgewählt
+                            werden,
+                            im
+                            linken Bereich werden deren Koordinaten angezeigt. Die ausgewählten Elemente werden farbig
+                            hervorgehoben. Es besteht die Möglichkeit, Punkte sowie Linien umzubenennen, zu löschen und
+                            neue zu
+                            erstellen. Somit lassen sich neue 3D-Modelle definieren.
+                            Die Kameras sind als pyramidenartige 3D-Modelle dargestellt und enthalten ein
+                            Projektionszentrum und
+                            eine Bildebene mit Koordinatensystem.
+                        </p>
+
+                        <h3>Gebäude</h3>
+                        <h3>Punkte erstellen und löschen</h3>
+                        <p>Über den Reiter Gebäude können neue Punkte hinzugefügt werden, oder aber bestehende Punkte
+                            ausgewählt
+                            und gelöscht werden. Für einen Punkt, der neu hinzugefügt werden soll, muss zunächst der
+                            Name des
+                            neuen Punktes in das Input-Feld geschrieben und mit Klick auf + bestätigt werden. Über die
+                            Felder x,
+                            y und z können die entsprechenden Werte verändert und so der Punkt in der Szene verschoben
+                            werden.
+                            Die Werte können als Zahlenwert in das freie Feld eingetippt werden. Alternativ kann durch
+                            Klick auf
+                            die Pfeile nach oben/unten der bereits vordefinierte Wert Null, nach oben oder unten
+                            verändert
+                            werden.
+                            Möchte man einen Punkt löschen, muss dieser zunächst in der Szene ausgewählt werden. Ein
+                            ausgewählter Punkt hat die Farbe Orange. Durch Klick auf das Papierkorb-Symbol im Menü, wird
+                            der
+                            ausgewählte Punkt entfernt</p>
+
+                        <h3>Linien erstellen und löschen</h3>
+                        <p>Um eine Linie zu erstellen, müssen zunächst die zwei Punkte definiert werden, zwischen denen
+                            die
+                            Linie
+                            erzeugt werden soll. Durch Klick auf einen der gewünschten Punkte in der Szene wird dieser
+                            ausgewählt.
+                            Im Reiter Gebäude, unter dem Abschnitt Linie, kann nun auf Punkt setzen geklickt werden.
+                            Neben dem
+                            Button steht der ausgewählte Punkt nun unter Anfang. Mit der gleichen Methode kann nun ein
+                            zweiter
+                            Punkt
+                            ausgewählt und über den zweiten Punkt-setzen-Button definiert werden. Über den +-Button wird
+                            die
+                            Linie
+                            erzeugt und erscheint nun in der Szene.
+                            Um eine Linie zu löschen muss diese in der Szene ausgewählt werden, durch Klick auf den
+                            Papierkorb
+                            im
+                            Menü, unter dem Reiter Gebäude, Abschnitt Linie, kann die Linie gelöscht werden.</p>
+
+                        <h3>Kamera</h3>
+                        <p>Im Kamera-Reiter kannst Du nun verschiedene Änderungen an den beiden Kameras unternehmen. Die
+                            linke
+                            Kamera entspricht dabei dem Bild aus dem linken 2D-Viewer und die rechte Kamera dem aus dem
+                            rechten
+                            2D-Viewer.
+                            Als aller erstes kannst Du also die Position der Kameras durch Eingabe der x-, y- und
+                            z-Werte
+                            ändern.
+                            Mit der Field of View-Eingabe wird der Öffnungswinkel der Kamera geändert. So entsteht der
+                            Effekt
+                            das von der aktuellen Kameraposition an das Gebäude heran oder heraus gezoomt wird.
+                            Im darunterliegenden Feld können die Seitenverhältnisse (Aspect Ratio) der Bilder in den
+                            2D-Viewern
+                            manipuliert werden. Je größer die Zahl ist, desto schmaler erscheint das Gebäude. Wohingegen
+                            ein
+                            sehr kleiner Wert das Gebäude visuell in die Länge zieht.</p>
+                    </ul>
+                </div>
+            </div> -->
         </main>
 
 </body>
