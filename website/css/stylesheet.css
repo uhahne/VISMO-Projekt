@@ -93,7 +93,8 @@ a:active {
 #createPoint:hover,
 #createLine:hover,
 #setStartPoint:hover,
-#setEndPoint:hover {
+#setEndPoint:hover,
+#trackPad:hover {
   background-color: #acacac;
   cursor: pointer;
 }
@@ -115,10 +116,6 @@ button {
 
 #giraffenButton {
   padding: 0px 15px;
-}
-
-.submenu03 {
-  padding: 0px;
 }
 
 #giraffenButton:hover {
@@ -205,9 +202,14 @@ hr {
   padding: 8px 15px 8px 15px;
 }
 
+#modelUI {
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
 .submenu,
 .submenu02 {
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
 /* style of dropdown-regions*/
@@ -230,8 +232,7 @@ hr {
 #check02CSS,
 #check03CSS,
 #check04CSS,
-#CamerasCSS,
-#check09CSS {
+#CamerasCSS {
   padding-left: 5px;
 }
 
@@ -257,13 +258,13 @@ label {
   padding: 5px;
 }
 
-.submenu {
+.submenu,
+.submenu03 {
   margin-bottom: 0%;
 }
 
 input {
   width: 65px;
-  border-radius: 5px;
   margin-bottom: 5px;
   margin-right: 10px;
   padding: 3px 3px 3px 5px;
@@ -316,7 +317,7 @@ input.check09:checked ~ ul.submenu03 {
 #dropdownRightCam {
   position: absolute;
   left: 85%;
-  margin-top: 5px;
+  margin-top: 10px;
   height: 10px;
 }
 
@@ -324,7 +325,7 @@ input.check09:checked ~ ul.submenu03 {
   transform: rotate(0deg);
 }
 
-.dropdownOpen{
+.dropdownOpen {
   transform: rotate(180deg);
 }
 
@@ -352,15 +353,13 @@ input.check09:checked ~ ul.submenu03 {
 /* for newPointName -> name is already taken */
 #pointNameFeedback,
 #lineFeedback {
-  color: #FE3E3E;
+  color: #fe3e3e;
   font-weight: bold;
-  font-size: 125%;
+  font-size: 100%;
   opacity: 90%;
 }
 
 /* style within cameras tab */
-
-
 
 #camUI p {
   margin-top: 3%;
@@ -379,7 +378,7 @@ input.check09:checked ~ ul.submenu03 {
 }
 
 #settingsUI,
-#version  {
+#version {
   padding-left: 15px;
 }
 
@@ -445,7 +444,8 @@ input.check09:checked ~ ul.submenu03 {
 
 /* HILFE-SEITE */
 /* text */
-#helpText, #aboutUsText {
+#helpText,
+#aboutUsText {
   margin-top: 55px;
   padding-right: 50px;
   padding-left: 50px;
@@ -455,7 +455,8 @@ input.check09:checked ~ ul.submenu03 {
   line-height: 35px;
 }
 
-#aboutUsText h1, #helpText h1 {
+#aboutUsText h1,
+#helpText h1 {
   text-align: center;
   font-size: 50px;
 }
@@ -468,13 +469,15 @@ input.check09:checked ~ ul.submenu03 {
   font-size: 27px;
 }
 
-#helpText p, #aboutUsText p {
+#helpText p,
+#aboutUsText p {
   font-size: 25px;
   color: #3f3f3f;
   text-align: justify;
 }
 
-#helpText a {
+#helpText a,
+.submenu03 {
   padding: 0px;
 }
 
@@ -507,25 +510,21 @@ input.check09:checked ~ ul.submenu03 {
   padding-right: 20px;
 } */
 
-
-
 /*Nav Adjustments for Smaller Screens*/
 @media screen and (max-width: 1550px) {
+  /* Nav with Buttons/Tabs */
+  #nav {
+    position: fixed;
+    margin-top: 60px;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 12px;
+  }
 
-
-/* Nav with Buttons/Tabs */
-#nav {
-  position: fixed;
-  margin-top: 60px;
-  z-index: 4;
-  display: flex;
-  justify-content: space-between;
-  padding-left: 12px;
-}
-
-#nav button {
-  padding: 14px 7px;
-  font-weight: bold;
-  font-size: 13px;
-}
+  #nav button {
+    padding: 14px 7px;
+    font-weight: bold;
+    font-size: 13px;
+  }
 }
