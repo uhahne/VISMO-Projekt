@@ -314,10 +314,11 @@ input.check09:checked ~ ul.submenu03 {
 #dropdownPoint,
 #dropdownLine,
 #dropdownLeftCam,
-#dropdownRightCam {
+#dropdownRightCam,
+#dropdownModel {
   position: absolute;
   left: 85%;
-  margin-top: 10px;
+  margin-top: 5px;
   height: 10px;
 }
 

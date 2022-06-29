@@ -238,6 +238,7 @@ function deleteAllPointsAndLines() {
     document.getElementById("check02CSS").addEventListener("click", handleDropdownIconLine);
     document.getElementById("check03CSS").addEventListener("click", handleDropdownIconLeftCam);
     document.getElementById("check04CSS").addEventListener("click", handleDropdownIconRightCam);
+    document.getElementById("check09CSS").addEventListener("click", handleDropdownModel);
     // Points
     document.getElementById("createPoint").addEventListener("click", handleCreatePoint);
     document.getElementById("pointCoordX").addEventListener("change", handleChangePointPositionX);
@@ -426,6 +427,16 @@ function handleDropdownIconLeftCam (_event) {
 
 function handleDropdownIconRightCam (_event) {
     let icon = document.getElementById("dropdownRightCam");
+
+    if(icon.className == 'dropdown') {
+        icon.className = 'dropdownOpen'; 
+    } else {
+        icon.className = 'dropdown';
+    }
+} 
+
+function handleDropdownModel (_event) {
+    let icon = document.getElementById("dropdownModel");
 
     if(icon.className == 'dropdown') {
         icon.className = 'dropdownOpen'; 
