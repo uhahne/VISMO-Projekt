@@ -1,4 +1,5 @@
 import * as THREE from "../../threejs/ThreeModule.js";
+import Point from "./Point.js";
 
 export default class Line extends THREE.Object3D {
 
@@ -8,19 +9,19 @@ export default class Line extends THREE.Object3D {
     line;
     color = new THREE.Color(0xffffff);
 
-    constructor(_startPoint, _endPoint) { // _startPoint: Point | _endPoint: Point
+    constructor(startPoint = new Point(), endPoint = new Point()) {
         super();
-        this.name = _startPoint.name + "-" + _endPoint.name;
+        this.name = startPoint.name + "-" + endPoint.name;
 
         // save the start & end point (for automatic line movement)
-        this.startPoint = _startPoint;
-        this.endPoint = _endPoint;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
 
         // create an array with the coordinates to create the geometry
         let coordinates = [];
         // add the coordinates
-        coordinates.push(new THREE.Vector3(_startPoint.position.x, _startPoint.position.y, _startPoint.position.z));
-        coordinates.push(new THREE.Vector3(_endPoint.position.x, _endPoint.position.y, _endPoint.position.z));
+        coordinates.push(new THREE.Vector3(startPoint.position.x, startPoint.position.y, startPoint.position.z));
+        coordinates.push(new THREE.Vector3(endPoint.position.x, endPoint.position.y, endPoint.position.z));
 
         // create the geometry
         let geometry = new THREE.BufferGeometry().setFromPoints(coordinates);
@@ -32,8 +33,8 @@ export default class Line extends THREE.Object3D {
         this.add(this.line);
     }
 
-    isConnectedToPoint(_point) {
-        if (this.startPoint.uuid == _point.uuid || this.endPoint.uuid == _point.uuid)
+    isConnectedToPoint(point = new Point()) {
+        if (this.startPoint.uuid == point.uuid || this.endPoint.uuid == point.uuid)
             return true;
         return false
     }

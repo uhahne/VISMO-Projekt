@@ -4,20 +4,19 @@ export default class Camera extends THREE.PerspectiveCamera {
     principalPoint = new THREE.Vector3(); // = Hauptpunkt 
     projectionMatrixArray = []; // new THREE.Matrix4(); -> Calculation see ViSMo_Arbeitsblatt-1
 
-    constructor(_projectionCenterPosition, _distance, _aspect) { // _projectionCenterPosition: THREE.Vector3 | _distance: number | _aspect: number
+    constructor(projectionCenterPosition = new THREE.Vector3(), distance = 0, aspect = 0) {
         super();
         this.fov = 110;
-        this.aspect = _aspect;
-        this.near = _distance; // = distance from projectionCenter to imgPlane
+        this.aspect = aspect;
+        this.near = distance; // = distance from projectionCenter to imgPlane
         this.far = 20;
-
         this.name = "Camera";
 
         this.updatePrincipalPoint(); // get principal point
         this.updateProjectionMatrixArray(); // get projection matrix
 
         // position the camera (position = projectionCenter)
-        this.position.set(Number(_projectionCenterPosition.x), Number(_projectionCenterPosition.y), Number(_projectionCenterPosition.z));
+        this.position.set(Number(projectionCenterPosition.x), Number(projectionCenterPosition.y), Number(projectionCenterPosition.z));
     }
 
     updatePrincipalPoint() {
@@ -104,13 +103,13 @@ export default class Camera extends THREE.PerspectiveCamera {
 
     /*
     // by using the projectionMatrix
-    getImageCoordWorld(_pointCoord) { // _pointCoord: THREE.Vector3
+    getImageCoordWorld(pointCoord = new THREE.Vector3()) {
         // apply matrix to point coordinates
         let coord = [
-            this.projectionMatrixArray[0] * _pointCoord.x + this.projectionMatrixArray[1] * _pointCoord.y + this.projectionMatrixArray[2] * _pointCoord.z + this.projectionMatrixArray[3] * 1,
-            this.projectionMatrixArray[4] * _pointCoord.x + this.projectionMatrixArray[5] * _pointCoord.y + this.projectionMatrixArray[6] * _pointCoord.z + this.projectionMatrixArray[7] * 1,
-            this.projectionMatrixArray[8] * _pointCoord.x + this.projectionMatrixArray[9] * _pointCoord.y + this.projectionMatrixArray[10] * _pointCoord.z + this.projectionMatrixArray[11] * 1,
-            this.projectionMatrixArray[12] * _pointCoord.x + this.projectionMatrixArray[13] * _pointCoord.y + this.projectionMatrixArray[14] * _pointCoord.z + this.projectionMatrixArray[15] * 1
+            this.projectionMatrixArray[0] * pointCoord.x + this.projectionMatrixArray[1] * pointCoord.y + this.projectionMatrixArray[2] * pointCoord.z + this.projectionMatrixArray[3] * 1,
+            this.projectionMatrixArray[4] * pointCoord.x + this.projectionMatrixArray[5] * pointCoord.y + this.projectionMatrixArray[6] * pointCoord.z + this.projectionMatrixArray[7] * 1,
+            this.projectionMatrixArray[8] * pointCoord.x + this.projectionMatrixArray[9] * pointCoord.y + this.projectionMatrixArray[10] * pointCoord.z + this.projectionMatrixArray[11] * 1,
+            this.projectionMatrixArray[12] * pointCoord.x + this.projectionMatrixArray[13] * pointCoord.y + this.projectionMatrixArray[14] * pointCoord.z + this.projectionMatrixArray[15] * 1
         ];
 
         // normalize point coordinates vector
@@ -126,15 +125,15 @@ export default class Camera extends THREE.PerspectiveCamera {
     */
     
     // by getting the intersection point
-    getImageCoordWorld(_pointCoord) { // _pointCoord: THREE.Vector3
+    getImageCoordWorld(pointCoord = new THREE.Vector3()) {
         // CALCULATES THE INTERSECTION OF IMAGE PLANE AND LINE (= point->projectionCenter) in a work-around way that works in simple code
 
         // get normal coordinates
         let normal = new THREE.Vector3();
         this.getWorldDirection(normal);
 
-        // calculate normal * p (p = _pointCoord = Stützvektor)
-        let np = normal.x * _pointCoord.x + normal.y * _pointCoord.y + normal.z * _pointCoord.z;
+        // calculate normal * p (p = pointCoord = Stützvektor)
+        let np = normal.x * pointCoord.x + normal.y * pointCoord.y + normal.z * pointCoord.z;
 
         // get d
         this.updatePrincipalPoint();
@@ -143,8 +142,8 @@ export default class Camera extends THREE.PerspectiveCamera {
         // calculate d - (normal * p)
         d -= np;
 
-        // get u (= Richtungsvektor = _pointCoord - this.position)
-        let u = new THREE.Vector3(_pointCoord.x - this.position.x, _pointCoord.y - this.position.y, _pointCoord.z - this.position.z);
+        // get u (= Richtungsvektor = pointCoord - this.position)
+        let u = new THREE.Vector3(pointCoord.x - this.position.x, pointCoord.y - this.position.y, pointCoord.z - this.position.z);
 
         // calculate normal * u
         let nu = normal.x * u.x + normal.y * u.y + normal.z * u.z;
@@ -153,14 +152,14 @@ export default class Camera extends THREE.PerspectiveCamera {
         let t = d / nu;
 
         // insert t into the line equation to get the intersection point (s)
-        let s = new THREE.Vector3(_pointCoord.x + u.x * t, _pointCoord.y + u.y * t, _pointCoord.z + u.z * t);
+        let s = new THREE.Vector3(pointCoord.x + u.x * t, pointCoord.y + u.y * t, pointCoord.z + u.z * t);
 
         return s;
     }
     
-    getImageCoordCamera(_pointCoord) { // _pointCoord: THREE.Vector3
+    getImageCoordCamera(pointCoord = new THREE.Vector3()) {
         // get the image coordinates in the world coordinate system
-        let imageCoordCamera = this.getImageCoordWorld(_pointCoord);
+        let imageCoordCamera = this.getImageCoordWorld(pointCoord);
 
         // transform the world coordinates into camera coordinates
         imageCoordCamera.applyMatrix4(this.matrixWorldInverse);

@@ -4,7 +4,7 @@ import Line from "./Line.js";
 
 export default class DefaultModel extends THREE.Object3D {
 
-    constructor(_position) {
+    constructor(position = new THREE.Vector3()) {
         super();
 
         // create the points of the default model
@@ -42,8 +42,8 @@ export default class DefaultModel extends THREE.Object3D {
         this.add(new Line(pointDr, pointAc));
 
         // position the default model
-        this.position.x = _position.x;
-        this.position.y = _position.y;
-        this.position.z = _position.z;
+        this.position.x = position.x;
+        this.position.y = position.y;
+        this.position.z = position.z;
     }
 }

@@ -31,199 +31,209 @@
         <!-- buttons for Building, Cameras, Settings -->
         <div id="nav">
             <div class="navButton">
-                <button type="button" class="buttonactive featuredBtn active" id="building">Gebäude</button>
+                <button type="button" class="buttonactive featuredBtn active" id="building"
+                    name="buildingUI">Gebäude</button>
             </div>
 
             <div class="navButton">
-                <button type="button" class="buttonactive featuredBtn" id="camera">Kameras</button>
+                <button type="button" class="buttonactive featuredBtn" id="camera" name="camUI">Kameras</button>
             </div>
 
             <div class="navButton">
-                <button type="button" class="buttonactive featuredBtn" id="settings">Einstellungen</button>
+                <button type="button" class="buttonactive featuredBtn" id="settings"
+                    name="settingsUI">Einstellungen</button>
             </div>
         </div>
 
         <!-- COLUMN left -->
         <div id="leftColumn">
-            <!-- input fields for model POINTS -->
-            <div id="pointUI">
-                <input id="check01" class="check01" type="checkbox" name="menu" />
-                <label id="check01CSS" for="check01">Punkt <img id="dropdownPoint" class="dropdown"
-                        src="graphics/dropdown_white.png">
-                </label>
-                <ul class="submenu">
-                    <div id="pointCreation">
-                        <p>
-                            <b>Neuer Punkt:</b>
-                            <input id="newPointName" type="text" placeholder="Name" autocomplete="off">
-                            <button id="createPoint" title="Punkt hinzufügen"><img class="plusIcon"
-                                    src="graphics/plusIcon_white.png"></button>
-                            <br>
-                            <span id="pointNameFeedback"></span>
-                        </p>
-                    </div>
-                    <div id="pointManipulation">
-                        <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <img id="deletePoint"
-                                src="graphics/trashcan_deletePoint.png" title="Punkt löschen"></p>
-                        <b>x = </b> <input id="pointCoordX" type="number" placeholder="0" autocomplete="off"></input>
-                        <br>
-
-                        <b>y = </b> <input id="pointCoordY" type="number" placeholder="0" autocomplete="off"></input>
-                        <br>
-                        <b>z =</b> <input id="pointCoordZ" type="number" placeholder="0" autocomplete="off"></input>
-                    </div>
-            </div>
-
-            </ul>
-
-            <div id="lineUI">
-
-                <!-- input fields for LINES -->
-                <input id="check02" class="check02" type="checkbox" name="menu" />
-
-                <label id="check02CSS" for="check02">Linie <img id="dropdownLine" class="dropdown"
-                        src="graphics/dropdown_white.png">
-                </label>
-                <ul class="submenu">
-                    <div id="lineCreation">
-                        <p><button type="button" id="setStartPoint">Punkt setzen</button>
-                            <br>
-                            <b>Startpunkt</b>: <span id="startPointName"></span>
-                        </p>
-
-                        <p><button type="button" id="setEndPoint">Punkt setzen</button>
-                            <br>
-                            <b>Endpunkt</b>: <span id="endPointName"></span>
-                        </p>
-                        <p><button type="button" id="createLine" title="Linie hinzufügen"><img class="plusIcon"
-                                    src="graphics/plusIcon_white.png"></button>
-                            <br>
-                            <span id="lineFeedback"></span>
-                        </p>
-                    </div>
-                    <div id="lineManipulation">
-                        <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <img id="deleteLine"
-                                src="graphics/trashcan_deletePoint.png" title="Linie löschen"></p>
-                    </div>
-            </div>
-
-            </ul>
-
-            <!-- input fields for CAMERAS -->
-            <div id="camUI">
-                <div id="camPosition">
-                    <input id="check03" class="check03" type="checkbox" name="menu" />
-
-                    <!-- LEFT CAMERA -->
-                    <label id="check03CSS" for="check03">Linke Kamera <img id="dropdownLeftCam" class="dropdown"
-                            src="graphics/dropdown_white.png"> </label>
-                    <ul class="submenu">
-                        <p><b>Projektionszentrum (Position):</b></p>
-                        <!-- untereinander: x, y, z als <label> machen -->
-                        <p>
-                            <b>x = </b> <input id="leftCamCoordX" type="number" placeholder="0"
-                                autocomplete="off"></input>
-                            <br>
-                            <b>y =</b> <input id="leftcamCoordY" type="number" placeholder="0"
-                                autocomplete="off"></input>
-                            <br>
-                            <b>z =</b> <input id="leftCamCoordZ" type="number" placeholder="0"
-                                autocomplete="off"></input>
-                        </p>
-                        <div id="jsParameter">
-                            <p><b>Hauptpunkt: </b></p>
-                            <p>
-                                <b>x =</b> <span id="leftCamPrincipalPointX"></span>
+            <div id="UIElements">
+                <!-- input fields for model POINTS -->
+                <div id="buildingUI">
+                    <div id="pointUI">
+                        <input id="check01" class="check01" type="checkbox" name="menu" />
+                        <label id="check01CSS" for="check01">Punkt
+                            <img id="dropdownPoint" class="dropdown" src="graphics/dropdown_white.png">
+                        </label>
+                        <ul class="submenu">
+                            <div id="pointCreation">
+                                <p>
+                                    <b>Neuer Punkt:</b>
+                                    <input id="newPointName" type="text" placeholder="Name" autocomplete="off">
+                                    <button id="createPoint" title="Punkt hinzufügen"><img class="plusIcon"
+                                            src="graphics/plusIcon_white.png"></button>
+                                    <br>
+                                    <span id="pointNameFeedback"></span>
+                                </p>
+                            </div>
+                            <div id="pointManipulation">
+                                <p><b>Ausgewählter Punkt</b>: <span id="pointName"></span> <img id="deletePoint"
+                                        src="graphics/trashcan_deletePoint.png" title="Punkt löschen"></p>
+                                <b>x = </b> <input id="pointCoordX" type="number" placeholder="0"
+                                    autocomplete="off"></input>
                                 <br>
-                                <b>y =</b> <span id="leftCamPrincipalPointY"></span>
+
+                                <b>y = </b> <input id="pointCoordY" type="number" placeholder="0"
+                                    autocomplete="off"></input>
                                 <br>
-                                <b>z =</b> <span id="leftCamPrincipalPointZ"></span>
-                            </p>
-                            <p><b>Distanz =</b> <input id="leftCamDistance" type="number" placeholder="0"
-                                    autocomplete="off"></input></p>
-                            <p><b>Field of View =</b> <input id="leftFieldOfView" type="number" placeholder="0"
-                                    autocomplete="off"></input></p>
-                        </div>
+                                <b>z =</b> <input id="pointCoordZ" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                            </div>
+                    </div>
 
                     </ul>
+
+                    <div id="lineUI">
+
+                        <!-- input fields for LINES -->
+                        <input id="check02" class="check02" type="checkbox" name="menu" />
+
+                        <label id="check02CSS" for="check02">Linie
+                            <img id="dropdownLine" class="dropdown" src="graphics/dropdown_white.png">
+                        </label>
+                        <ul class="submenu">
+                            <div id="lineCreation">
+                                <p><button type="button" id="setStartPoint">Punkt setzen</button>
+                                    <br>
+                                    <b>Startpunkt</b>: <span id="startPointName"></span>
+                                </p>
+
+                                <p><button type="button" id="setEndPoint">Punkt setzen</button>
+                                    <br>
+                                    <b>Endpunkt</b>: <span id="endPointName"></span>
+                                </p>
+                                <p><button type="button" id="createLine" title="Linie hinzufügen"><img class="plusIcon"
+                                            src="graphics/plusIcon_white.png"></button>
+                                    <br>
+                                    <span id="lineFeedback"></span>
+                                </p>
+                            </div>
+                            <div id="lineManipulation">
+                                <p><b>Ausgewählte Linie</b>: <span id="lineName"></span> <img id="deleteLine"
+                                        src="graphics/trashcan_deletePoint.png" title="Linie löschen"></p>
+                            </div>
+                    </div>
+                </div>
+
+                </ul>
+
+                <!-- input fields for CAMERAS -->
+                <div id="camUI">
+                    <div id="camPosition">
+                        <input id="check03" class="check03" type="checkbox" name="menu" />
+
+                        <!-- LEFT CAMERA -->
+                        <label id="check03CSS" for="check03">Linke Kamera
+                            <img id="dropdownLeftCam" class="dropdown" src="graphics/dropdown_white.png">
+                        </label>
+                        <ul class="submenu">
+                            <p><b>Projektionszentrum (Position):</b></p>
+                            <!-- untereinander: x, y, z als <label> machen -->
+                            <p>
+                                <b>x = </b> <input id="leftCamCoordX" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                                <br>
+                                <b>y =</b> <input id="leftcamCoordY" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                                <br>
+                                <b>z =</b> <input id="leftCamCoordZ" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                            </p>
+                            <div id="jsParameter">
+                                <p><b>Hauptpunkt: </b></p>
+                                <p>
+                                    <b>x =</b> <span id="leftCamPrincipalPointX"></span>
+                                    <br>
+                                    <b>y =</b> <span id="leftCamPrincipalPointY"></span>
+                                    <br>
+                                    <b>z =</b> <span id="leftCamPrincipalPointZ"></span>
+                                </p>
+                                <p><b>Distanz =</b> <input id="leftCamDistance" type="number" placeholder="0"
+                                        autocomplete="off"></input></p>
+                                <p><b>Field of View =</b> <input id="leftFieldOfView" type="number" placeholder="0"
+                                        autocomplete="off"></input></p>
+                            </div>
+
+                        </ul>
+                        <hr>
+
+                        <!-- RIGHT CAMERA -->
+                        <input id="check04" class="check04" type="checkbox" name="menu02" />
+                        <label id="check04CSS" for="check04">Rechte Kamera <img id="dropdownRightCam" class="dropdown"
+                                src="graphics/dropdown_white.png"> </label>
+                        <ul class="submenu02">
+                            <p><b>Projektionszentrum:</b></p>
+                            <p>
+                                <b>x =</b> <input id="rightCamCoordX" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                                <br>
+                                <b>y =</b> <input id="rightCamCoordY" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                                <br>
+                                <b>z =</b> <input id="rightCamCoordZ" type="number" placeholder="0"
+                                    autocomplete="off"></input>
+                            </p>
+                            <div id="jsParameter">
+                                <p><b>Hauptpunkt: </b></p>
+                                <p>
+                                    <b>x =</b> <span id="rightCamPrincipalPointX"></span> <br>
+                                    <b>y =</b> <span id="rightCamPrincipalPointY"></span> <br>
+                                    <b>z =</b> <span id="rightCamPrincipalPointZ"></span>
+                                </p>
+                                <p><b>Distanz =</b> <input id="rightCamDistance" type="number" placeholder="0"
+                                        autocomplete="off"></input></p>
+                                <p><b>Field of View =</b> <input id="rightFieldOfView" type="number" placeholder="0"
+                                        autocomplete="off"></input></p>
+                            </div>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!-- SETTINGS -->
+                <div id="settingsUI">
+                    <div>
+                        <p id="strahlen">Strahlen</p>
+                        <select class="settingSelection" id="beams">
+                            <option value="none">Keine</option>
+                            <option value="all">Alle</option>
+                            <option value="one">Ausgewählte Punkt</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p id="strahlen">Kamera-Rotation</p>
+                        <select class="settingSelection" id="cameraRotation">
+                            <option value="on">Ein</option>
+                            <option value="leftCamera">Nur linke Kamera</option>
+                            <option value="rightCamera">Nur rechte Kamera</option>
+                            <option value="off">Aus</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p id="strahlen">Weltkoordinatensystem</p>
+                        <select class="settingSelection" id="worldCoordSystem">
+                            <option value="show">Ein</option>
+                            <option value="hide">Aus</option>
+                        </select>
+                    </div>
                     <hr>
 
-                    <!-- RIGHT CAMERA -->
-                    <input id="check04" class="check04" type="checkbox" name="menu02" />
-                    <label id="check04CSS" for="check04">Rechte Kamera <img id="dropdownRightCam" class="dropdown"
-                            src="graphics/dropdown_white.png"> </label>
-                    <ul class="submenu02">
-                        <p><b>Projektionszentrum:</b></p>
-                        <p>
-                            <b>x =</b> <input id="rightCamCoordX" type="number" placeholder="0"
-                                autocomplete="off"></input>
-                            <br>
-                            <b>y =</b> <input id="rightCamCoordY" type="number" placeholder="0"
-                                autocomplete="off"></input>
-                            <br>
-                            <b>z =</b> <input id="rightCamCoordZ" type="number" placeholder="0"
-                                autocomplete="off"></input>
-                        </p>
-                        <div id="jsParameter">
-                            <p><b>Hauptpunkt: </b></p>
-                            <p>
-                                <b>x =</b> <span id="rightCamPrincipalPointX"></span> <br>
-                                <b>y =</b> <span id="rightCamPrincipalPointY"></span> <br>
-                                <b>z =</b> <span id="rightCamPrincipalPointZ"></span>
-                            </p>
-                            <p><b>Distanz =</b> <input id="rightCamDistance" type="number" placeholder="0"
-                                    autocomplete="off"></input></p>
-                            <p><b>Field of View =</b> <input id="rightFieldOfView" type="number" placeholder="0"
-                                    autocomplete="off"></input></p>
-                        </div>
-
+                    <div id="modelUI">
+                        <input id="check09" class="check09" type="checkbox" name="menu" />
+                        <label id="check09CSS" for="check09">Modell <img id="dropdownModel" class="dropdown"
+                                src="graphics/dropdown_white.png"> </label>
+                        <ul class="submenu03">
+                            <div id="model1">
+                                <button id="giraffenButton">
+                                    <div id="giraffe">
+                                        <p>Gigi die Giraffe</p>
+                                    </div>
+                                </button>
+                            </div>
+                    </div>
                     </ul>
-
                 </div>
-            </div>
-
-            <!-- SETTINGS -->
-            <div id="settingsUI">
-                <div>
-                    <p id="strahlen">Strahlen</p>
-                    <select class="settingSelection" id="beams">
-                        <option value="none">Keine</option>
-                        <option value="all">Alle</option>
-                        <option value="one">Ausgewählte Punkt</option>
-                    </select>
-                </div>
-                <div>
-                    <p id="strahlen">Kamera-Rotation</p>
-                    <select class="settingSelection" id="cameraRotation">
-                        <option value="on">Ein</option>
-                        <option value="leftCamera">Nur linke Kamera</option>
-                        <option value="rightCamera">Nur rechte Kamera</option>
-                        <option value="off">Aus</option>
-                    </select>
-                </div>
-                <div>
-                    <p id="strahlen">Weltkoordinatensystem</p>
-                    <select class="settingSelection" id="worldCoordSystem">
-                        <option value="show">Ein</option>
-                        <option value="hide">Aus</option>
-                    </select>
-                </div>
-                <hr>
-
-                <div id="modelUI">
-                    <input id="check09" class="check09" type="checkbox" name="menu" />
-                    <label id="check09CSS" for="check09">Modell <img id="dropdownModel" class="dropdown"
-                            src="graphics/dropdown_white.png"> </label>
-                    <ul class="submenu03">
-                        <div id="model1">
-                            <button id="giraffenButton">
-                                <div id="giraffe">
-                                    <p>Gigi die Giraffe</p>
-                                </div>
-                            </button>
-                        </div>
-                </div>
-                </ul>
             </div>
 
             <!-- OUTPUT area-->
@@ -267,7 +277,7 @@
             </div>
 
             <div id="version">
-                <p> Version 1.1.18 </p>
+                <p> Version 1.1.19 </p>
             </div>
 
         </div>

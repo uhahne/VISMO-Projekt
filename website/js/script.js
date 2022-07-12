@@ -1,7 +1,6 @@
 import * as THREE from "../threejs/ThreeModule.js";
 import { OrbitControls } from "../threejs/OrbitControls.js";
 import { GLTFLoader } from '../threejs/GLTFLoader.js';
-import { RGBELoader } from '../threejs/RGBELoader.js';
 import Point from "../js/classes/Point.js";
 import Line from "../js/classes/Line.js";
 import DefaultModel from "./classes/DefaultModel.js";
@@ -12,6 +11,8 @@ import Camera from "./classes/Camera.js";
 import CameraCoordinateSystem from "./classes/CameraCoordinateSystem.js";
 import CoordinateSystem from "./classes/CoordinateSystem.js";
 import { TransformControls } from "../threejs/TransformControls.js";
+import Epipole from "./classes/Epipole.js";
+import UI from "./classes/Ui.js";
 
 let renderer, scene;
 let controls, cameraLeftControls, cameraRightControls;
@@ -34,11 +35,6 @@ let lineStartPoint, lineEndPoint; // for line creation
 
 let canvasScene = document.getElementById("vismoViewport"); // get canvas
 let canvasWidth, canvasHeight, canvasAspect; // define canvas size
-
-
-// glb Data
-let glbData = ['untitled.glb', 'giraffe.gltf']
-let modelIndex = 0
 
 canvasWidth = window.innerWidth;
 canvasHeight = window.innerHeight;
@@ -139,42 +135,15 @@ function init() {
     selectables.add(lines);
     scene.add(selectables);
 
- 
-document.getElementById("giraffe").onclick = function() {changeModel(),deleteAllPointsAndLines()};
+    document.getElementById("giraffenButton").addEventListener("click", handleLoadGigiModel);
 
-function deleteAllPointsAndLines() {
-    for (let i = points.children.length; i >= 0; i--) {
-        points.remove(points.children[i]);
-    }
-    for (let i = lines.children.length; i >= 0; i--) {
-        lines.remove(lines.children[i]);
-    }
-}
-        // load first model
-        loadModel('')
-
-        // environment
-        new RGBELoader()
-            .setPath()
-            .load('', function (texture) {
-    
-                texture.mapping = THREE.EquirectangularReflectionMapping;
-    
-                //scene.background = texture;
-                scene.environment = texture;
-    
-            });
-
-            
     // beams group
     beams = new THREE.Group();
     toggleBeams = "none";
 
     // epipoles
-    epipoleLeft = new Point("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
-    epipoleLeft.material.color.set(0xff9900);
-    epipoleRight = new Point("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
-    epipoleRight.material.color.set(0xff9900);
+    epipoleLeft = new Epipole("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
+    epipoleRight = new Epipole("Epipol", new THREE.Vector3(0, 0, 0), 0.05);
 
     // #region (GRID)
     // world grid
@@ -182,12 +151,12 @@ function deleteAllPointsAndLines() {
     // left camera grid
     cameraLeftGrid = new CameraGrid();
     cameraLeft.add(cameraLeftGrid);
-    cameraLeftGrid.rotateX(Math.PI/2); // parallel to camera
+    cameraLeftGrid.rotateX(Math.PI / 2); // parallel to camera
     cameraLeftGrid.update(); // adjust position
     // right camera grid
     cameraRightGrid = new CameraGrid();
     cameraRight.add(cameraRightGrid);
-    cameraRightGrid.rotateX(Math.PI/2);
+    cameraRightGrid.rotateX(Math.PI / 2);
     cameraRightGrid.update();
     // #endregion (GRID)
 
@@ -217,28 +186,16 @@ function deleteAllPointsAndLines() {
     mouse = new THREE.Vector2(); // create vector the save the coordinates of where the user clicked on the page
 
     // UI
-    document.getElementById("camUI").setAttribute("style", "display: none");
-    document.getElementById("settingsUI").setAttribute("style", "display: none");
-    
     document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
     document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
-
     showLeftCameraParameters();
     showRightCameraParameters();
+
+    UI.init();
 
     // #region (EVENT LISTENERS)
     // Window Resize
     window.addEventListener("resize", onWindowResize);
-    // UI Tabs
-    document.getElementById("building").addEventListener("click", handleBuildingTab);
-    document.getElementById("camera").addEventListener("click", handleCamTab);
-    document.getElementById("settings").addEventListener("click", handleSettingsTab);
-    //Dropdown Icons
-    document.getElementById("check01CSS").addEventListener("click", handleDropdownIconPoint);
-    document.getElementById("check02CSS").addEventListener("click", handleDropdownIconLine);
-    document.getElementById("check03CSS").addEventListener("click", handleDropdownIconLeftCam);
-    document.getElementById("check04CSS").addEventListener("click", handleDropdownIconRightCam);
-    document.getElementById("check09CSS").addEventListener("click", handleDropdownModel);
     // Points
     document.getElementById("createPoint").addEventListener("click", handleCreatePoint);
     document.getElementById("pointCoordX").addEventListener("change", handleChangePointPositionX);
@@ -250,12 +207,10 @@ function deleteAllPointsAndLines() {
     document.getElementById("setEndPoint").addEventListener("click", handleSetEndPoint);
     document.getElementById("createLine").addEventListener("click", handleCreateLine);
     document.getElementById("deleteLine").addEventListener("click", handleDeleteLine);
-    /* SETTINGS MENU */
     // Beams
     document.getElementById("beams").addEventListener("change", handleBeams);
     document.getElementById("cameraRotation").addEventListener("change", handleToggleCameraRotation);
     document.getElementById("worldCoordSystem").addEventListener("change", handleToggleWorldCoordSystem);
-    /* END */
     // Cameras
     document.getElementById("leftCamCoordX").addEventListener("change", handleChangeCameraLeftPositionX);
     document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
@@ -280,36 +235,37 @@ $(".buttonactive").click(function () {
     $(this).addClass("active");
 });
 
+function handleLoadGigiModel() {
+    deleteAllPointsAndLines();
+    loadModel("giraffe.gltf");
+}
+
+function deleteAllPointsAndLines() {
+    for (let i = points.children.length; i >= 0; i--) {
+        points.remove(points.children[i]);
+    }
+    for (let i = lines.children.length; i >= 0; i--) {
+        lines.remove(lines.children[i]);
+    }
+}
+
 // loader function
 function loadModel(_model) {
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 4);
     scene.add(ambientLight);
 
-    const spotLight = new THREE.SpotLight(0xffffff, 5);
+    const spotLight = new THREE.SpotLight(0xffffff, 10);
     spotLight.position.x = 4;
     spotLight.position.y = 4;
     scene.add(spotLight);
-    
+
     // gltf
     const loader = new GLTFLoader().setPath('model/');
 
     loader.load(_model, function (gltf) {
-        //gltf.scene.scale.set(1.5)
         gltf.scene.position.set(0, 0, 4.5)
         scene.add(gltf.scene);
-        // renderer.render( scene, camera );
     });
-}
-
-// change model
-function changeModel () {
-    if (modelIndex < glbData.length) {
-        modelIndex ++
-        loadModel(glbData[modelIndex])
-    } else {
-        modelIndex = 0
-    }
 }
 
 function animate() {
@@ -318,9 +274,9 @@ function animate() {
     // render scene
     renderer.clear();
     controls.update();
-    
+
     //set viewport for 3D viewer
-    renderer.setViewport(0, canvasHeight / 2 , canvasWidth, canvasHeight / 2);
+    renderer.setViewport(0, canvasHeight / 2, canvasWidth, canvasHeight / 2);
 
     cameraHelperLeft.visible = true;
     cameraHelperRight.visible = true;
@@ -354,7 +310,7 @@ function animate() {
     renderer.render(scene, cameraLeft);
 
     //set viewport for right 2D viewer
-    renderer.setViewport(canvasWidth / 2 , 0, canvasWidth / 2, canvasHeight / 2);
+    renderer.setViewport(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight / 2);
 
     cameraHelperLeft.visible = false;
     cameraHelperRight.visible = false;
@@ -370,81 +326,6 @@ function animate() {
 
     renderer.render(scene, cameraRight);
 }
-
-// #region (UI TABS)
-function handleBuildingTab(_event) {
-    document.getElementById("camUI").setAttribute("style", "display: none");
-    document.getElementById("pointUI").setAttribute("style", "visibility: visible");
-    document.getElementById("lineUI").setAttribute("style", "visibility: visible");
-    document.getElementById("settingsUI").setAttribute("style", "display: none");
-}
-
-function handleCamTab(_event) {
-    document.getElementById("pointUI").setAttribute("style", "display: none");
-    document.getElementById("lineUI").setAttribute("style", "display: none");
-    document.getElementById("settingsUI").setAttribute("style", "display: none");
-    document.getElementById("camUI").setAttribute("style", "visibility: visible");
-}
-
-function handleSettingsTab(_event) {
-    document.getElementById("pointUI").setAttribute("style", "display: none");
-    document.getElementById("lineUI").setAttribute("style", "display: none");
-    document.getElementById("camUI").setAttribute("style", "display: none");
-    document.getElementById("settingsUI").setAttribute("style", "visibility: visible");
-}
-// #endregion (UI TABS)
-
-// #region (DROPDOWN ICONS)
-function handleDropdownIconPoint (_event) {
-    let icon = document.getElementById("dropdownPoint");
-
-    if(icon.className == 'dropdown') {
-        icon.className = 'dropdownOpen'; 
-    } else {
-        icon.className = 'dropdown';
-    }
-}
-
-function handleDropdownIconLine (_event) {
-    let icon = document.getElementById("dropdownLine");
-
-    if(icon.className == 'dropdown') {
-        icon.className = 'dropdownOpen'; 
-    } else {
-        icon.className = 'dropdown';
-    }
-}
-
-function handleDropdownIconLeftCam (_event) {
-    let icon = document.getElementById("dropdownLeftCam");
-
-    if(icon.className == 'dropdown') {
-        icon.className = 'dropdownOpen'; 
-    } else {
-        icon.className = 'dropdown';
-    }
-}
-
-function handleDropdownIconRightCam (_event) {
-    let icon = document.getElementById("dropdownRightCam");
-
-    if(icon.className == 'dropdown') {
-        icon.className = 'dropdownOpen'; 
-    } else {
-        icon.className = 'dropdown';
-    }
-} 
-
-function handleDropdownModel (_event) {
-    let icon = document.getElementById("dropdownModel");
-
-    if(icon.className == 'dropdown') {
-        icon.className = 'dropdownOpen'; 
-    } else {
-        icon.className = 'dropdown';
-    }
-} 
-// #endregion (DROPDOWN ICONS)
 
 // #region (POINTS)
 function handleCreatePoint(_event) {
@@ -473,7 +354,7 @@ function handleCreatePoint(_event) {
 
 function handleChangePointPositionX(_event) {
     if (selectedPoint != undefined) {
-        selectedPoint.position.x = _event.target.value;
+        selectedPoint.position.x = Number(_event.target.value);
         updateLinesConnectedToPoint("change");
         resetDomElementForPoint(selectedPoint);
         handleResetBeams();
@@ -482,7 +363,7 @@ function handleChangePointPositionX(_event) {
 
 function handleChangePointPositionY(_event) {
     if (selectedPoint != undefined) {
-        selectedPoint.position.y = _event.target.value;
+        selectedPoint.position.y = Number(_event.target.value);
         updateLinesConnectedToPoint("change");
         resetDomElementForPoint(selectedPoint);
         handleResetBeams();
@@ -491,7 +372,7 @@ function handleChangePointPositionY(_event) {
 
 function handleChangePointPositionZ(_event) {
     if (selectedPoint != undefined) {
-        selectedPoint.position.z = _event.target.value;
+        selectedPoint.position.z = Number(_event.target.value);
         updateLinesConnectedToPoint("change");
         resetDomElementForPoint(selectedPoint);
         handleResetBeams();
@@ -719,13 +600,13 @@ function handleChangeCameraLeftPositionZ(_event) {
 }
 
 function handleChangeCameraLeftFOV(_event) {
-    cameraLeft.fov = parseFloat(_event.target.value);
+    cameraLeft.fov = Number(_event.target.value);
     cameraLeft.updateProjectionMatrix();
     cameraHelperLeft.update();
 }
 
 function handleChangeCameraLeftCamDistance(_event) {
-    cameraLeft.near = parseFloat(_event.target.value);
+    cameraLeft.near = Number(_event.target.value);
     cameraLeft.updateProjectionMatrix();
     cameraHelperLeft.update();
     cameraLeftGrid.update();
@@ -761,13 +642,13 @@ function handleChangeCameraRightPositionZ(_event) {
 }
 
 function handleChangeCameraRightFOV(_event) {
-    cameraRight.fov = parseFloat(_event.target.value);
+    cameraRight.fov = Number(_event.target.value);
     cameraRight.updateProjectionMatrix();
     cameraHelperRight.update();
 }
 
 function handleChangeCameraRightCamDistance(_event) {
-    cameraRight.near = parseFloat(_event.target.value);
+    cameraRight.near = Number(_event.target.value);
     cameraRight.updateProjectionMatrix();
     cameraHelperRight.update();
     cameraRightGrid.update();
