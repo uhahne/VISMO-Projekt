@@ -25,7 +25,7 @@ let points, lines;
 let beams, toggleBeams;
 let epipoleLeft, epipoleRight;
 
-let worldCoordinateSystem;
+let worldGrid, worldCoordinateSystem;
 
 let cameraLeftGrid, cameraRightGrid;
 let cameraLeftCoordinateSystem, cameraRightCoordinateSystem;
@@ -73,6 +73,7 @@ function init() {
 
     // cameraLeft = Camera 2 from the exercise
     cameraLeft = new Camera(new THREE.Vector3(5, 0, 2), 1, canvasAspect);
+    cameraLeft.name = "leftCam";
     cameraLeft.rotateY(Math.PI);
     cameraLeft.rotateY(-Math.PI / 4);
     cameraLeft.updatePrincipalPoint();
@@ -87,8 +88,9 @@ function init() {
     cameraLeftControls.attach(cameraLeft);
     scene.add(cameraLeftControls);
 
-    // cameraRight = Camera 1 Test from the exercise
+    // cameraRight = Camera 1 from the exercise
     cameraRight = new Camera(new THREE.Vector3(0, 0, 0), 1, canvasAspect);
+    cameraRight.name = "rightCam";
     cameraRight.rotateY(Math.PI);
     cameraRight.updatePrincipalPoint();
     cameraRight.updateProjectionMatrixArray();
@@ -147,7 +149,8 @@ function init() {
 
     // #region (GRID)
     // world grid
-    scene.add(new Grid());
+    worldGrid = new Grid();
+    scene.add(worldGrid);
     // left camera grid
     cameraLeftGrid = new CameraGrid();
     cameraLeft.add(cameraLeftGrid);
@@ -186,10 +189,10 @@ function init() {
     mouse = new THREE.Vector2(); // create vector the save the coordinates of where the user clicked on the page
 
     // UI
-    document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
-    document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
-    showLeftCameraParameters();
-    showRightCameraParameters();
+    document.getElementById("leftCamAKG").innerHTML = cameraLeft.getAKG();
+    document.getElementById("rightCamAKG").innerHTML = cameraRight.getAKG();
+    updateCameraTab(cameraLeft);
+    updateCameraTab(cameraRight);
 
     UI.init();
 
@@ -198,9 +201,9 @@ function init() {
     window.addEventListener("resize", onWindowResize);
     // Points
     document.getElementById("createPoint").addEventListener("click", handleCreatePoint);
-    document.getElementById("pointCoordX").addEventListener("change", handleChangePointPositionX);
-    document.getElementById("pointCoordY").addEventListener("change", handleChangePointPositionY);
-    document.getElementById("pointCoordZ").addEventListener("change", handleChangePointPositionZ);
+    document.getElementById("pointCoordX").addEventListener("change", handleChangePointPosition);
+    document.getElementById("pointCoordY").addEventListener("change", handleChangePointPosition);
+    document.getElementById("pointCoordZ").addEventListener("change", handleChangePointPosition);
     document.getElementById("deletePoint").addEventListener("click", handleDeletePoint);
     // Lines
     document.getElementById("setStartPoint").addEventListener("click", handleSetStartPoint);
@@ -212,16 +215,18 @@ function init() {
     document.getElementById("cameraRotation").addEventListener("change", handleToggleCameraRotation);
     document.getElementById("worldCoordSystem").addEventListener("change", handleToggleWorldCoordSystem);
     // Cameras
-    document.getElementById("leftCamCoordX").addEventListener("change", handleChangeCameraLeftPositionX);
-    document.getElementById("leftcamCoordY").addEventListener("change", handleChangeCameraLeftPositionY);
-    document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraLeftPositionZ);
-    document.getElementById("leftFieldOfView").addEventListener("change", handleChangeCameraLeftFOV);
-    document.getElementById("leftCamDistance").addEventListener("change", handleChangeCameraLeftCamDistance);
-    document.getElementById("rightCamCoordX").addEventListener("change", handleChangeCameraRightPositionX);
-    document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraRightPositionY);
-    document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraRightPositionZ);
-    document.getElementById("rightFieldOfView").addEventListener("change", handleChangeCameraRightFOV);
-    document.getElementById("rightCamDistance").addEventListener("change", handleChangeCameraRightCamDistance);
+    // left
+    document.getElementById("leftCamCoordX").addEventListener("change", handleChangeCameraPosition);
+    document.getElementById("leftCamCoordY").addEventListener("change", handleChangeCameraPosition);
+    document.getElementById("leftCamCoordZ").addEventListener("change", handleChangeCameraPosition);
+    document.getElementById("leftCamFOV").addEventListener("change", handleChangeCameraFOV);
+    document.getElementById("leftCamDistance").addEventListener("change", handleChangeCameraDistance);
+    // right
+    document.getElementById("rightCamCoordX").addEventListener("change", handleChangeCameraPosition);
+    document.getElementById("rightCamCoordY").addEventListener("change", handleChangeCameraPosition);
+    document.getElementById("rightCamCoordZ").addEventListener("change", handleChangeCameraPosition);
+    document.getElementById("rightCamFOV").addEventListener("change", handleChangeCameraFOV);
+    document.getElementById("rightCamDistance").addEventListener("change", handleChangeCameraDistance);
     // Rays
     document.addEventListener("mousedown", onDocumentMouseDown);
     // Camera TransformControls
@@ -289,6 +294,7 @@ function animate() {
     epipoleRight.visible = false;
     cameraLeftControls.visible = true;
     cameraRightControls.visible = true;
+    worldGrid.visible = true;
 
     renderer.render(scene, cameraScene);
 
@@ -306,6 +312,7 @@ function animate() {
     epipoleRight.visible = true;
     cameraLeftControls.visible = false;
     cameraRightControls.visible = false;
+    worldGrid.visible = false;
 
     renderer.render(scene, cameraLeft);
 
@@ -323,12 +330,13 @@ function animate() {
     epipoleRight.visible = true;
     cameraLeftControls.visible = false;
     cameraRightControls.visible = false;
+    worldGrid.visible = false;
 
     renderer.render(scene, cameraRight);
 }
 
 // #region (POINTS)
-function handleCreatePoint(_event) {
+function handleCreatePoint() {
     let pointName = document.getElementById("newPointName").value;
     document.getElementById("pointNameFeedback").innerHTML = ""; // reset feedback field
 
@@ -352,34 +360,20 @@ function handleCreatePoint(_event) {
     handleResetBeams();
 }
 
-function handleChangePointPositionX(_event) {
+function handleChangePointPosition() {
     if (selectedPoint != undefined) {
-        selectedPoint.position.x = Number(_event.target.value);
+        selectedPoint.position.set(
+            Number(document.getElementById("pointCoordX").value),
+            Number(document.getElementById("pointCoordY").value),
+            Number(document.getElementById("pointCoordZ").value)
+        );
         updateLinesConnectedToPoint("change");
         resetDomElementForPoint(selectedPoint);
         handleResetBeams();
     }
 }
 
-function handleChangePointPositionY(_event) {
-    if (selectedPoint != undefined) {
-        selectedPoint.position.y = Number(_event.target.value);
-        updateLinesConnectedToPoint("change");
-        resetDomElementForPoint(selectedPoint);
-        handleResetBeams();
-    }
-}
-
-function handleChangePointPositionZ(_event) {
-    if (selectedPoint != undefined) {
-        selectedPoint.position.z = Number(_event.target.value);
-        updateLinesConnectedToPoint("change");
-        resetDomElementForPoint(selectedPoint);
-        handleResetBeams();
-    }
-}
-
-function handleDeletePoint(_event) {
+function handleDeletePoint() {
     // loop through all points of the scene
     for (let i = 0; i < points.children.length; i++) {
         // find the object that matches the object id
@@ -433,7 +427,7 @@ function resetDomElementForPoint(_point) {
     // #endregion (picture coordinates)
 }
 
-function emptyDomElementForPoint(_point) {
+function emptyDomElementForPoint() {
     document.getElementById("pointName").innerText = "";
     // world coordinates
     document.getElementById("pointCoordX").value = 0;
@@ -455,17 +449,17 @@ function emptyDomElementForPoint(_point) {
 // #endregion (POINTS)
 
 // #region (LINES)
-function handleSetStartPoint(_event) {
+function handleSetStartPoint() {
     lineStartPoint = selectedPoint;
     document.getElementById("startPointName").innerText = selectedPoint.name;
 }
 
-function handleSetEndPoint(_event) {
+function handleSetEndPoint() {
     lineEndPoint = selectedPoint;
     document.getElementById("endPointName").innerText = selectedPoint.name;
 }
 
-function handleCreateLine(_event) {
+function handleCreateLine() {
     document.getElementById("lineFeedback").innerHTML = ""; // reset feedback field
 
     // check if the start & end point are undefined
@@ -522,7 +516,7 @@ function updateLinesConnectedToPoint(_operation) {
     }
 }
 
-function handleDeleteLine(_event) {
+function handleDeleteLine() {
     for (let i = 0; i < lines.children.length; i++)
         if (lines.children[i].uuid == selectedLine.uuid)
             lines.remove(lines.children[i]);
@@ -542,118 +536,63 @@ function emptyDomElementForLine(_line) {
 // #endregion (LINES)
 
 // #region (CAMERAS)
-function showLeftCameraParameters() {
-    document.getElementById("leftCamCoordX").value = cameraLeft.position.x;
-    document.getElementById("leftcamCoordY").value = cameraLeft.position.y;
-    document.getElementById("leftCamCoordZ").value = cameraLeft.position.z;
+function updateCameraTab(_camera) {
+    document.getElementById(_camera.name + "CoordX").value = _camera.position.x;
+    document.getElementById(_camera.name + "CoordY").value = _camera.position.y;
+    document.getElementById(_camera.name + "CoordZ").value = _camera.position.z;
 
-    cameraLeft.updatePrincipalPoint();
-    document.getElementById("leftCamPrincipalPointX").innerHTML = cameraLeft.principalPoint.x.toFixed(3);
-    document.getElementById("leftCamPrincipalPointY").innerHTML = cameraLeft.principalPoint.y.toFixed(3);
-    document.getElementById("leftCamPrincipalPointZ").innerHTML = cameraLeft.principalPoint.z.toFixed(3);
+    _camera.updatePrincipalPoint();
+    document.getElementById(_camera.name + "PrincipalPointX").innerHTML = _camera.principalPoint.x.toFixed(3);
+    document.getElementById(_camera.name + "PrincipalPointY").innerHTML = _camera.principalPoint.y.toFixed(3);
+    document.getElementById(_camera.name + "PrincipalPointZ").innerHTML = _camera.principalPoint.z.toFixed(3);
 
-    document.getElementById("leftCamDistance").value = cameraLeft.near;
-    document.getElementById("leftFieldOfView").value = cameraLeft.fov;
-    document.getElementById("leftAspectRatio").innerHTML = cameraLeft.aspect.toFixed(3);
+    document.getElementById(_camera.name + "Distance").value = _camera.near;
+    document.getElementById(_camera.name + "FOV").value = _camera.fov;
+    document.getElementById(_camera.name + "AspectRatio").innerHTML = _camera.aspect.toFixed(3);
 }
 
-function showRightCameraParameters() {
-    document.getElementById("rightCamCoordX").value = cameraRight.position.x;
-    document.getElementById("rightCamCoordY").value = cameraRight.position.y;
-    document.getElementById("rightCamCoordZ").value = cameraRight.position.z;
-
-    cameraRight.updatePrincipalPoint();
-    document.getElementById("rightCamPrincipalPointX").innerHTML = cameraRight.principalPoint.x.toFixed(3);
-    document.getElementById("rightCamPrincipalPointY").innerHTML = cameraRight.principalPoint.y.toFixed(3);
-    document.getElementById("rightCamPrincipalPointZ").innerHTML = cameraRight.principalPoint.z.toFixed(3);
-
-    document.getElementById("rightCamDistance").value = cameraRight.near;
-    document.getElementById("rightFieldOfView").value = cameraRight.fov;
-    document.getElementById("rightAspectRatio").innerHTML = cameraRight.aspect.toFixed(3);
-}
-
-function handleChangeCameraLeftPositionX(_event) {
-    cameraLeft.position.x = Number(_event.target.value);
+function handleChangeCameraPosition(_event) {
+    // get camera
+    let camera = cameras.getObjectByName(_event.target.name);
+    // change camera's position
+    camera.position.set(
+        Number(document.getElementById(camera.name + "CoordX").value),
+        Number(document.getElementById(camera.name + "CoordY").value),
+        Number(document.getElementById(camera.name + "CoordZ").value)
+    );
     if (selectedPoint != undefined)
         resetDomElementForPoint(selectedPoint);
     handleResetBeams();
-    showLeftCameraParameters();
-    document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
+    updateCameraTab(camera);
+    // update the camera's AKG in the HTML Element
+    document.getElementById(camera.name + "AKG").innerHTML = camera.getAKG();
 }
 
-function handleChangeCameraLeftPositionY(_event) {
-    cameraLeft.position.y = Number(_event.target.value);
-    if (selectedPoint != undefined)
-        resetDomElementForPoint(selectedPoint);
-    handleResetBeams();
-    showLeftCameraParameters();
-    document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
-}
-
-function handleChangeCameraLeftPositionZ(_event) {
-    cameraLeft.position.z = Number(_event.target.value);
-    if (selectedPoint != undefined)
-        resetDomElementForPoint(selectedPoint);
-    handleResetBeams();
-    showLeftCameraParameters();
-    document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
-}
-
-function handleChangeCameraLeftFOV(_event) {
-    cameraLeft.fov = Number(_event.target.value);
-    cameraLeft.updateProjectionMatrix();
+function handleChangeCameraFOV(_event) {
+    // get camera
+    let camera = cameras.getObjectByName(_event.target.name);
+    // change the camera's field of view
+    camera.fov = Number(_event.target.value);
+    // update stuff
+    camera.updateProjectionMatrix();
     cameraHelperLeft.update();
-}
-
-function handleChangeCameraLeftCamDistance(_event) {
-    cameraLeft.near = Number(_event.target.value);
-    cameraLeft.updateProjectionMatrix();
-    cameraHelperLeft.update();
-    cameraLeftGrid.update();
-    cameraLeftCoordinateSystem.update();
-    showLeftCameraParameters();
-}
-
-function handleChangeCameraRightPositionX(_event) {
-    cameraRight.position.x = Number(_event.target.value);
-    if (selectedPoint != undefined)
-        resetDomElementForPoint(selectedPoint);
-    handleResetBeams();
-    showRightCameraParameters();
-    document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
-}
-
-function handleChangeCameraRightPositionY(_event) {
-    cameraRight.position.y = Number(_event.target.value);
-    if (selectedPoint != undefined)
-        resetDomElementForPoint(selectedPoint);
-    handleResetBeams();
-    showRightCameraParameters();
-    document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
-}
-
-function handleChangeCameraRightPositionZ(_event) {
-    cameraRight.position.z = Number(_event.target.value);
-    if (selectedPoint != undefined)
-        resetDomElementForPoint(selectedPoint);
-    handleResetBeams();
-    showRightCameraParameters();
-    document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
-}
-
-function handleChangeCameraRightFOV(_event) {
-    cameraRight.fov = Number(_event.target.value);
-    cameraRight.updateProjectionMatrix();
     cameraHelperRight.update();
 }
 
-function handleChangeCameraRightCamDistance(_event) {
-    cameraRight.near = Number(_event.target.value);
-    cameraRight.updateProjectionMatrix();
+function handleChangeCameraDistance(_event) {
+    // get camera
+    let camera = cameras.getObjectByName(_event.target.name);
+    // change the camera's distance (between projection center and image plane)
+    camera.near = Number(_event.target.value);
+    // update stuff
+    camera.updateProjectionMatrix();
+    cameraHelperLeft.update();
     cameraHelperRight.update();
-    cameraRightGrid.update();
-    cameraRightCoordinateSystem.update();
-    showRightCameraParameters();
+    for (let i = 0; i < camera.children.length; i++) {
+        camera.children[i].update();
+    }
+    updateCameraTab(camera);
+    document.getElementById(camera.name + "AKG").innerHTML = camera.getAKG();
 }
 // #endregion (CAMERAS)
 
@@ -686,11 +625,11 @@ function onWindowResize() {
 
     cameraLeft.aspect = canvasAspect;
     cameraLeft.updateProjectionMatrix();
-    document.getElementById("leftAspectRatio").innerHTML = cameraLeft.aspect.toFixed(3);
+    document.getElementById("leftCamAspectRatio").innerHTML = cameraLeft.aspect.toFixed(3);
 
     cameraRight.aspect = canvasAspect;
     cameraRight.updateProjectionMatrix();
-    document.getElementById("rightAspectRatio").innerHTML = cameraRight.aspect.toFixed(3);
+    document.getElementById("rightCamAspectRatio").innerHTML = cameraRight.aspect.toFixed(3);
 }
 // #endregion (RESPONSIVE DESIGN)
 
@@ -806,10 +745,10 @@ function handleToggleWorldCoordSystem(_event) {
 }
 
 function onCameraControlsChange() {
-    showLeftCameraParameters();
-    showRightCameraParameters();
-    document.getElementById("imagePlaneCamLeftAKG").innerHTML = cameraLeft.getAKG();
-    document.getElementById("imagePlaneCamRightAKG").innerHTML = cameraRight.getAKG();
+    updateCameraTab(cameraLeft);
+    updateCameraTab(cameraRight);
+    document.getElementById("leftCamAKG").innerHTML = cameraLeft.getAKG();
+    document.getElementById("rightCamAKG").innerHTML = cameraRight.getAKG();
     if (selectedPoint != undefined)
         resetDomElementForPoint(selectedPoint);
 }

@@ -130,13 +130,13 @@
                             <p><b>Projektionszentrum (Position):</b></p>
                             <!-- untereinander: x, y, z als <label> machen -->
                             <p>
-                                <b>x = </b> <input id="leftCamCoordX" type="number" placeholder="0"
+                                <b>x =</b> <input id="leftCamCoordX" name="leftCam" type="number" placeholder="0"
                                     autocomplete="off"></input>
                                 <br>
-                                <b>y =</b> <input id="leftcamCoordY" type="number" placeholder="0"
+                                <b>y =</b> <input id="leftCamCoordY" name="leftCam" type="number" placeholder="0"
                                     autocomplete="off"></input>
                                 <br>
-                                <b>z =</b> <input id="leftCamCoordZ" type="number" placeholder="0"
+                                <b>z =</b> <input id="leftCamCoordZ" name="leftCam" type="number" placeholder="0"
                                     autocomplete="off"></input>
                             </p>
                             <div id="jsParameter">
@@ -148,9 +148,9 @@
                                     <br>
                                     <b>z =</b> <span id="leftCamPrincipalPointZ"></span>
                                 </p>
-                                <p><b>Distanz =</b> <input id="leftCamDistance" type="number" placeholder="0"
+                                <p><b>Distanz =</b> <input id="leftCamDistance" name="leftCam" type="number" placeholder="0"
                                         autocomplete="off"></input></p>
-                                <p><b>Field of View =</b> <input id="leftFieldOfView" type="number" placeholder="0"
+                                <p><b>Field of View =</b> <input id="leftCamFOV" name="leftCam" type="number" placeholder="0"
                                         autocomplete="off"></input></p>
                             </div>
 
@@ -164,13 +164,13 @@
                         <ul class="submenu02">
                             <p><b>Projektionszentrum:</b></p>
                             <p>
-                                <b>x =</b> <input id="rightCamCoordX" type="number" placeholder="0"
+                                <b>x =</b> <input id="rightCamCoordX" name="rightCam" type="number" placeholder="0"
                                     autocomplete="off"></input>
                                 <br>
-                                <b>y =</b> <input id="rightCamCoordY" type="number" placeholder="0"
+                                <b>y =</b> <input id="rightCamCoordY" name="rightCam" type="number" placeholder="0"
                                     autocomplete="off"></input>
                                 <br>
-                                <b>z =</b> <input id="rightCamCoordZ" type="number" placeholder="0"
+                                <b>z =</b> <input id="rightCamCoordZ" name="rightCam" type="number" placeholder="0"
                                     autocomplete="off"></input>
                             </p>
                             <div id="jsParameter">
@@ -180,9 +180,9 @@
                                     <b>y =</b> <span id="rightCamPrincipalPointY"></span> <br>
                                     <b>z =</b> <span id="rightCamPrincipalPointZ"></span>
                                 </p>
-                                <p><b>Distanz =</b> <input id="rightCamDistance" type="number" placeholder="0"
+                                <p><b>Distanz =</b> <input id="rightCamDistance" name="rightCam" type="number" placeholder="0"
                                         autocomplete="off"></input></p>
-                                <p><b>Field of View =</b> <input id="rightFieldOfView" type="number" placeholder="0"
+                                <p><b>Field of View =</b> <input id="rightCamFOV" name="rightCam" type="number" placeholder="0"
                                         autocomplete="off"></input></p>
                             </div>
 
@@ -245,7 +245,7 @@
 
                 <div id="CamerasCSS">
                     <p><b>Bildebene Kamera AKG:</b></p>
-                    <p><span id="imagePlaneCamLeftAKG"></span></p>
+                    <p><span id="leftCamAKG"></span></p>
 
                     <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> |
                     <b>y</b> = <span id="pointCoordYLeft">0</span>)</p>
@@ -254,7 +254,7 @@
                     <b>y</b> = <span id="pointCoordYLeftWorld">0</span> | <b>z</b> = <span
                         id="pointCoordZLeftWorld">0</span>)</p>
 
-                    <label><b>Aspect Ratio</b> = <span id="leftAspectRatio"></span></label>
+                    <label><b>Aspect Ratio</b> = <span id="leftCamAspectRatio"></span></label>
                 </div>
                 <hr>
 
@@ -263,7 +263,7 @@
 
                 <div id="CamerasCSS">
                     <p><b>Bildebene Kamera AKG:</b></p>
-                    <p><span id="imagePlaneCamRightAKG"></span></p>
+                    <p><span id="rightCamAKG"></span></p>
 
                     <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> |
                     <b>y</b> = <span id="pointCoordYRight">0</span>)</p>
@@ -272,12 +272,12 @@
                     <b>y</b> = <span id="pointCoordYRightWorld">0</span> | <b>z</b> = <span
                         id="pointCoordZRightWorld">0</span>)</p>
 
-                    <label><b>Aspect Ratio</b> = <span id="rightAspectRatio"></span></label>
+                    <label><b>Aspect Ratio</b> = <span id="rightCamAspectRatio"></span></label>
                 </div>
             </div>
 
             <div id="version">
-                <p> Version 1.1.19 </p>
+                <p> Version 1.1.20 </p>
             </div>
 
         </div>
