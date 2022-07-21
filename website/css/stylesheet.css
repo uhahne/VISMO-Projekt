@@ -529,3 +529,27 @@ input.check09:checked ~ ul.submenu03 {
     font-size: 13px;
   }
 }
+
+#hfuLogos {
+   float: right;
+   margin-top: -220px;
+   margin-right: 50px;
+}
+     
+#hfuLogos * {
+   width: 250px;
+   margin-left: 30px;
+}
+
+@media screen and (max-width: 1200px) {
+  #hfuLogos {
+    float: none;
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+     
+  #hfuLogos * {
+    width: 250px;
+    margin-left: 30px;
+  }
+}
