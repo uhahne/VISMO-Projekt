@@ -114,11 +114,11 @@ button {
   font-size: 16px;
 }
 
-#giraffenButton {
+#giraffeButton {
   padding: 0px 15px;
 }
 
-#giraffenButton:hover {
+#giraffeButton:hover {
   background-color: #acacac;
   cursor: pointer;
 }
@@ -373,7 +373,7 @@ input.check09:checked ~ ul.submenu03 {
 }
 
 /* style within settings tab */
-#strahlen {
+#settingTitles {
   font-size: 125%;
   font-weight: bold;
 }
@@ -393,7 +393,7 @@ input.check09:checked ~ ul.submenu03 {
 }
 
 /* style for output area */
-#ausgabe {
+#outputTitle {
   font-size: 140%;
   font-weight: bold;
   margin-bottom: 20px;
@@ -401,8 +401,8 @@ input.check09:checked ~ ul.submenu03 {
 }
 
 /* left and right camera */
-#ausgabeLinkeCamera,
-#ausgabeRechteCamera {
+#outputLeftCam,
+#outputRightCam {
   font-size: 125%;
   font-weight: bold;
   margin-bottom: 20px;

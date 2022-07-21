@@ -137,7 +137,7 @@ function init() {
     selectables.add(lines);
     scene.add(selectables);
 
-    document.getElementById("giraffenButton").addEventListener("click", handleLoadGigiModel);
+    document.getElementById("giraffeButton").addEventListener("click", handleLoadGigiModel);
 
     // beams group
     beams = new THREE.Group();
