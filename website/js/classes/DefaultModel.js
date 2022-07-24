@@ -1,6 +1,6 @@
 import * as THREE from "../../threejs/ThreeModule.js";
-import Point from "./Point.js";
 import Line from "./Line.js";
+import Point from "./Point.js";
 
 export default class DefaultModel extends THREE.Object3D {
 
@@ -22,7 +22,7 @@ export default class DefaultModel extends THREE.Object3D {
         // add the points to the default model
         this.add(pointAb, pointBb, pointCb, pointDb, pointAc, pointBc, pointCc, pointDc, pointCr, pointDr);
 
-        // create and add the lines - which connect the points - to the default model
+        // create and add the lines (which connect the points) to the default model
         this.add(new Line(pointAb, pointBb));
         this.add(new Line(pointBb, pointCb));
         this.add(new Line(pointCb, pointDb));

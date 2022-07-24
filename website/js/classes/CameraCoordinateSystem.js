@@ -13,10 +13,14 @@ export default class CameraCoordinateSystem extends THREE.Group {
         this.add(yAxis);
     }
 
-    update() { /* DISCLAIMER: parent must be camera! */
-    let distance = this.parent.near; // get camera's distance from center to image plane
-    this.position.z = 0 - (distance + 0.02); // move coordinate system in front of image plane
-    this.scale.x = distance; // scale coordinate system
-    this.scale.y = distance; // scale coordinate system
+    // DISCLAIMER: parent must be camera!
+    update() {
+        // get camera's distance from center to image plane
+        let distance = this.parent.near;
+        // move coordinate system in front of image plane
+        this.position.z = 0 - (distance + 0.02);
+        // scale coordinate system
+        this.scale.x = distance; 
+        this.scale.y = distance;
     }
 }

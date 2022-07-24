@@ -1,5 +1,6 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+// NOTE: code mostly copied from THREE.GridHelper!
 export default class Grid extends THREE.LineSegments {
 
     constructor() {
@@ -7,7 +8,6 @@ export default class Grid extends THREE.LineSegments {
         let divisions = 100
 
         let xAxisColor = new THREE.Color(0x9D3C4A);
-        //let yAxisColor = new THREE.Color(0x648B26);
         let zAxisColor = new THREE.Color(0x38679D);
         let gridColor = new THREE.Color(0x4F4F4F);
 
