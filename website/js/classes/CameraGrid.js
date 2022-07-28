@@ -1,5 +1,7 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+/* Instantiate to create a coordinate system grid for a camera to enable better coordinate reading */
+
 export default class CameraGrid extends THREE.LineSegments {
 
     constructor() {

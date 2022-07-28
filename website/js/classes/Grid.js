@@ -1,5 +1,7 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+/* Instantiate to create a coordinate system grid for the scene */
+
 // NOTE: code mostly copied from THREE.GridHelper!
 export default class Grid extends THREE.LineSegments {
 

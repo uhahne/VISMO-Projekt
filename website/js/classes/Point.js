@@ -1,5 +1,7 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+/* Instantiate to create a point to construct a model */
+
 export default class Point extends THREE.Object3D {
     material;
     mesh;

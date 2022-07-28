@@ -1,3 +1,5 @@
+/* Handles basic UI navigation elements */
+
 // DISCLAIMER: this is a singleton class
 export default class UI {
     static instance = new UI();

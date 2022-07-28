@@ -1,6 +1,8 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 import Point from "./Point.js";
 
+/* Instantiate to create an epipole */
+
 export default class Epipole extends Point {
 
     constructor(name = "", position = new THREE.Vector3(), radius = 0) {

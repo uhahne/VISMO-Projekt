@@ -1,5 +1,7 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+/* Instantiate to create coordinate system axes for the scene */
+
 export default class CoordinateSystem extends THREE.Group {
 
     constructor() {

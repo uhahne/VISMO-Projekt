@@ -1,6 +1,8 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 import Point from "./Point.js";
 
+/* Instantiate to create a line that connects two points to construct a model */
+
 export default class Line extends THREE.Object3D {
     startPoint;
     endPoint;

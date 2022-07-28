@@ -114,11 +114,12 @@ button {
   font-size: 16px;
 }
 
-#giraffeButton {
+#giraffeButton, #defaultModelButton {
   padding: 0px 15px;
+  margin-bottom: 10px;
 }
 
-#giraffeButton:hover {
+#giraffeButton:hover, #defaultModelButton:hover {
   background-color: #acacac;
   cursor: pointer;
 }

@@ -1,5 +1,7 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+/* Instantiate to create coordinate system axes for a camera to enable better coordinate reading */
+
 export default class CameraCoordinateSystem extends THREE.Group {
 
     constructor() {

@@ -2,6 +2,8 @@ import * as THREE from "../../threejs/ThreeModule.js";
 import Line from "./Line.js";
 import Point from "./Point.js";
 
+/* Instantiate to create the default model */
+
 export default class DefaultModel extends THREE.Object3D {
 
     constructor(position = new THREE.Vector3()) {

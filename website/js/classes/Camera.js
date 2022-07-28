@@ -1,5 +1,7 @@
 import * as THREE from "../../threejs/ThreeModule.js";
 
+/* Instantiate to create a camera specific to the "VISMO-Projekt" that can calculate image coordinates */
+
 export default class Camera extends THREE.PerspectiveCamera {
     principalPoint = new THREE.Vector3();
     projectionMatrixArray = [];

@@ -38,6 +38,8 @@ let beams, toggleBeams;
 let epipoleLeft, epipoleRight;
 // raycasting:
 let raycaster, mouse;
+// models:
+let models, lights;
 
 init();
 animate();
@@ -171,20 +173,16 @@ function init() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
 
-    // declare and initialize default model
-    let defaultModel = new DefaultModel(new THREE.Vector3(0, 0, 0));
-    // add points and lines of default model separately
-    let childrenAmount = defaultModel.children.length;
-    for (let i = childrenAmount - 1; i >= 0; i--) {
-        switch (defaultModel.children[i].children[0].type) {
-            case "Mesh":
-                points.add(defaultModel.children[i]);
-                break;
-            case "Line":
-                lines.add(defaultModel.children[i]);
-                break;
-        }
-    }
+    // initialize models group
+    models = new THREE.Group();
+    scene.add(models);
+
+    // initialize lights group
+    lights = new THREE.Group();
+    scene.add(lights);
+
+    // place default model into scene
+    handleLoadDefaultModel();
 
     // initialize UI
     UI.init();
@@ -225,8 +223,9 @@ function init() {
     cameraRightControls.addEventListener("change", onCameraControlsChange);
     // raycast
     document.addEventListener("mousedown", onDocumentMouseDown);
-    // Gigi giraffe Model
+    // models
     document.getElementById("giraffeButton").addEventListener("click", handleLoadGigiModel);
+    document.getElementById("defaultModelButton").addEventListener("click", handleLoadDefaultModel);
 }
 
 // per frame called function
@@ -298,34 +297,67 @@ $(".buttonactive").click(function () {
     $(this).addClass("active");
 });
 
-function deleteAllPointsAndLines() {
-    for (let i = points.children.length; i >= 0; i--) {
+function removeAllPointsAndLines() {
+    for (let i = points.children.length; i >= 0; i--)
         points.remove(points.children[i]);
-    }
-    for (let i = lines.children.length; i >= 0; i--) {
+
+    for (let i = lines.children.length; i >= 0; i--)
         lines.remove(lines.children[i]);
+}
+
+function removeAllLights() {
+    for (let i = lights.children.length; i >= 0; i--)
+        lights.remove(lights.children[i]);
+}
+
+function removeAllModels() {
+    for (let i = models.children.length; i >= 0; i--)
+        models.remove(models.children[i]);
+} 
+
+function handleLoadDefaultModel() {
+    removeAllPointsAndLines();
+    removeAllLights();
+    removeAllModels();
+
+    // declare and initialize default model
+    let defaultModel = new DefaultModel(new THREE.Vector3(0, 0, 0));
+    // add points and lines of default model separately
+    let childrenAmount = defaultModel.children.length;
+    for (let i = childrenAmount - 1; i >= 0; i--) {
+        switch (defaultModel.children[i].children[0].type) {
+            case "Mesh":
+                points.add(defaultModel.children[i]);
+                break;
+            case "Line":
+                lines.add(defaultModel.children[i]);
+                break;
+        }
     }
 }
 
 function handleLoadGigiModel() {
-    deleteAllPointsAndLines();
+    removeAllPointsAndLines();
+    removeAllLights();
+    removeAllModels();
+    
     loadModel("giraffe.gltf");
 }
 
 function loadModel(_model) {
     // create lights
     let ambientLight = new THREE.AmbientLight(0xffffff, 4);
-    scene.add(ambientLight);
+    lights.add(ambientLight);
     let spotLight = new THREE.SpotLight(0xffffff, 10);
     spotLight.position.x = 4;
     spotLight.position.y = 4;
-    scene.add(spotLight);
+    lights.add(spotLight);
     // create model loader
     let loader = new GLTFLoader().setPath('model/');
     // load model
     loader.load(_model, function (gltf) {
         gltf.scene.position.set(0, 0, 4.5)
-        scene.add(gltf.scene);
+        models.add(gltf.scene);
     });
 }
 
