@@ -424,14 +424,14 @@ input.check09:checked ~ ul.submenu03 {
 }
 
 #trackPad {
-  width: 100px;
-  height: 100px;
+  width: 9vw;
+  height: 9vw;
   background-color: gray;
   position: relative;
-  left: 90vw;
+  left: 87vw;
   top: 100px;
   z-index: 3;
-  border-radius: 50px;
+  border-radius: 100%;
 }
 
 /* button for setting selection */

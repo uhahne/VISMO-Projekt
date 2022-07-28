@@ -45,6 +45,10 @@ init();
 animate();
 
 function init() {
+    // check if the site is visited through a too small display
+    if (window.screen.availWidth < 780)
+        window.location.href = "issue.html";
+
     // get canvas and its measurements
     canvas = document.getElementById("vismoViewport");
     canvasWidth = window.innerWidth;
@@ -623,6 +627,11 @@ function handleChangeCameraFOV(_event) {
 }
 
 function handleChangeCameraDistance(_event) {
+    // limit input to 1 decimal place & non-zero or -negative
+    if (_event.target.value <= 0)
+        _event.target.value = 0.1;
+    else
+        _event.target.value = Number(_event.target.value).toFixed(1);
     // get camera
     let camera = cameras.getObjectByName(_event.target.name);
     // change the camera's distance (between projection center and image plane)

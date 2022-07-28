@@ -148,7 +148,7 @@
                                     <br>
                                     <b>z =</b> <span id="leftCamPrincipalPointZ"></span>
                                 </p>
-                                <p><b>Distanz =</b> <input id="leftCamDistance" name="leftCam" type="number" placeholder="0"
+                                <p><b>Distanz =</b> <input id="leftCamDistance" name="leftCam" type="number" min="0.1" step="0.1" placeholder="0"
                                         autocomplete="off"></input></p>
                                 <p><b>Field of View =</b> <input id="leftCamFOV" name="leftCam" type="number" placeholder="0"
                                         autocomplete="off"></input></p>
@@ -180,7 +180,7 @@
                                     <b>y =</b> <span id="rightCamPrincipalPointY"></span> <br>
                                     <b>z =</b> <span id="rightCamPrincipalPointZ"></span>
                                 </p>
-                                <p><b>Distanz =</b> <input id="rightCamDistance" name="rightCam" type="number" placeholder="0"
+                                <p><b>Distanz =</b> <input id="rightCamDistance" name="rightCam" type="number" min="0.1" step="0.1" placeholder="0"
                                         autocomplete="off"></input></p>
                                 <p><b>Field of View =</b> <input id="rightCamFOV" name="rightCam" type="number" placeholder="0"
                                         autocomplete="off"></input></p>
@@ -229,7 +229,7 @@
                                     <p>Gigi die Giraffe</p>
                                 </button>
                                 <button id="defaultModelButton" title="Löscht alle anderen Punkte, Linien und Modelle in der Szene">
-                                    <p>Standardgebäude</p>
+                                    <p>Standard-Gebäude</p>
                                 </button>
                             </div>
                     </div>
@@ -248,13 +248,15 @@
                     <p><b>Bildebene Kamera AKG:</b></p>
                     <p><span id="leftCamAKG"></span></p>
 
-                    <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXLeft">0</span> |
-                    <b>y</b> = <span id="pointCoordYLeft">0</span>)</p>
-
-                    <p><b>Bildpunkt-Koordinaten (Welt):</b></p> (<b>x</b> = <span id="pointCoordXLeftWorld">0</span> |
-                    <b>y</b> = <span id="pointCoordYLeftWorld">0</span> | <b>z</b> = <span
-                        id="pointCoordZLeftWorld">0</span>)</p>
-
+                    <div title="Wähle einen Punkt aus, um dessen Bildpunkt-Koordinaten angezeigt zu bekommen">
+                        <p><b>Bildpunkt-Koordinaten (Kamera):</b></p>
+                        <p>(<b>x</b> = <span id="pointCoordXLeft">0</span> | <b>y</b> = <span id="pointCoordYLeft">0</span>)</p>
+                    </div>  
+                    <div title="Wähle einen Punkt aus, um dessen Bildpunkt-Koordinaten angezeigt zu bekommen">
+                        <p><b>Bildpunkt-Koordinaten (Welt):</b></p>
+                        <p>(<b>x</b> = <span id="pointCoordXLeftWorld">0</span> | <b>y</b> = <span id="pointCoordYLeftWorld">0</span> | <b>z</b> = <span id="pointCoordZLeftWorld">0</span>)</p>
+                    </div>
+                    
                     <label><b>Aspect Ratio</b> = <span id="leftCamAspectRatio"></span></label>
                 </div>
                 <hr>
@@ -266,19 +268,21 @@
                     <p><b>Bildebene Kamera AKG:</b></p>
                     <p><span id="rightCamAKG"></span></p>
 
-                    <p><b>Bildpunkt-Koordinaten (Kamera):</b></p> (<b>x</b> = <span id="pointCoordXRight">0</span> |
-                    <b>y</b> = <span id="pointCoordYRight">0</span>)</p>
-
-                    <p><b>Bildpunkt-Koordinaten (Welt):</b></p> (<b>x</b> = <span id="pointCoordXRightWorld">0</span> |
-                    <b>y</b> = <span id="pointCoordYRightWorld">0</span> | <b>z</b> = <span
-                        id="pointCoordZRightWorld">0</span>)</p>
+                    <div title="Wähle einen Punkt aus, um dessen Bildpunkt-Koordinaten angezeigt zu bekommen">
+                        <p><b>Bildpunkt-Koordinaten (Kamera):</b></p>
+                        <p>(<b>x</b> = <span id="pointCoordXRight">0</span> | <b>y</b> = <span id="pointCoordYRight">0</span> )</p>
+                    </div>
+                    <div title="Wähle einen Punkt aus, um dessen Bildpunkt-Koordinaten angezeigt zu bekommen">
+                        <p><b>Bildpunkt-Koordinaten (Welt):</b></p>
+                        <p>(<b>x</b> = <span id="pointCoordXRightWorld">0</span> | <b>y</b> = <span id="pointCoordYRightWorld">0</span> | <b>z</b> = <span id="pointCoordZRightWorld">0</span>)</p>
+                    </div>
 
                     <label><b>Aspect Ratio</b> = <span id="rightCamAspectRatio"></span></label>
                 </div>
             </div>
 
             <div id="version">
-                <p> Version 1.1.22 </p>
+                <p> Version 1.1.23 </p>
             </div>
 
         </div>
