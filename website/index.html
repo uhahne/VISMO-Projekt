@@ -228,9 +228,13 @@
                                 <button id="giraffeButton" title="Löscht alle anderen Punkte, Linien und Modelle in der Szene">
                                     <p>Gigi die Giraffe</p>
                                 </button>
-                                <input type="file" id="file-input" />
-                                <h5>Contents of the file:</h5>
-                                <pre id="file-content"></pre>
+                                <label for="file-input">
+                                    <p id="settingTitles">Eigenes Modell:  
+                                    <img class="openIcon" src="graphics/open_icon.png"></p>
+                                    <input type="file" id="file-input" style="display: none" accept="*.gltf"  />
+                                </label>
+                                <!--<h5>Contents of the file:</h5>
+                                <pre id="file-content"></pre>-->
                                 <button id="defaultModelButton" title="Löscht alle anderen Punkte, Linien und Modelle in der Szene">
                                     <p>Standard-Gebäude</p>
                                 </button>
