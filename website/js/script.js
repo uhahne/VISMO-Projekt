@@ -344,9 +344,44 @@ function handleLoadGigiModel() {
     removeAllPointsAndLines();
     removeAllLights();
     removeAllModels();
-    
     loadModel("giraffe.gltf");
 }
+
+function readSingleFile(e) {
+    var file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var contents = e.target.result;
+      loadUserModel(contents);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function loadUserModel(model) {
+    removeAllPointsAndLines();
+    removeAllLights();
+    removeAllModels();
+    // create lights
+    let ambientLight = new THREE.AmbientLight(0xffffff, 4);
+    lights.add(ambientLight);
+    let spotLight = new THREE.SpotLight(0xffffff, 10);
+    spotLight.position.x = 4;
+    spotLight.position.y = 4;
+    lights.add(spotLight);
+    // create model loader
+    let loader = new GLTFLoader()
+    // load model
+    loader.load(model, function (gltf) {
+        gltf.scene.position.set(0, 0, 4.5)
+        models.add(gltf.scene);
+    });
+  }
+  
+  document.getElementById('file-input')
+    .addEventListener('change', readSingleFile, false);
 
 function loadModel(_model) {
     // create lights

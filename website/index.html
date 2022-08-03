@@ -22,7 +22,7 @@
             <a class="noHover" href="index.html"><img id="logo" src="graphics/Vismo_LogoWortBild_weiß_final.svg"></a>
         </div>
         <div class="header-right">
-            <a class="active" href="help.html" target="_blank">Hilfe</a>
+            <a class="active" href="help.html">Hilfe</a>
             <a href="aboutUs.html">Über uns</a>
         </div>
     </div>
@@ -228,6 +228,13 @@
                                 <button id="giraffeButton" title="Löscht alle anderen Punkte, Linien und Modelle in der Szene">
                                     <p>Gigi die Giraffe</p>
                                 </button>
+                                <label for="file-input">
+                                    <p id="settingTitles">Eigenes Modell:  
+                                    <img class="openIcon" src="graphics/open_icon.png"></p>
+                                    <input type="file" id="file-input" style="display: none" accept="*.gltf"  />
+                                </label>
+                                <!--<h5>Contents of the file:</h5>
+                                <pre id="file-content"></pre>-->
                                 <button id="defaultModelButton" title="Löscht alle anderen Punkte, Linien und Modelle in der Szene">
                                     <p>Standard-Gebäude</p>
                                 </button>
@@ -282,7 +289,7 @@
             </div>
 
             <div id="version">
-                <p> Version 1.1.24 </p>
+                <p> Version 1.1.23 </p>
             </div>
 
         </div>

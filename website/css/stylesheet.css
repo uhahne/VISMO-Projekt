@@ -335,6 +335,15 @@ input.check09:checked ~ ul.submenu03 {
   height: 15px;
 }
 
+.openIcon {
+  height: 25px;
+}
+
+.openIcon:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
 #newPointName {
   margin-bottom: 0%;
 }
