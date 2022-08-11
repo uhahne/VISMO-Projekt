@@ -317,7 +317,7 @@ function removeAllLights() {
 function removeAllModels() {
     for (let i = models.children.length; i >= 0; i--)
         models.remove(models.children[i]);
-} 
+}
 
 function handleLoadDefaultModel() {
     removeAllPointsAndLines();
@@ -341,26 +341,28 @@ function handleLoadDefaultModel() {
 }
 
 function handleLoadGigiModel() {
-    removeAllPointsAndLines();
-    removeAllLights();
-    removeAllModels();
-    loadModel("giraffe.gltf");
+    loadModel("model/giraffe.gltf");
 }
 
+// file loader
 function readSingleFile(e) {
     var file = e.target.files[0];
     if (!file) {
-      return;
+        return;
     }
     var reader = new FileReader();
-    reader.onload = function(e) {
-      var contents = e.target.result;
-      loadUserModel(contents);
+    reader.onload = function (e) {
+        var contents = e.target.result;
+        loadModel(contents);
     };
     reader.readAsDataURL(file);
-  }
+}
 
-  function loadUserModel(model) {
+
+document.getElementById('file-input')
+    .addEventListener('change', readSingleFile, false);
+
+function loadModel(_model) {
     removeAllPointsAndLines();
     removeAllLights();
     removeAllModels();
@@ -373,26 +375,6 @@ function readSingleFile(e) {
     lights.add(spotLight);
     // create model loader
     let loader = new GLTFLoader()
-    // load model
-    loader.load(model, function (gltf) {
-        gltf.scene.position.set(0, 0, 4.5)
-        models.add(gltf.scene);
-    });
-  }
-  
-  document.getElementById('file-input')
-    .addEventListener('change', readSingleFile, false);
-
-function loadModel(_model) {
-    // create lights
-    let ambientLight = new THREE.AmbientLight(0xffffff, 4);
-    lights.add(ambientLight);
-    let spotLight = new THREE.SpotLight(0xffffff, 10);
-    spotLight.position.x = 4;
-    spotLight.position.y = 4;
-    lights.add(spotLight);
-    // create model loader
-    let loader = new GLTFLoader().setPath('model/');
     // load model
     loader.load(_model, function (gltf) {
         gltf.scene.position.set(0, 0, 4.5)
